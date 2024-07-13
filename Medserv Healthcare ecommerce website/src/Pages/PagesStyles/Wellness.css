@@ -1,0 +1,12 @@
+.wellness-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.wellness-container LeftMarginForShop {
+    flex: 1;
+}
+
+.LeftMarginForShop Item {
+    flex: 3; 
+}
