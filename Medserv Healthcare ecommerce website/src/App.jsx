@@ -13,6 +13,7 @@ import SignIn from './Pages/SignIn';
 import UploadPrescription from './Pages/UploadPrescription';
 import TopBar from './Components/TopBar';
 import LowerBar from './Components/LowerBar';
+import Footer from './Components/Footer/Footer'
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/Upload-Prescription" element={<UploadPrescription />} />
         <Route path="/Sign-in" element={<SignIn/>} />
       </Routes>
+      <Footer/>
     </Router>
   );
 };
