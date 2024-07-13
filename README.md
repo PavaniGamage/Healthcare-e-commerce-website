@@ -1,7 +1,12 @@
 # Healthcare-e-commerce-website
 
-# to run the output
-# -> open file directry in cmd
-# -> npm install
-# -> npm run dev
-# -> open the provided URL 
+## To Run the Output
+
+<small>
+
+- Open file directory in cmd
+- npm install
+- npm run dev
+- Open the provided URL
+
+</small>
