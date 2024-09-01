@@ -1,0 +1,323 @@
+{
+    "Wellness": {
+
+      "suppliment_1": {
+          "name": "Sustagen Vanila 400g",
+          "price": 3900.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.kapruka.com/cdn-cgi/image/width=700,quality=93,f=auto/shops/specialGifts/productImages/grocery0003.jpg"
+      },
+      "suppliment_2": {
+          "name": "Sustagen Chocolet 400g",
+          "price": 3900.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/118014--01--1613239559.jpeg"
+      },
+      "suppliment_3": {
+          "name": "Sustagen Junior 400mg",
+          "price": 2750.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://jeewakapharmacy.lk/wp-content/uploads/2020/12/sustagen-junier.jpg"
+
+      },
+      "suppliment_4": {
+          "name": "Diabitasol 360g",
+          "price": 3990.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.carelink.lk/wp-content/uploads/2022/11/Diabetasol-360g.jpg"
+      },
+      "suppliment_5": {
+          "name": "Diabitasol 180g",
+          "price": 1893.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://static-01.daraz.lk/p/c0d6105d77aca6ddf660cc8a8db92b02.png"
+      },
+  
+      "baby_care_1": {
+          "name": "Morison's Baby Feeding Bottle With Handle 240ml",
+          "price": 930.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.mycare.lk/image/cache/catalog/products/009439-1000x1000.JPG"
+      },
+      "baby_care_2": {
+          "name": "Morison's Baby Feeding Bottle 240ml",
+          "price": 230.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://cdn.anyprice.lk/images/products/baby_bottle_and_lactation/morisons_baby/morisons_baby_feeding_bottle_240ml/morisons_baby_feeding_bottle_240ml.jpeg"
+      },
+      "baby_care_3": {
+          "name": "Baby Soft Silicone spoon",
+          "price": 490.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.bamagate.com/cdn/shop/products/1282570075398981101.jpg?v=1681355547"
+      },
+      "baby_care_4": {
+          "name": "Velona Cuddles Nb 4pcs",
+          "price": 350.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.carelink.lk/wp-content/uploads/2022/11/Velona-Cuddles-Nb-4-Pcs.jpg"
+      },
+      "baby_care_5": {
+          "name": "Velona Cuddles Classic Diaper M-4pcs",
+          "price": 445.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://coolplanet.lk/cdn/shop/products/000085625_51b18bc9-70e7-490c-95f4-ecf7e5b1db60.jpg?v=1671704106"
+      },
+      "baby_care_6": {
+          "name": "Velona Cuddles Classic Diaper S-4pcs",
+          "price": 410.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://kiddoz-live.s3.ap-south-1.amazonaws.com/media/catalog/product/cache/107ccf092bc727795088e25c25fe1f98/v/c/vc-c-4-s.jpg"
+      },
+      "baby_care_7": {
+          "name": "Velona Cuddles Classic Diaper XL-4pcs",
+          "price": 520.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.carelink.lk/wp-content/uploads/2022/11/Velona-Cuddles-Xl-4-Pcs.jpg"
+      },
+      "baby_care_8": {
+          "name": "Velona Cuddles Classic Diaper L-4pcs",
+          "price": 495.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://babycare.lk/wp-content/uploads/2020/12/41.jpg"
+      },
+      "baby_care_9": {
+          "name": "Velona Cuddles Classic Diaper XL-pcs",
+          "price": 2940.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://quickee.com/wp-content/uploads/2022/11/EZY-XL18.jpg"
+      },
+      "baby_care_10": {
+          "name": "Nappy Fasteners ",
+          "price": 250.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0247/3630/1141/products/1set-3pcs-Baby-Cloth-Nappy-Fastener-Holder-Clip-Fixed-Nappy-Changing-Diaper-Fixed-Belt.jpg_640x640_8570a81d-73c5-4d4d-9cac-62a6e5d6877a.jpg?v=1572945284"
+      },
+      "baby_care_11": {
+          "name": "Farlin Baby Finger Tooth Brush",
+          "price": 290.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://farlinglobal.com/wp-content/uploads/2020/07/BF-117-04-01.jpg"
+      },
+      "baby_care_12": {
+          "name": "Pears Baby soap Bedtime 90g",
+          "price": 190.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/112070--01--1697601019.jpeg"
+      },
+      "baby_care_13": {
+          "name": "Pears Baby soap Active Flora 90g",
+          "price": 190.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/112071--01--1697601019.jpeg"
+      },
+      "baby_care_14": {
+          "name": "Baby Cheramy soap Floral Eco 75gx5",
+          "price": 680.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/112329--01--1631624858.jpeg"
+      },
+      "baby_care_15": {
+          "name": " Baby Cheramy Cologne 100ml",
+          "price": 575.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/112317--01--1630434128.jpeg"
+      },
+      "baby_care_16": {
+          "name": "Baby Chermy Funtime Cologne Cuddly Bunny 100ml",
+          "price": 500.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://bigdeals.lk/uploads/product/normal/bdlphem505994n1.png"
+      },
+      "baby_care_17": {
+          "name": "Baby Chermy Cologne Angel Fairy 100ml",
+          "price": 500.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/112319--01--1631624853.jpeg"
+      },
+      "baby_care_18": {
+          "name": "Baby Cheramy Regular Talc 100g",
+          "price": 280.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://hemasestore.com/wp-content/uploads/2021/09/504459-600x600.jpg"
+      },
+      "baby_care_19": {
+          "name": "Panda Baby Talc 100g",
+          "price": 250.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/111413--01--1555682131.jpeg"
+      },
+      "baby_care_20": {
+          "name": "Panda Baby Hair Oik 100% All Natural 100ml",
+          "price": 470.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/111406--01--1555681896.jpeg"
+      },
+      "baby_care_21": {
+          "name": "",
+          "price": 190.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://kidzcare.lk/wp-content/uploads/2024/02/marvel_baby_wet_wipes_80pcs__mwi001_1.jpg"
+      },
+      "baby_care_22": {
+          "name": "Marval Baby Wet wipes 80pcs",
+          "price": 490.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": ""
+      },
+      "baby_care_23": {
+          "name": "Nan 1 300mg",
+          "price": 2500.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/112051--01--1668163350.jpeg"
+      },
+      "baby_care_24": {
+          "name": "Nan 2 300g",
+          "price": 2200.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/112057--01--1668163350.jpeg"
+      },
+      "baby_care_25": {
+          "name": "Nan 3 300g",
+          "price": 2000.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/112046--01--1622463933.jpeg"
+      },
+  
+      "adult_1": {
+          "name": "Velona Pro Guard Adult Diapers 10pcs",
+          "price": 2100.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.mycare.lk/image/cache/catalog/products/009038-1189x1189.JPG"
+      },
+      "adult_2": {
+          "name": "Friends Adult Diaper L-10pcs",
+          "price": 2200.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.carelink.lk/wp-content/uploads/2022/11/Friends-Adult-Diaper-Large-10s.jpg"
+      },
+      "adult_3": {
+          "name": "Friends Adult Diaper M-10pcs",
+          "price": 1900.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.carelink.lk/wp-content/uploads/2022/11/Friends-Adult-Diaper-Medium-10.jpg"
+      },
+      "adult_4": {
+          "name": "Friends Adult Diaper S-10pcs",
+          "price": 1950.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.mycare.lk/image/cache/catalog/products/009994-1000x1000.jpg"
+      },
+      "adult_5": {
+          "name": "Friends Adult Diaper M-5pcs",
+          "price": 980.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.carelink.lk/wp-content/uploads/2022/11/Friends-Adult-Diaper-Medium-5.jpg"
+      }
+    }
+}

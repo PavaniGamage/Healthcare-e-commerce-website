@@ -1,0 +1,36 @@
+Medical Devices Categories
+
+1. First Aid Devices
+Examples: Adhesive bandages, antiseptic wipes, gauze pads, first aid kits.
+Usage: These are used for immediate, temporary care of minor injuries and emergencies.
+
+2. Diagnostic Devices
+Examples: Thermometers, blood pressure monitors, glucometers, pregnancy tests.
+Usage: These are used to detect and monitor medical conditions.
+
+3. Monitoring Devices
+Examples: Pulse oximeters, heart rate monitors, wearable fitness trackers.
+Usage: These are used to continuously or periodically monitor vital signs and other health parameters.
+
+4. Personal Protective Equipment (PPE)
+Examples: Masks, gloves, face shields, gowns.
+Usage: These are worn to protect the user from health or safety risks, particularly in healthcare and public settings.
+
+5. Therapeutic Devices
+Examples: Nebulizers, heating pads, TENS units (Transcutaneous Electrical Nerve Stimulation).
+Usage: These are used to treat or manage medical conditions through physical intervention or therapy.
+
+6. Home-Use Medical Devices
+Examples: Blood glucose monitors, home blood pressure cuffs, nebulizers.
+Usage: These are designed for use in a home environment to manage chronic conditions or post-acute care.
+
+7. Assistive Devices
+Examples: Crutches, walkers, canes, hearing aids.
+Usage: These help individuals with mobility, hearing, or other impairments to perform daily activities.
+
+8. Hygiene and Infection Control Devices
+Examples: Hand sanitizers, disinfectant wipes, UV sterilizers.
+Usage: These are used to maintain hygiene and control the spread of infections.
+
+-----------------------------------------------------------------------------------------
+
