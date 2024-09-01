@@ -1,0 +1,288 @@
+{
+    "MedicalDevices" : {
+        
+      "equipment_1": {
+          "name": "Surgical Cap",
+          "price": 20.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://rukminim2.flixcart.com/image/850/1000/kapoo7k0/surgical-head-cap/h/n/e/disposable-surgical-cap-medex-original-imafs7jgugs7cemw.jpeg?q=90&crop=false"
+      },"equipment_2": {
+          "name": "Surgical mask",
+          "price": 20.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyLMq6DetJjiGDVgrwUoXV5I4rk390wNBytg&s"
+      },
+      "equipment_3": {
+          "name": "Surgical Glove",
+          "price": 50.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://alliedusa.net/wp-content/uploads/2022/05/Top-9-Reasons-Why-Surgical-Gloves-Should-Be-Powder-Free.jpg"
+      },"equipment_4": {
+          "name": "Injection Syringe 3ml",
+          "price": 20.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://5.imimg.com/data5/SELLER/Default/2023/1/JM/EX/NS/83995759/3-ml-disposable-hypodermic-syringe.png"
+      },"equipment_5": {
+          "name": "Injection Syringe 5ml",
+          "price": 30.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.mycare.lk/image/cache/catalog/products/007971-1080x1080.jpg"
+      },"equipment_6": {
+          "name": "Injection Syringe 10ml",
+          "price": 45.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://mediworld.co.uk/cdn/shop/products/Syringe_10ml__01535.jpg?v=1681481098"
+      },"equipment_7": {
+          "name": "Injection Syringe 50ml",
+          "price": 140.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://m.media-amazon.com/images/I/31tWX2VlQUL.jpg"
+      },"equipment_8": {
+          "name": "Operating scissors (small)",
+          "price": 540.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://agnthos.se/3457-large_default/stille-suture-scissors.jpg"
+      },"equipment_9": {
+          "name": "Operating scissors (medium)",
+          "price": 850.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROz2J38JhtJNp1ZSl18YiPDqO9ahmnPi0q1Q&s"
+      },"equipment_10": {
+          "name": "Insulin Injetion",
+          "price": 60.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.polymedicure.com/wp-content/uploads/2019/05/Insulin-Syringes-.jpg"
+      },"equipment_11": {
+          "name": "Mega check TD-4257 test strips",
+          "price": 112.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://unionchemistspharmacy.lk/wp-content/uploads/2021/11/photo_2021-07-30_14-04-25.png"
+      },
+      "equipment_12": {
+          "name": "Mega check TD-4207 test strips",
+          "price": 112.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.carelink.lk/wp-content/uploads/2023/05/Mega-Check-Test-Strips-Td-4207_Caelink.jpg"
+      },
+      "equipment_13": {
+          "name": "Digital Thermometer",
+          "price":1450.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://i5.walmartimages.com/seo/MABIS-Digital-Thermometer-Adults-Oral-Children-Babies-FSA-HSA-Eligible-Thermometer-Underarm-Temperature-60-Seconds-Readings_f0347a41-7bec-4506-b613-0f69546a2b50.9e915f8d999f1a726a0f8fa20549d14c.jpeg"
+      },"equipment_14": {
+          "name": "Thermometer",
+          "price": 450.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://static-01.daraz.lk/p/670848a2d6e73de33f64fa924b0ec337.jpg_750x750.jpg_.webp"
+      },
+ 
+      "first_aid_1": {
+          "name": "Non Allergic Plaster 2mx5m",
+          "price":120.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://farmae.eu/media/catalog/product/b/_/b_2_5.jpg?optimize=medium&fit=bounds&height=700&width=700&canvas=700:700"
+      },"first_aid_2": {
+          "name": "Non Allergic Plaster 3mx5m",
+          "price": 360.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://leonidov.de/cdn/shop/files/1682_Product.jpg?v=1705080230&width=1946"
+      },"first_aid_3": {
+          "name": "dettol plasters",
+          "price": 20.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://static-01.daraz.lk/p/3296c748fccdbc3b8b83ce533ee98af5.jpg"
+      },"first_aid_4": {
+          "name": "Elasto Plaster one foot",
+          "price": 200.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://static-01.daraz.lk/p/636fa4b7e245b902e56cff99030f0eac.jpg"
+      },"first_aid_5": {
+          "name": "Zinc Oxide Plaster 2.5mx5m",
+          "price": 200.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://standardmedical.co.ug/wp-content/uploads/2021/09/Adhesive-Plaster.12312.jpg"
+      },"first_aid_6": {
+          "name": "Zinc Oxide Plaster 2mx4.6m",
+          "price": 100.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://image.made-in-china.com/43f34j00lSnhpwaJSVoc/White-Color-Zinc-Oxide-Adhesive-Plaster-with-Plastic-Cover.jpg"
+      },"first_aid_7": {
+          "name": "Cotton Wool 100g",
+          "price": 470.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.mycare.lk/image/cache/catalog/products/006358-1080x1080.png"
+      },
+      "first_aid_8": {
+          "name": "Cotton Wool 20g",
+          "price": 100.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://static-01.daraz.lk/p/mdc/889dcecb732af30e683fb62386af2d1b.jpg"
+      },
+      "first_aid_9": {
+          "name": "Cotton Bandage",
+          "price": 150.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://5.imimg.com/data5/XC/DX/GD/SELLER-16444552/cotton-bandage.jpg"
+      },"first_aid_10": {
+          "name": "Crepe Bandage",
+          "price": 200.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://m.media-amazon.com/images/I/51CZOcVpgeL.jpg"
+      },"first_aid_11": {
+          "name": "Bandage 2.5inches",
+          "price": 50.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.dizmark.lk/wp-content/uploads/2022/08/w.o.w.-gauze-bandage-291x291.jpg"
+      },"first_aid_12": {
+          "name": "Sterile Gauze Pad",
+          "price": 90.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.mycare.lk/image/cache/catalog/products/001539-600x315w.JPG"
+      },"first_aid_13": {
+          "name": "Gauze Roll",
+          "price": 500.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.firstaidcanada.com/wp-content/uploads/2018/10/products-02520_gauze_bandage_roll_-_7.6cm_x_9.1m.jpg"
+      },"first_aid_14": {
+          "name": "Gauze ",
+          "price": 100.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://5.imimg.com/data5/SELLER/Default/2023/1/WQ/AX/UX/68444548/white-sterile-gauze-swabs.jpeg"
+      },"first_aid_15": {
+          "name": "Cool_Hot Pack",
+          "price": 1650.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.uniquepharmacy.lk/wp-content/uploads/2023/02/rgrv.jpg"
+      },"first_aid_16": {
+          "name": "Ice Bag",
+          "price":1800.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.hartsport.co.nz/images/ProductImages/500/12-157.jpg"
+      },"first_aid_17": {
+          "name": "Wooden First Aid Box",
+          "price": 4350.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.uniquepharmacy.lk/wp-content/uploads/2023/10/first-aid-wooden-box.png"
+      },
+      "first_aid_18": {
+          "name": "First Aid Box-Plastic",
+          "price": 1690.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://static-01.daraz.lk/p/9dc659b5144bf411f55381826664bcbb.jpg_750x750.jpg_.webp"
+      },
+      "first_aid_19": {
+          "name": "First Aid Box-Plastic",
+          "price": 1600.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://5.imimg.com/data5/SELLER/Default/2022/11/FL/JI/AB/84909613/2mech-plastic-first-aid-box-500x500.jpg"
+      },
+      "first_aid_20": {
+          "name": "Two Fold Stretcher",
+          "price": 25000.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://m.media-amazon.com/images/I/515UkM2+b0L.jpg"
+      }
+    }
+}

@@ -1,8 +1,0 @@
-.shop {
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 0fr));
-    gap: 4vw;
-    padding: 60px;
-    font-size: 16px;
-}

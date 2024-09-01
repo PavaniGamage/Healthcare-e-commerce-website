@@ -1,0 +1,40 @@
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16vw, 2fr));
+    width: 65.5%;
+    gap: 4vw;
+    margin-top: 10vw;
+    margin-bottom: 5vw;
+    margin-inline: auto;
+}
+
+.category-grid-item {
+    width: 20vw;
+    margin-top: -2.5vw;
+} 
+
+.category-text {
+    margin-top: -2px;
+    font-size: 1.2vw;
+    text-align: center;
+} 
+
+.category-image {
+    width: 20vw;
+    border-radius: 5%;
+} 
+
+.category-link {
+    text-decoration: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    align-items: center;
+    display: inherit;
+    cursor: pointer;
+}
+
+.category-link:hover {
+    color: #F2AE00;
+}
+  
