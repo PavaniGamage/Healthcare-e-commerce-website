@@ -1,0 +1,74 @@
+.left-margin-for-shop {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: space-between;
+    margin-bottom: -10px;
+    width: 250px;
+    /* background: #E9F7FF; */
+    font-size: 13px;
+    padding: 0px 3px 70px 30px;
+    cursor: default;
+}
+
+.horizontal-hr hr{
+    background-color: #c1c1c1;
+    border: none;
+    height: 100%;
+    width: 0.1rem;
+    margin-top: -0.01rem;
+}
+
+.left-margin-for-shop h1 {
+    font-size: 15px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+.left-margin-for-shop ul {
+    list-style: none;
+}
+
+.left-margin-for-shop li {
+    margin-left: -40px;
+    margin-block: 15px;
+}
+
+.left-margin-for-shop li:hover {
+    color: #01A3FF;
+}
+
+.wellness,
+.price, 
+.brands {
+    margin-top: 0px;
+    margin-bottom: 90px;
+    margin-right: 30px;
+}
+
+.brands li {
+    display: flex;
+}
+
+.brands input{
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.price dl {
+    display: flex;
+    flex-direction: row;
+}
+
+.price dt {
+    margin-right: -2rem;
+}
+
+.price input {
+    width: 40px;
+}
+
+.price p {
+    margin-inline: 10px;
+    margin-top: 0rem;
+}

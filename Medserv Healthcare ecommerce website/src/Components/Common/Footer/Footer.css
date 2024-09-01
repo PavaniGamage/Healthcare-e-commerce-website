@@ -1,0 +1,118 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 0vw;
+    padding-bottom: 15px;
+    font-size: 1vw;
+    list-style: none;
+    background-color: #E9F7FF;
+    color: #000000;
+    cursor: default;
+} 
+
+.footer-copyright {
+    margin-top: 50px;
+    text-align: center;
+    color: #706B6B;
+    font-size: 0.9vw;
+}
+
+.footer-copyright hr {
+    border: 0;
+    border-top: 1px solid #c9c9c9;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: 4vw;
+    padding-top: 4vw;
+}
+
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-block: auto;
+} 
+
+.footer-logo-logo {
+    display: flex;
+    flex-direction: row;
+} 
+
+.footer-logo-logo img {
+    width: 4vw;
+    height: 4vw;
+}
+
+.footer-logo-logo p {
+    margin-top: 2.3vw;
+    margin-left: -1vw;
+    font-size: 1.8vw;
+    font-weight: 700;
+    color: #0097ED;
+    letter-spacing: 1.5px;
+}
+
+.footer-logo-quote {
+    color: #706B6B;
+    margin-top: -1vw;
+    margin-left: 1.1vw;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+} 
+
+.footer-links-social-media {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links-social-media-icons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.5vw;
+    gap: 1.0vw;
+}
+
+.footer-links-social-media-icons a {
+    border: 1px solid #706B6B;
+    border-radius: 50%;
+    padding: 0.7vw;
+    width: 1vw;
+    height: 1vw;
+    color: #000000;
+}
+
+.footer-links-social-media-icons a:hover {
+    color: #F2AE00;
+    border: 1px solid #F2AE00;
+}
+
+.footer-title {
+    font-size: 1.3vw;
+    font-weight: 600;
+    color: #0097ED;
+}
+
+.footer li:hover {
+    color: #F2AE00;
+    cursor: pointer;
+}
+
+.footer-contact-us {
+    margin-top: 2.0vw;
+}
+
+.footer-contact-us li:hover {
+    color: inherit;
+    cursor: default;
+}
