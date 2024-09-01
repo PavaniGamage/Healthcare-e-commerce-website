@@ -1,0 +1,176 @@
+{
+    "PersonalCare": {
+        
+      "beauty_1": {
+          "name": "facia Premium 30 capsules",
+          "price": 8910.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://getmed.lk/wp-content/uploads/2020/07/Facia-Premium-Product-Image.jpg"
+      },"beauty_2": {
+          "name": "Facia Advanced 30 capsules",
+          "price": 3795.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.uniquepharmacy.lk/wp-content/uploads/2018/07/06-1-1.jpg"
+      },"beauty_3": {
+          "name": "Facia Night Revitalising cream 50g",
+          "price": 1380.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://supiripola.lk/cdn/shop/products/facia-night-revitalising-cream-50g_1024x1024.jpg?v=1662376174"
+      },"beauty_4": {
+          "name": "Facia Advanced Skin Whitening cream 50g",
+          "price": 1625.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/121423--01--1644507278.jpeg"
+      },"beauty_5": {
+          "name": "Glow Collagen sachets 30",
+          "price": 9086.66,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.kapruka.com/shops/specialGifts/productImages/1658146632371_m-1.jpg"
+      },"beauty_6": {
+          "name": "Glow Collagen 30 capsules",
+          "price": 6315.41,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.kapruka.com/shops/specialGifts/productImages/1658141302986_b-33-1_m.jpg"
+      },"beauty_7": {
+          "name": "Biovita Gold 30 capsules",
+          "price": 3600.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://unionchemistspharmacy.lk/wp-content/uploads/2022/11/biovitagold2.jpg"
+      },
+
+      "glossary_1": {
+          "name": "Jannet Face Wash Peppermint 100ml",
+          "price": 690.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.spar.lk/cdn/shop/products/janet-face-wash-peppermint-100ml-health-beauty-516.jpg?v=1664525789"
+      },"glossary_2": {
+          "name": "Jannet Face Wash Fair and Natural 100ml",
+          "price": 600.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.spar.lk/cdn/shop/products/janet-face-wash-fair-natural-100ml-personal-care-180.jpg?v=1650450409"
+      },"glossary_3": {
+          "name": "Jannet Passion and Lime Face Wash 100ml",
+          "price": 600.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://janet.lk/cdn/shop/files/Passion-_-Lime-Face-Wash-100ml_Front.png?v=1683037934"
+      },"glossary_4": {
+          "name": "Bellose Perefect Straight Keratin shampoo 200ml",
+          "price": 790.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.essentials.lk/cdn/shop/products/BellosePerfectStraightKeratinShampooforStraightenedHair250ml.jpg?v=1669016036"
+      },"glossary_5": {
+          "name": "Bellose Smooth Intense Keratin conditioner 200ml",
+          "price": 790.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.essentials.lk/cdn/shop/products/BelloseSmoothIntenseKeratinConditionerForNormal_Oily_FineHair250ml.jpg?v=1669020010"
+      },"glossary_6": {
+          "name": "Dove Intense Repair shampoo 180ml",
+          "price": 750.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/112141--01--1697601449.jpeg"
+      },"glossary_7": {
+          "name": "Dove Hair Fall Rescue shampoo 180ml",
+          "price": 750.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/112140--01--1605149561.jpeg"
+      },"glossary_8": {
+          "name": "Dove Hair Fall Rescue conditioner 180ml",
+          "price": 830.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/112121--01--1697601023.jpeg"
+      },"glossary_9": {
+          "name": "Dove Intense Repair conditioner180ml",
+          "price": 830.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQz7rUZhkQM7VGRYL6o56CUe_qte8MflGvqA&s"
+      },"glossary_10": {
+          "name": "Rexona Alovera 50ml",
+          "price": 714.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://static-01.daraz.lk/p/516d4accdc01f12c8da9a8fa672750e7.png"
+      },"glossary_11": {
+          "name": "Abha Henna Herbai Black 10g",
+          "price": 230.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/111590--01--1630600300.jpeg"
+      },"glossary_12": {
+          "name": "Amins Black Henna Hair dye 21g",
+          "price": 290.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://herbalcosmetics.lk/images/1688194510AMINS.png"
+      },"glossary_13": {
+          "name": "Bellose 5minutes Hair Colour for Men 2.0 Brown Black 20ml",
+          "price": 290.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.onlinekade.lk/wp-content/uploads/2023/09/4796015290869.jpg"
+      },"glossary_14": {
+          "name": "Emami Seven Oil in One 200ml",
+          "price": 390.00,
+          "availability": "Available",
+          "description": "",
+          "keywords": "",
+          "rating": 4.5,
+          "imageUrl": "https://www.carelink.lk/wp-content/uploads/2022/11/Emami-Seven-Oils-In-One-200.jpg"
+      }
+    }
+}
