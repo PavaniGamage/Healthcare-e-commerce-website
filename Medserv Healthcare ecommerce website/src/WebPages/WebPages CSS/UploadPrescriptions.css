@@ -1,0 +1,52 @@
+
+.upload-form {
+    margin: 0 auto;
+    padding: 70px 260px 250px 100px; 
+}
+#heading{
+    color: black;
+}
+
+h3{
+    color: #0097ED;
+}
+label, input[type="checkbox"] {
+    display: inline-block;
+ }
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.check {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.check input[type="checkbox"] {
+    margin: 0 5px 0 0; 
+    width: auto; 
+}
+
+.check label {
+    margin: 0; 
+    padding: 0; 
+}
+
+button {
+    background-color: #0097ED;
+    color: #fff;
+    padding: 15px 25px;
+    margin-top: 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+

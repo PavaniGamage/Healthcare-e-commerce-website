@@ -1,0 +1,67 @@
+
+.container {
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 20px;
+}
+.form-container {
+    display: flex;
+    justify-content: space-between;
+  }
+.existing-user, .new-user {
+    flex: 1;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 550px;
+  }
+.new-user{
+    background-color: #1DAEFF;
+    min-height: 600px;
+    margin-right:100px;
+  }
+
+.signIn-headding{
+    text-align: left;
+}
+.register-headding{
+    color: #fff ;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+.new-password{
+    color: #1DAEFF;
+    text-decoration: none;
+}
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+select{
+    width: 100%;
+}
+.register{
+    padding-right: 35px;
+}
+.rule{
+    font-size: small;
+    color: #fff;
+}
+
+button {
+    background-color: black;
+    color: #fff;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
