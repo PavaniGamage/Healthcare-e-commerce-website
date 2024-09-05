@@ -1,8 +1,69 @@
 .shop {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     width: 100%;
+}
+
+.sort {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 20px; 
+    font-weight: 100;
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+.category-sort {
+    display: flex;
+    align-items: center;
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 50px;
+    padding-inline: 10px;
+    cursor: context-menu;
+}
+
+.category-sort:hover {
+    background-color: #0b3f5d;
+}
+
+.category-sort p {
+    margin: 3px;
+}
+
+.category-sort-FaAngleDown {
+    margin-top: 2px;
+    padding-left: 10px;
+}
+
+.shop-items {
+    display: grid;
+    flex: auto;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 4vw;
-    padding: 60px;
+    gap: 3vw;
+    padding: 50px;
     font-size: 16px;
+    margin-top: -20px;
+}
+
+.lordmore {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 70px;
+    margin-inline: auto;
+    width: 170px;
+    height: 35px;
+    border-radius: 8px;
+    background: #000000;
+    color: #ffffff;
+    cursor: context-menu;
+    font-size: 13px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.lordmore:hover {
+    transform: scale(1.05);
 }

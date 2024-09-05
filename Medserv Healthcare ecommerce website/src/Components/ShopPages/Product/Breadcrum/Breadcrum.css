@@ -1,0 +1,27 @@
+.breadcrum {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    align-items: center;
+    font-weight: 600;
+    cursor: context-menu;
+}
+
+.FaChevronRight {
+    color: #1DAEFF;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.link:hover {
+    color: #1DAEFF;
+}
+
+@media (max-width: 700px) {
+    .breadcrum {
+        display: none;
+    }
+} 
