@@ -1,0 +1,9 @@
+.shop-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.shop {
+    flex: auto;
+} 

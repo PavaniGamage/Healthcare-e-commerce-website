@@ -1,9 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 import './Navbar.css'
 import {FaShoppingCart, FaUser, FaMapMarkerAlt, FaMap, FaBook, FaFileAlt, FaStickyNote} from 'react-icons/fa';
-
 import logo from '../../Assets/NavBar/logo.png';
-
 import {Link , useLocation} from 'react-router-dom';
 
 const Navbar = () => {
@@ -29,7 +27,7 @@ const Navbar = () => {
           case '/blog':
             return 'blog';
           default:
-            return 'home';
+            return 'none';
         }
       };
 
