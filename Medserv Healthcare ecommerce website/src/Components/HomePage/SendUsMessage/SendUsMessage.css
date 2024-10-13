@@ -61,3 +61,35 @@
     margin-bottom: 2vw;
     cursor: pointer;
 }
+
+@media (min-width: 750px) and (max-width: 1000px) {
+    
+    .send-us-message textarea,
+    .send-us-message input,
+    .send-us-message p,
+    .send-us-message button {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 750px) {
+
+    .send-us-message h1 {
+        font-size: 17px;
+    }
+    
+    .send-us-message p {
+        font-size: 13px;
+    }
+
+    .send-us-message textarea,
+    .send-us-message input {
+        font-size: 10px;
+    }
+
+    .send-us-message button {
+        width: 60px;
+        height: 25px;
+        font-size: 10px;
+    }
+}

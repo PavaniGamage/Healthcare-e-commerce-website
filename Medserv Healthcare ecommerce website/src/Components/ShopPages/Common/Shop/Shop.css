@@ -67,3 +67,10 @@
 .lordmore:hover {
     transform: scale(1.05);
 }
+
+@media (max-width: 650px) {
+
+    .shop-items {
+        margin-inline: auto;
+    }
+}

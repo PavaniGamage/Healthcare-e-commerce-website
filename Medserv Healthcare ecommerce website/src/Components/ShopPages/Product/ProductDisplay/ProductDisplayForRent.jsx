@@ -43,6 +43,20 @@ const ProductDisplay = (props) => {
                 )}
             </div>
 
+            <div className='item-name-rating-availability-extra'>
+                <div className='item-name-topic'>
+                    <p>{product.name}</p>  
+                </div>
+
+                <div className='ratings'>
+                    <FaStar/> <FaStar/> <FaStar/> <FaStar/> <FaStar className='ratingStarA'/> <FaStar className='ratingStarA'/>
+                </div>
+
+                <div className='item-availability-price'>
+                    <p>Availability: &nbsp; <div className='value'>{product.availability}</div></p>
+                </div>
+            </div>
+
             <div className='item-rent-prices'>
                 <div className='item-rent-prices-grid'>
                     <div className='rental'>
@@ -66,16 +80,18 @@ const ProductDisplay = (props) => {
         </div>
 
         <div className='item-details'>
-            <div className='item-name-topic'>
-                <p>{product.name}</p>  
-            </div>
+            <div className='item-name-rating-availability-rent'>
+                <div className='item-name-topic'>
+                    <p>{product.name}</p>  
+                </div>
 
-            <div className='ratings'>
-                <FaStar/> <FaStar/> <FaStar/> <FaStar/> <FaStar className='ratingStarA'/> <FaStar className='ratingStarA'/>
-            </div>
+                <div className='ratings'>
+                    <FaStar/> <FaStar/> <FaStar/> <FaStar/> <FaStar className='ratingStarA'/> <FaStar className='ratingStarA'/>
+                </div>
 
-            <div className='item-availability-price'>
-                <p>Availability: &nbsp; <div className='value'>{product.availability}</div></p>
+                <div className='item-availability-price'>
+                    <p>Availability: &nbsp; <div className='value'>{product.availability}</div></p>
+                </div>
             </div>
 
             <div className='item-description'>

@@ -5,23 +5,29 @@
     align-items: center;
     font-weight: 600;
     cursor: context-menu;
+    align-items: flex-start;
 }
 
 .FaChevronRight {
     color: #1DAEFF;
+    margin-inline: 5px;
 }
 
 .link {
     text-decoration: none;
     color: inherit;
+    align-items: center;
 }
 
 .link:hover {
     color: #1DAEFF;
 }
 
-@media (max-width: 700px) {
-    .breadcrum {
-        display: none;
-    }
-} 
+.breadcrum_links {
+    display: flex;
+    align-items: center;
+}
+
+/* @media (max-width: 700px) {
+    
+}  */
