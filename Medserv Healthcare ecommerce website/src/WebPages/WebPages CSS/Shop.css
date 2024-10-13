@@ -7,3 +7,9 @@
 .shop {
     flex: auto;
 } 
+
+@media (max-width: 650px) {
+    .left-margin {
+        display: none;
+    }
+}

@@ -8,16 +8,22 @@ const Breadcrum = (props) => {
 
   return (
     <div className='breadcrum'>
-      <Link className='link' to={'/'}> <p>Home &nbsp;</p> </Link> <FaChevronRight className='FaChevronRight'/> 
-      <p>&nbsp; Shop &nbsp;</p><FaChevronRight className='FaChevronRight'/> 
-      
+      <div className='breadcrum_links'>
+        <Link className='link' to={'/'} onClick={() => window.scrollTo(0, 0)}> <p>Home</p> </Link> <FaChevronRight className='FaChevronRight'/> 
+      </div>
+      <div className='breadcrum_links'>
+        <p>Shop</p><FaChevronRight className='FaChevronRight'/> 
+      </div>
+
       {
         product.category1 === "MedicalDevices" && (
           <>
-            <Link className='link' to='/medical_devices'>
-              <p>&nbsp; {product.category1} &nbsp;</p>
-            </Link>
-            <FaChevronRight className='FaChevronRight' />
+            <div className='breadcrum_links'>
+              <Link className='link' to='/medical_devices' onClick={() => window.scrollTo(0, 0)}>
+                <p>{product.category1}</p>
+              </Link>
+              <FaChevronRight className='FaChevronRight' />
+            </div>
           </>
         )
       }
@@ -25,10 +31,12 @@ const Breadcrum = (props) => {
       {
         product.category1 === "Wellness" && (
           <>
-            <Link className='link' to='/wellness'>
-              <p>&nbsp; {product.category1} &nbsp;</p>
-            </Link>
-            <FaChevronRight className='FaChevronRight' />
+            <div className='breadcrum_links'>
+              <Link className='link' to='/wellness' onClick={() => window.scrollTo(0, 0)}>
+                <p>{product.category1}</p>
+              </Link>
+              <FaChevronRight className='FaChevronRight' />
+            </div>
           </>
         )
       }
@@ -36,10 +44,12 @@ const Breadcrum = (props) => {
       {
         product.category1 === "PersonalCare" && (
           <>
-            <Link className='link' to='/personal_care'>
-              <p>&nbsp; {product.category1} &nbsp;</p>
-            </Link>
-            <FaChevronRight className='FaChevronRight' />
+            <div className='breadcrum_links'>
+              <Link className='link' to='/personal_care' onClick={() => window.scrollTo(0, 0)}>
+                <p>{product.category1}</p>
+              </Link>
+              <FaChevronRight className='FaChevronRight' />
+            </div>
           </>
         )
       }
@@ -47,15 +57,19 @@ const Breadcrum = (props) => {
       {
         product.category1 === "rent" && (
           <>
-            <Link className='link' to='/rent'>
-              <p>&nbsp; Rent &nbsp;</p>
-            </Link>
-            <FaChevronRight className='FaChevronRight' />
+            <div className='breadcrum_links'>
+              <Link className='link' to='/rent' onClick={() => window.scrollTo(0, 0)}>
+                <p>Rent</p>
+              </Link>
+              <FaChevronRight className='FaChevronRight' />
+            </div>
           </>
         )
       }
 
-      <p>&nbsp; {product.name}</p>
+      <div className='breadcrum_links'>
+        <p>{product.name}</p>
+      </div>
     </div>
   )
 }

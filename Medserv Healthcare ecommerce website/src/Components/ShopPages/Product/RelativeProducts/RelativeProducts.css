@@ -1,0 +1,48 @@
+.relative-products {
+    padding: 0px;
+    margin-bottom: 60px;
+}
+
+.relative-products hr {
+    margin-inline: 30px;
+}
+
+.relative-products h2 {
+    font-size: 25px;
+    margin-left: 50px;
+    margin-top: 40px;
+}
+
+.shop-items-for-relative-products {
+    display: flex;
+    margin-left: 0px;
+    overflow-x: auto; /* Add horizontal scrolling */
+    max-width: 100%;  /* Set a maximum width for the container */
+}
+
+.shop-items-for-relative-products::-webkit-scrollbar {
+    height: 8px;  /* Adjust scrollbar height */
+}
+
+.shop-items-for-relative-products::-webkit-scrollbar-thumb {
+    background-color: #888;  /* Scrollbar color */
+    border-radius: 10px;      /* Rounded scrollbar */
+}
+
+.shop-items-for-relative-products::-webkit-scrollbar-thumb:hover {
+    background-color: #555;  /* Hover effect for scrollbar */
+}
+
+.shop-items-for-relative-products::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Scrollbar path background color */
+    border-radius: 10px;
+    margin-inline: 30px;
+}
+
+@media (max-width: 650px) {
+    .relative-products h2 {
+        margin-left: 25px;
+    }
+} 
+
+
