@@ -1,6 +1,25 @@
 # Healthcare-e-commerce-website
 
-## To Run the Output
+**Medserv** is an e-commerce web application designed for the healthcare sector. It provides a comprehensive platform where users can:
+
+- **Purchase Medical Supplies and Equipment**
+- **Upload Prescriptions**
+- **Make Donations**
+
+Additionally, Medserv features:
+
+- **Medical Blogs**
+- **Equipment Rentals**
+
+## Objectives
+
+- Introduce a convenient and efficient method for purchasing medical items.
+- Enhance healthcare access for people in rural areas.
+- Facilitate the rental of medical equipment.
+- Provide valuable health information through a blog post section.
+- Collect user feedback for continuous improvement of Medserv.
+
+### To Run the Output
 
 <small>
 
