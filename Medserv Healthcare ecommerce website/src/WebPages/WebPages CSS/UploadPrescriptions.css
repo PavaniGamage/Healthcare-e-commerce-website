@@ -1,0 +1,86 @@
+.upload-form {
+    margin: 0 auto;
+    padding: 50px 10vw; 
+}
+
+#heading-of-form {
+    color: black;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.upload-form-intro {
+    margin-bottom: 40px;
+}
+
+.upload-form-intro li {
+    font-size: 15px;
+}
+
+.upload-form h3 {
+    color: #0097ED;
+    margin-bottom: 10px;
+}
+
+.upload-form label, 
+.upload-form input[type="checkbox"] {
+    display: inline-block;
+}
+
+.upload-form input[type="text"],
+.upload-form input[type="number"],
+.upload-form textarea,
+.select,
+.prescription-feild {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: left;
+    font-family: inherit;
+}
+
+.upload-form textarea {
+    height: 100px;
+    resize: none;
+}
+
+.upload-form select {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.upload-form select:focus {
+    border: none; /* Removes the border on focus */
+    outline: none; /* Removes the outline on focus */
+    box-shadow: none; /* Ensures there's no shadow effect */
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.check input[type="checkbox"] {
+    margin-right: 20px; 
+    width: auto; 
+}
+
+.check label {
+    margin: 0; 
+    padding: 0; 
+}
+
+.send-to-medserv-btn {
+    background-color: #0097ED;
+    color: #fff;
+    padding: 15px 25px;
+    margin-top: 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
