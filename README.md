@@ -1,4 +1,4 @@
-# Healthcare-e-commerce-website
+# Medserv - Healthcare E-Commerce Web Application
 
 **Medserv** is an e-commerce web application designed for the healthcare sector. It provides a comprehensive platform where users can:
 
@@ -19,7 +19,8 @@ Additionally, Medserv features:
 - Provide valuable health information through a blog post section.
 - Collect user feedback for continuous improvement of Medserv.
 
-### To Run the Output
+##
+## To Run the Output
 
 <small>
 
