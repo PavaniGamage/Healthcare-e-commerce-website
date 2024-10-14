@@ -1,7 +1,7 @@
 import React from 'react'
 import './Footer.css'
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
-
+import { Link } from 'react-router-dom';
 import logo from '../../Assets/Footer/medserv_logo.png';
 
 const Footer = () => {
@@ -9,12 +9,15 @@ const Footer = () => {
     <div className='footer'>
       <div className='footer-content'>
         <div className='footer-logo'>
-          <div className='footer-logo-logo'>
-            <img src={logo}/>
-            <p>MEDSERV</p>
-          </div>
-          <p className='footer-logo-quote'>Your Health, Our Priority</p>
+          <Link to="/" className='footer-link' onClick={() => window.scrollTo(0, 0)}>
+            <div className='footer-logo-logo'>
+              <img src={logo}/>
+              <p>MEDSERV</p>
+            </div>
+            <p className='footer-logo-quote'>Your Health, Our Priority</p>
+          </Link>
         </div>
+        
         <div className='footer-links-social-media'>
           <p className='footer-title'>Find Us In Social Media</p>
           <div className='footer-links-social-media-icons'>
@@ -32,22 +35,23 @@ const Footer = () => {
             </a>
           </div>
         </div>
+
         <div className='footer-links-shop'>
           <p className='footer-title'>Shop</p>
-          <li>Wellness</li>
-          <li>Medical Devices</li>
-          <li>Personal Care</li> 
-          <li>Rent</li>
+          <Link to="/wellness" className='footer-link' onClick={() => window.scrollTo(0, 0)}><li>Wellness</li></Link>
+          <Link to="/medical_devices" className='footer-link' onClick={() => window.scrollTo(0, 0)}><li>Medical Devices</li></Link>
+          <Link to="/personal_care" className='footer-link' onClick={() => window.scrollTo(0, 0)}><li>Personal Care</li></Link> 
+          <Link to="/rent" className='footer-link' onClick={() => window.scrollTo(0, 0)}><li>Rent</li></Link>
         </div>
         <div className='footer-links-medserv'>
           <p className='footer-title'>Medserv</p>
-          <li>About</li>
-          <li>Contact</li> 
+          <Link to="/" className='footer-link' onClick={() => window.scrollTo(0, 0)}><li>About</li></Link>
+          <Link to="/" className='footer-link' onClick={() => window.scrollTo(0, 0)}><li>Contact</li></Link> 
         </div>
         <div className='footer-links-other'>
           <p className='footer-title'>Other</p>
-          <li>Hearts</li>
-          <li>Blog</li> 
+          <Link to="/hearts" className='footer-link' onClick={() => window.scrollTo(0, 0)}><li>Hearts</li></Link>
+          <Link to="/blog" className='footer-link' onClick={() => window.scrollTo(0, 0)}><li>Blog</li></Link> 
           <div className='footer-contact-us'>
             <h1 className='footer-title'>Contact Us</h1>
             <p>Reach us,</p>
@@ -65,4 +69,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default Footer 

@@ -24,7 +24,7 @@ const CategoriesInHome = () => {
     <div className='categories-grid'>
         {items.map(item => (
         <div key={item.id} className="category-grid-item">
-            <Link className="category-link" to={item.link}>
+            <Link className="category-link" to={item.link} onClick={() => window.scrollTo(0, 0)}>
               <img src={item.image} alt={item.content} className="category-image"/>
               <p className="category-text">{item.content}</p>
             </Link>
@@ -34,4 +34,4 @@ const CategoriesInHome = () => {
   )
 }
 
-export default CategoriesInHome
+export default CategoriesInHome 

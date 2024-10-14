@@ -1,0 +1,106 @@
+import React from 'react'
+import './RelativeProducts.css';
+import Item from '../../Common/Item/Item.jsx'
+import ItemForRent from '../../Common/Item/ItemForRent.jsx'
+import all_products from '../../../Assets/Shop/AllProducts/AllProducts.js'
+
+
+const RelativeProducts = (props) => {
+    const {product} = props;
+    const category1 = product.category1;
+
+    // Find the index of the current product in all_products
+    const currentProductIndex = all_products.findIndex(item => item.id === product.id);
+
+    // Get the next 5 products starting from the currentProductIndex + 1
+    const relatedProducts = all_products.slice(currentProductIndex + 1, currentProductIndex + 6);
+
+    // Declare relatedProductsNew variable
+    let relatedProductsNew;
+    let isLess;
+    const firstElementIndex = all_products.findIndex(item => item.id === all_products[0].id);
+    const additionalProductsNeeded = 5 - relatedProducts.length;
+
+    // Use if-else to assign a value to relatedProductsNew
+    if (relatedProducts.length < 5) {
+        isLess = "Yes";
+        
+        relatedProductsNew = [
+            ...relatedProducts,
+            ...all_products.slice(0, additionalProductsNeeded)
+        ];
+    } else {
+        isLess = "No";
+        relatedProductsNew = relatedProducts;
+    }
+
+    return (
+        <div className='relative-products'>
+            <h2>Related Products</h2>
+            <p>old related: {relatedProducts.length}</p>
+            <p>New Related: {relatedProductsNew.length}</p>
+            <p>Is related old less than five: {isLess}</p>
+            <p>Current Index: <b>{currentProductIndex}</b></p>
+            <p>Length of All Products: <b>{all_products.length}</b></p>
+            <p>First element index: {firstElementIndex}</p>
+            <p>Additional products need: {additionalProductsNeeded}</p>
+
+            <h3>New Related Products Indexes</h3>
+            <ul>
+                {relatedProductsNew.map((item, index) => (
+                    <li key={index}>Index: {all_products.findIndex(p => p.id === item.id)}</li>
+                ))}
+            </ul>
+
+            <div className='shop-items'>
+                {relatedProducts.map((item,i)=> {
+                    if (category1==="rent") {
+                    if (category1===item.category1) {
+                        return <ItemForRent key={i} id={item.id} name={item.name} 
+                            image={item.image} price={item.price} 
+                            category1={item.category1} category2={item.category2}
+                            dailyRental={item.DaillyRental}/>
+                        } else {
+                            return null;
+                    } 
+                    } else {
+                    if (category1===item.category1) {
+                        return <Item key={i} id={item.id} name={item.name} 
+                            image={item.image} price={item.price} 
+                            category1={item.category1} category2={item.category2}/>
+                        } else {
+                            return null;
+                    }
+                    }
+                })}
+            </div>
+
+            <div className='shop-items'>
+                <p>.................................................................................................</p>
+                <p>NewRelatedProduct</p>
+                {relatedProductsNew.map((item,i)=> {
+                    if (category1==="rent") {
+                    if (category1===item.category1) {
+                        return <ItemForRent key={i} id={item.id} name={item.name} 
+                            image={item.image} price={item.price} 
+                            category1={item.category1} category2={item.category2}
+                            dailyRental={item.DaillyRental}/>
+                        } else {
+                            return null;
+                    } 
+                    } else {
+                    if (category1===item.category1) {
+                        return <Item key={i} id={item.id} name={item.name} 
+                            image={item.image} price={item.price} 
+                            category1={item.category1} category2={item.category2}/>
+                        } else {
+                            return null;
+                    }
+                    }
+                })}
+            </div>
+        </div>
+    )
+}
+
+export default RelativeProducts
