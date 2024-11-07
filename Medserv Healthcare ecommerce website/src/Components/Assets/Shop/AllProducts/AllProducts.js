@@ -56,5 +56,4 @@ async function createProductsArray() {
     }
 }
 
-// Usage example in a main component or file
 export default createProductsArray;
