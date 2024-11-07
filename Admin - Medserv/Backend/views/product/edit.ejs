@@ -1,0 +1,682 @@
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS Bundle (including Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    .col-form-label {
+        min-width: 150px; 
+    }
+
+    .btn-submit Button {
+        background-color: black;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .no-link-style {
+        text-decoration: none;
+        color: inherit;
+    }
+    #row- {
+        flex-direction: column;
+    }
+    #radio-btn {
+        display: flex; 
+        gap: 20px;
+    }
+</style>
+
+<br/>
+
+<!-- heading -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Edit Product Details</h1>
+
+    <div class="btn-toolbar mb-2 mb-mb 0">
+        <div class="btn-group me-2">
+            <button 
+                class="btn btn-sm btn-outline-secondary border" 
+                style="border-color: rgb(199, 85, 85) !important; color: rgb(199, 85, 85);"
+                type="button" 
+                id="deleteButton" 
+                data-bs-toggle="modal" 
+                data-bs-target="#deleteModal">  
+                Delete Product
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- delete button pop-up -->
+<div class="modal fade" tabindex="-1" id="deleteModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">You are about to Remove a product record!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    This will remove the product record of  
+                    <b class="fw-bold"><%= product.name %> (Rs. <%= product.price %>).</li>
+                    <br/><br/>
+                    Are you sure?
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="/edit/<%= product._id %>?_method=DELETE" method="POST" class="position-relative">
+                    <button type="submit" class="btn btn-primary">Yes, Remove Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- breadcrumb -->
+<div class="col py-3">
+    <div class="row d-flex flex-row" id="row-">
+        <div class="col-auto">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" class="no-link-style">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Edit</li> 
+                    <li class="breadcrumb-item active"><%= product.name %> </li> 
+                </ol>
+            </nav>
+        </div>
+        <div class="col text-end d-flex flex-column align-items-end fw-lighter">
+            <b>Last Updated: <%= new Date(product.updatedAt).toLocaleString() %> </b>
+            <b style="color: rgb(172, 172, 172);">ProductID: <%= product._id %></b>
+        </div>        
+    </div>
+</div> 
+
+<br/>
+
+<!-- form of inputs -->
+<div class="container">
+    <form action="/edit/<%= product._id %>?_method=PUT" method="POST" onsubmit="return validateForm()">
+        <!-- success message -->
+        <% if (success === 'true') { %>
+            <div class="alert alert-success alert-dismissible fade show d-flex align-items-start" role="alert" id="messageSuccess">
+                <p class="mb-0 me-2">Product updated successfully!</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="width: 20px; height: 20px;"></button>
+            </div>
+        <% } else if (success === 'false') { %>
+            <div class="alert alert-danger alert-dismissible fade show d-flex align-items-start" role="alert"  id="messageFail">
+                <p class="mb-0 me-2">Product update failed. Please try again.</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="width: 20px; height: 20px;"></button>
+            </div>
+        <% } %>
+        
+        <!-- Product Type Selection -->
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label mb-1">Product Type</label>
+            <div class="col-sm-10" id="radio-btn">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="itemType" id="rent" value="Rent" onclick="toggleRentFields()" <%= product.itemType === 'Rent' ? 'checked' : '' %> disabled>
+                    <label class="form-check-label" for="rent">Rent</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="itemType" id="sell" value="Sell" onclick="toggleRentFields()" <%= product.itemType === 'Sell' ? 'checked' : '' %> disabled>
+                    <label class="form-check-label" for="sell">Sell</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Name Input -->
+        <div class="row mb-3">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" name="name" class="form-control" id="name" value="<%= product.name %>" required>
+            </div>
+        </div>
+
+        <!-- Price Input -->
+        <div class="row mb-3">
+            <label for="price" class="col-sm-2 col-form-label" id="priceLabel">Price</label>
+            <div class="col-sm-10">
+                <input type="number" name="price" class="form-control" id="price" value="<%= product.price %>" required>
+            </div>
+        </div>
+
+        <!-- Rental Fields (Initially Hidden) -->
+        <div id="rentalFields" style="display: none;">
+            <div class="row mb-3" id="dailyRentalDiv">
+                <label for="dailyRental" class="col-sm-2 col-form-label">Daily Rental</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name="dailyRental" id="dailyRental" value="<%= product.dailyRental %>">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="weeklyRental" class="col-sm-2 col-form-label">Weekly Rental</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name="weeklyRental" id="weeklyRental" value="<%= product.weeklyRental %>">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="monthlyRental" class="col-sm-2 col-form-label">Monthly Rental</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name="monthlyRental" id="monthlyRental" value="<%= product.monthlyRental %>">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="deposit" class="col-sm-2 col-form-label">Deposit</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name="deposit" id="deposit" value="<%= product.deposit %>">
+                </div>
+            </div>
+        </div>
+
+        <!-- Availability Selection -->
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Availability</label>
+            <div class="col-sm-10" id="radio-btn">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="availability" id="available" value="Available" <%= product.availability === 'Available' ? 'checked' : '' %>>
+                    <label class="form-check-label" for="available">Available</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="availability" id="notAvailable" value="Not Available" <%= product.availability === 'Not Available' ? 'checked' : '' %>>
+                    <label class="form-check-label" for="notAvailable">Not Available</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description Input -->
+        <div class="row mb-3">
+            <label for="description" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" name="description" id="description" placeholder="-"><%= product.description %></textarea>
+            </div>
+        </div>
+
+        <!-- Sub Description Input -->
+        <div class="row mb-3" id="subDescriptionDiv">
+            <label for="subDescription" class="col-sm-2 col-form-label">Additional Facts</label>
+            <div class="col-sm-10">
+                <p class="small mb-2 fw-lighter" style="color: rgb(223, 105, 105);">Enter your values separated by commas. (eg: Fact 1, Fact 2, ...)</p>
+                <textarea class="form-control" name="subDescription" id="subDescription" placeholder="-"><%= product.subDescription %></textarea>
+            </div>
+        </div>
+
+        <!-- Keywords Input -->
+        <div class="row mb-3">
+            <label for="keywords" class="col-sm-2 col-form-label">Keywords</label>
+            <div class="col-sm-10">
+                <p class="small mb-2 fw-lighter" style="color: rgb(223, 105, 105);">Enter your values separated by commas. (eg: Keyword 1, Keyword 2, ...)</p>
+                <input type="text" class="form-control" name="keywords" id="keywords" value="<%= product.keywords %>" placeholder="-">
+            </div>
+        </div>
+
+        <!-- Rating Input -->
+        <div class="row mb-3">
+            <label for="rating" class="col-sm-2 col-form-label">Rating</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" name="rating" id="rating" placeholder="0.0" step="0.1" min="0" max="5" value="<%= product.rating %>">
+            </div>
+        </div>
+
+        <!-- Image Source Selection -->
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Image Source</label>
+            <div class="col-sm-10" id="radio-btn">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="imageSource" id="imageUrlOption" value="url" onclick="toggleImageInput()" checked>
+                    <label class="form-check-label" for="imageUrlOption">Image URL</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="imageSource" id="fileUploadOption" value="file" onclick="toggleImageInput()">
+                    <label class="form-check-label" for="fileUploadOption">Upload File</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image URL Input -->
+        <div class="row mb-3" id="imageUrlInput">
+            <label for="imageUrl" class="col-sm-2 col-form-label">Image URL</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="imageUrl" id="imageUrl" value="<%= product.imageUrl %>">
+            </div>
+        </div>
+
+        <!-- File Upload Input (Initially Hidden) -->
+        <div class="row mb-3" id="fileUploadInput" style="display: none;">
+            <label for="uploadImage" class="col-sm-2 col-form-label">Upload Image</label>
+            <div class="col-sm-10">
+                <input type="file" class="form-control" name="uploadImage" id="uploadImage" accept="image/*" value="<%= product.imageSource %>">
+            </div>
+        </div>
+
+        <!-- Categories Inputs -->
+        <div class="row mb-3">
+            <label for="category1" class="col-sm-2 col-form-label">Main Category</label>
+            <div class="col-sm-10">
+                <!-- <input type="text" class="form-control" name="category1" id="category1" placeholder="-"> -->
+                <select class="form-select" name="category1" id="category1" onchange="updateCategory2Options()" required>
+                    <option value="" disabled selected>Select Main Category</option>
+                    <option value="Wellness">Wellness</option>
+                    <option value="MedicalDevices">Medical Devices</option>
+                    <option value="PersonalCare">Personal Care</option>
+                    <option value="Rent">Rent</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="category2" class="col-sm-2 col-form-label">Sub Category</label>
+            <div class="col-sm-10">
+                <select class="form-select" name="category2" id="category2">
+                    <option value="" disabled selected>Select Sub Category</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- last date modified -->
+        <div class="row mb-3">
+            <label for="updatedAt" class="col-sm-2 col-form-label">Last Date Modified</label>
+            <div class="col-sm-10">
+                <p class="form-control"><%= new Date(product.updatedAt).toLocaleString() %></p>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="row mb-3">
+            <div class="btn-submit">
+                <button id="updateButton" type="submit" class="btn btn-primary">Update Product</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // Function to toggle rental fields
+    function toggleRentFields(itemType) {
+        const rentalFields = document.getElementById('rentalFields');
+        const rentRadio = document.getElementById('rent');
+        const priceLabel = document.getElementById('priceLabel');
+        const dailyRentalDiv = document.getElementById('dailyRentalDiv');
+        const subDescriptionDiv = document.getElementById('subDescriptionDiv');
+        const categorySelect = document.getElementById('category1');
+
+        // Check if the item is for rent or not based on itemType
+        if (itemType === 'Rent' || rentRadio.checked) {
+            rentalFields.style.display = 'block';
+            priceLabel.textContent  = 'Daily Rental';
+            dailyRentalDiv.style.display = 'none';
+            subDescriptionDiv.style.display = 'flex';
+
+            // Enable only "Rent" category in the dropdown if Rent is selected
+            updateCategoryOptions('Rent');
+        } else {
+            rentalFields.style.display = 'none';
+            priceLabel.textContent  = 'Price';
+            dailyRentalDiv.style.display = 'none';
+            subDescriptionDiv.style.display = 'none';
+
+            // Enable all categories if Sell is selected
+            updateCategoryOptions('Sell');
+        }
+    }
+
+    // Category1 Options -Function to enable or disable options in the category select dropdown based on selected itemType
+    function updateCategoryOptions(itemType) {
+        const categorySelect = document.getElementById('category1');
+        const options = categorySelect.querySelectorAll('option');
+        
+        // Enable all options by default
+        options.forEach(option => option.disabled = false);
+        
+        // Disable non-relevant categories based on itemType selection
+        if (itemType === 'Rent') {
+            options.forEach(option => {
+                option.disabled = option.value !== 'Rent';  // Disable all options except "Rent"
+                categorySelect.value = 'Rent';  // Set the dropdown to "Rent"
+            });
+        } else if (itemType === 'Sell') {
+            options.forEach(option => {
+                option.disabled = option.value === 'Rent';  // Disable only the "Rent" option
+            });
+        }
+    }
+
+    // Call the function when the page is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        const rentRadio = document.getElementById('rent');
+        const sellRadio = document.getElementById('sell');
+        
+        // Check which radio button is selected initially and call the function
+        if (rentRadio.checked) {
+            toggleRentFields('Rent');
+        } else if (sellRadio.checked) {
+            toggleRentFields('Sell');
+        }
+    });
+
+    // Set daily rental value to price input value when rent radio button is checked
+    function updateDailyRental() {
+        const dailyRental = document.getElementById('dailyRental');
+        const priceInput = document.getElementById('price');
+        const rentRadio = document.getElementById('rent');
+
+        // Update daily rental value if rent radio button is checked
+        if (rentRadio.checked) {
+            dailyRental.value = priceInput.value; // Set daily rental value to price input value
+        }
+    }
+
+    // Add event listener to price input to update daily rental value
+    document.getElementById('price').addEventListener('input', updateDailyRental);
+
+    // Add event listener to rent radio button
+    document.getElementById('rent').addEventListener('change', updateDailyRental);
+
+    // Handle form submission -> price = dailyRental in rent
+    function handleSubmit(event) {
+        event.preventDefault(); // Prevent form submission
+        const dailyRental = document.getElementById('dailyRental');
+        const priceInput = document.getElementById('price');
+        const rentRadio = document.getElementById('rent');
+
+        // If the rent radio button is checked, set daily rental value to price input value
+        if (rentRadio.checked) {
+            dailyRental.value = priceInput.value; // This ensures dailyRental reflects the latest price value
+        }
+    }
+
+    // Add the handleSubmit function to the form's submit event
+    document.querySelector('form').addEventListener('submit', handleSubmit);
+
+    // handle image url or file
+    function toggleImageInput() {
+        const imageUrlInput = document.getElementById('imageUrlInput');
+        const fileUploadInput = document.getElementById('fileUploadInput');
+        const imageUrlOption = document.getElementById('imageUrlOption');
+
+        if (imageUrlOption.checked) {
+            imageUrlInput.style.display = 'flex';
+            fileUploadInput.style.display = 'none';
+        } else {
+            imageUrlInput.style.display = 'none';
+            fileUploadInput.style.display = 'flex';
+        }
+    }
+
+    // check if select sell or rent
+    function validateForm() {
+        const rentRadio = document.getElementById('rent');
+        const sellRadio = document.getElementById('sell');
+
+        // Check if neither radio button is selected
+        if (!rentRadio.checked && !sellRadio.checked) {
+            alert('Please select a product type (Rent or Sell) before filling in the product name.');
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission if validation passes
+    }
+
+    // select sub category according to main category
+    // Store selected category values - for edit only not add products
+    const selectedCategory1 = "<%= product.category1 %>";
+    const selectedCategory2 = "<%= product.category2 %>";
+
+    function updateCategory2Options() {
+        const category1 = document.getElementById("category1").value;
+        const category2 = document.getElementById("category2");
+
+        // Clear previous options in Category 2
+        category2.innerHTML = '<option value="" disabled selected>Select Sub Category</option>';
+
+        // Define the options for each Category 1 selection
+        const options = {
+            Wellness: [
+                "Diet & Nutrition",
+                "Mother & Baby",
+                "Adults & Diabetic Care"
+            ],
+            MedicalDevices: [
+                "First Aid",
+                "Diagnostic Devices",
+                "Personal Protective Devices",
+                "Other"
+            ],
+            PersonalCare: [
+                "Nourishment",
+                "Skin Care",
+                "Hair Treating",
+                "Hygiene",
+                "Other"
+            ],
+            Rent: [
+                "Mobility",
+                "Daily Living AIDs",
+                "Bathroom Safety",
+                "Other"
+            ]
+        };
+
+        // Add new options based on selected Category 1
+        if (options[category1]) {
+            options[category1].forEach(subCategory => {
+                const option = document.createElement("option");
+                option.value = subCategory;
+                option.textContent = subCategory;
+                // for matching with the saved value - for edit only not add products
+                if (subCategory === selectedCategory2) {
+                    option.selected = true; 
+                }
+                category2.appendChild(option);
+            });
+        }
+    }
+
+    /*
+        * Seperate functions
+    // // Set the initial selection based on product data - for 'edit' only not 'add' products
+    // window.onload = function() {
+    //     document.getElementById("category1").value = selectedCategory1; // Set Category 1 to the selected value
+    //     updateCategory2Options(); // Call to populate Category 2 with correct options
+    // };
+
+    // // Hide success message when open the window
+    // window.onload = function() {
+    //     document.getElementById("messageSuccess").style.display = "none";
+    //     document.getElementById("messageFail").style.display = "none";
+    // }
+
+    // // Wait for the page to load - hide success messages after 3 seconds
+    // window.onload = function() {
+    //     // Function to hide message after fade
+    //     function hideMessageAfterFade(messageId) {
+    //         const messageElement = document.getElementById(messageId);
+    //         const closeButton = messageElement ? messageElement.querySelector('.btn-close') : null;
+
+    //         if (messageElement) {
+    //             // Set a timeout to hide the message after 3 seconds
+    //             setTimeout(function() {
+    //                 // Apply fade effect first
+    //                 messageElement.classList.remove('show');
+    //                 messageElement.classList.add('fade');
+                    
+    //                 // After the fade transition, trigger close button click to remove space
+    //                 setTimeout(function() {
+    //                     if (closeButton) {
+    //                         closeButton.click(); // Programmatically click the close button
+    //                     }
+    //                     messageElement.style.display = 'none'; // Ensure message is hidden
+    //                 }, 0); // Adjust the delay based on the transition time (usually 0.5s for Bootstrap)
+    //             }, 3000); // Start the fade after 3 seconds
+    //         }
+    //     }
+
+    //     // Hide success and failure messages
+    //     hideMessageAfterFade('messageSuccess');
+    //     hideMessageAfterFade('messageFail');
+    // };    
+
+    // // Allow to submit only after changed the values
+    // // Store initial values when the page loads
+    // window.onload = function() {
+    //     const initialValues = {
+    //         itemType: document.querySelector('input[name="itemType"]:checked').value,
+    //         name: document.getElementById('name').value,
+    //         price: document.getElementById('price').value,
+    //         dailyRental: document.getElementById('dailyRental') ? document.getElementById('dailyRental').value : '',
+    //         weeklyRental: document.getElementById('weeklyRental') ? document.getElementById('weeklyRental').value : '',
+    //         monthlyRental: document.getElementById('monthlyRental') ? document.getElementById('monthlyRental').value : '',
+    //         deposit: document.getElementById('deposit') ? document.getElementById('deposit').value : '',
+    //         availability: document.querySelector('input[name="availability"]:checked').value,
+    //         description: document.getElementById('description').value,
+    //         subDescription: document.getElementById('subDescription') ? document.getElementById('subDescription').value : '',
+    //         keywords: document.getElementById('keywords').value,
+    //         rating: document.getElementById('rating').value,
+    //         imageUrl: document.getElementById('imageUrl') ? document.getElementById('imageUrl').value : '',
+    //         category1: document.getElementById('category1').value,
+    //         category2: document.getElementById('category2').value
+    //     };
+
+    //     // Enable/disable submit button based on changes
+    //     const updateButton = document.getElementById('updateButton');
+    //     updateButton.disabled = true; // Initially disabled
+
+    //     // Compare function to check for any changes
+    //     const checkChanges = () => {
+    //         let formChanged = false;
+
+    //         // Compare all input values with initial ones
+    //         for (const key in initialValues) {
+    //             if (initialValues[key] !== document.getElementById(key)?.value && initialValues[key] !== document.querySelector(`input[name="${key}"]:checked`)?.value) {
+    //                 formChanged = true;
+    //                 break;
+    //             }
+    //         }
+
+    //         updateButton.disabled = !formChanged; // Enable if changed
+    //     };
+
+    //     // Add event listeners to the form fields to check for changes
+    //     const formElements = document.querySelectorAll('input, select, textarea');
+    //     formElements.forEach(element => {
+    //         element.addEventListener('input', checkChanges); // for text and number inputs
+    //         element.addEventListener('change', checkChanges); // for radio, checkbox, and select
+    //     });
+    // }; 
+    */
+    
+    // window.onload function
+    window.onload = function() {
+        console.log("Page loaded");
+
+        // Ensure selectedCategory1 is defined
+        if (typeof selectedCategory1 === 'undefined') {
+            console.error("selectedCategory1 is not defined.");
+            return;
+        }
+        console.log("Selected Category1: ", selectedCategory1);
+
+        // Set Category 1 value and update Category 2 options
+        const category1Element = document.getElementById("category1");
+        if (category1Element) {
+            category1Element.value = selectedCategory1;
+            updateCategory2Options();  // Ensure this function is defined
+        } else {
+            console.error("Category 1 element not found.");
+        }
+
+        // Hide success and failure messages
+        const messageSuccess = document.getElementById("messageSuccess");
+        const messageFail = document.getElementById("messageFail");
+
+        if (messageSuccess && messageFail) {
+            messageSuccess.style.display = "none";
+            messageFail.style.display = "none";
+        } else {
+            console.error("Message elements not found.");
+        }
+
+        // Hide success/failure messages after 3 seconds
+        function hideMessageAfterFade(messageId) {
+            const messageElement = document.getElementById(messageId);
+            const closeButton = messageElement ? messageElement.querySelector('.btn-close') : null;
+
+            if (messageElement) {
+                setTimeout(function() {
+                    messageElement.classList.remove('show');
+                    messageElement.classList.add('fade');
+
+                    setTimeout(function() {
+                        if (closeButton) {
+                            closeButton.click(); // Programmatically click the close button
+                        }
+                        messageElement.style.display = 'none'; // Hide the message
+                    }, 0); // Transition time
+                }, 3000); // Wait 3 seconds before hiding
+            } else {
+                console.error(`Message element ${messageId} not found.`);
+            }
+        }
+
+        hideMessageAfterFade('messageSuccess');
+        hideMessageAfterFade('messageFail');
+
+        // Store initial form values
+        const initialValues = {
+            itemType: document.querySelector('input[name="itemType"]:checked')?.value || '',
+            name: document.getElementById('name')?.value || '',
+            price: document.getElementById('price')?.value || '',
+            dailyRental: document.getElementById('dailyRental')?.value || '',
+            weeklyRental: document.getElementById('weeklyRental')?.value || '',
+            monthlyRental: document.getElementById('monthlyRental')?.value || '',
+            deposit: document.getElementById('deposit')?.value || '',
+            availability: document.querySelector('input[name="availability"]:checked')?.value || '',
+            description: document.getElementById('description')?.value || '',
+            subDescription: document.getElementById('subDescription')?.value || '',
+            keywords: document.getElementById('keywords')?.value || '',
+            rating: document.getElementById('rating')?.value || '',
+            imageUrl: document.getElementById('imageUrl')?.value || '',
+            category1: document.getElementById('category1')?.value || '',
+            category2: document.getElementById('category2')?.value || ''
+        };
+
+        console.log("Initial values: ", initialValues);
+
+        // Enable/disable the submit button based on changes
+        const updateButton = document.getElementById('updateButton');
+        if (updateButton) {
+            updateButton.disabled = true; // Initially disabled
+
+            // Compare function to check for any changes
+            const checkChanges = () => {
+                let formChanged = false;
+                for (const key in initialValues) {
+                    const currentValue = document.getElementById(key)?.value || document.querySelector(`input[name="${key}"]:checked`)?.value;
+                    if (initialValues[key] !== currentValue) {
+                        formChanged = true;
+                        break;
+                    }
+                }
+                updateButton.disabled = !formChanged; // Enable if form has changed
+            };
+
+            // Add event listeners to the form fields
+            const formElements = document.querySelectorAll('input, select, textarea');
+            formElements.forEach(element => {
+                element.addEventListener('input', checkChanges); // For text and number inputs
+                element.addEventListener('change', checkChanges); // For radio, checkbox, and select inputs
+            });
+        } else {
+            console.error("Update button not found.");
+        }
+    };
+</script>  
+

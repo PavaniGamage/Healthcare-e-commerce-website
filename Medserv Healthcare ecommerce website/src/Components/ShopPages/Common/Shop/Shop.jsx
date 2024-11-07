@@ -1,54 +1,86 @@
-import React from 'react'
-import './Shop.css'
-import Item from '../Item/Item.jsx'
-import ItemForRent from '../Item/ItemForRent.jsx'
-import all_products from '../../../Assets/Shop/AllProducts/AllProducts.js'
-import {FaAngleDown} from 'react-icons/fa'
+import React, { useEffect, useState } from 'react';
+import './Shop.css';
+import Item from '../Item/Item.jsx';
+import ItemForRent from '../Item/ItemForRent.jsx';
+import createProductsArray from '../../../Assets/Shop/AllProducts/AllProducts.js';
+import { FaAngleDown } from 'react-icons/fa';
 
-const shop = ({category1}) => {
+const Shop = ({ category1 }) => {
+  const [allProducts, setAllProducts] = useState([]);
+
+  // Fetch products when the component mounts
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const products = await createProductsArray();
+      setAllProducts(products);
+      console.log(products);
+    };
+
+    fetchProducts();
+  }, []); 
+
+  // Filter products based on the category
+  const filteredProducts = allProducts.filter(item => item.category1 === category1);
+
   return (
-    <div className='shop'> 
+    <div className='shop'>
       <div className='sort'>
         <div className='category-index-sort'>
-            <p>
-              <span>Showing 1-12</span> out of 100 products
-            </p>
+          <p>
+            <span>Displaying {filteredProducts.length} </span> out of {allProducts.length} products
+          </p>
         </div>
         <div className='category-sort'>
-          <p>Sort by</p> 
-          <FaAngleDown className='category-sort-FaAngleDown'/>
+          <p>Sort by</p>
+          <FaAngleDown className='category-sort-FaAngleDown' />
         </div>
       </div>
-      
+
       <div className='shop-items'>
-          {all_products.map((item,i)=> {
-            if (category1==="rent") {
-              if (category1===item.category1) {
-                return <ItemForRent key={i} id={item.id} name={item.name} 
-                    image={item.image} price={item.price} 
-                    category1={item.category1} category2={item.category2}
-                    dailyRental={item.DaillyRental}/>
-                } else {
-                    return null;
-              } 
+        {allProducts.map((item, i) => {
+          if (category1 === 'Rent') {
+            if (category1 === item.category1) {
+              return (
+                <ItemForRent
+                  key={i}
+                  id={item.id}
+                  name={item.name}
+                  image={item.image}
+                  price={item.price}
+                  category1={item.category1}
+                  category2={item.category2}
+                  dailyRental={item.DaillyRental}
+                />
+              );
             } else {
-              if (category1===item.category1) {
-                return <Item key={i} id={item.id} name={item.name} 
-                    image={item.image} price={item.price} 
-                    category1={item.category1} category2={item.category2}/>
-                } else {
-                    return null;
-              }
+              return null;
             }
-          })}
+          } else {
+            if (category1 === item.category1) {
+              return (
+                <Item
+                  key={i}
+                  id={item.id}
+                  name={item.name}
+                  image={item.image}
+                  price={item.price}
+                  category1={item.category1}
+                  category2={item.category2}
+                />
+              );
+            } else {
+              return null;
+            }
+          }
+        })}
       </div>
 
       <div className='lordmore'>
         <p>Explore more</p>
-        <FaAngleDown className='category-sort-FaAngleDown'/>
+        <FaAngleDown className='category-sort-FaAngleDown' />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default shop
+export default Shop;

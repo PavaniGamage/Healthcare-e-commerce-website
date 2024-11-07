@@ -146,7 +146,7 @@
           "descriptionForRent" : ""     
           },
           "equipment_10": {
-          "name": "Insulin Injetion",
+          "name": "Insulin Injection",
           "price": 60.00,
           "availability": "Available",
           "description": "",
