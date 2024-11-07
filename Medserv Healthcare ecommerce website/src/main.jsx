@@ -6,9 +6,9 @@ import ProductContextProvider from './Context/ProductContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  <ProductContextProvider>
-    <App />
-  </ProductContextProvider>
-)
+    <ProductContextProvider>
+      <App />
+    </ProductContextProvider>
+  </React.StrictMode>
+);
+

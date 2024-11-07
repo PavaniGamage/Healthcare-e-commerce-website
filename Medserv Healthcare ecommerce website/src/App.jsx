@@ -24,7 +24,7 @@ function App() {
           <Route path='/medical_devices' element={<Shop category1="MedicalDevices"/>}/>
           <Route path='/personal_care' element={<Shop category1="PersonalCare"/>}/>
           <Route path='/hearts' element={<Hearts/>}/>
-          <Route path='/rent' element={<Shop category1="rent"/>}/>
+          <Route path='/rent' element={<Shop category1="Rent"/>}/>
           <Route path='/blog' element={<Blog/>}/>
           <Route path='/product' element={<Product/>}>
             <Route path=':productID' element={<Product/>}/>

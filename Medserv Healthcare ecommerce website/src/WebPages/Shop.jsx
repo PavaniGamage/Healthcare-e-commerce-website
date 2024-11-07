@@ -19,7 +19,7 @@ const Shop = ({category1}) => {
                 return <MedicalDevicesLeftMargin />;
               case "PersonalCare":
                 return <PersonalCareLeftMargin />;
-              case "rent":
+              case "Rent":
                 return <RentLeftMargin />;
               default:
                 return null;
