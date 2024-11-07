@@ -18,7 +18,12 @@ if (!fs.existsSync(uploadDir)){
 const app = express();
 
 app.use(express.json());
-app.use(cors()); // Consider configuring specific origins in production
+// app.use(cors()); // Consider configuring specific origins in production
+app.use(cors({
+    origin: 'http://localhost:5173',  // Allow only the frontend's URL to access the backend
+    methods: ['GET'], // 'GET', 'POST', 'PUT', 'DELETE' - Only GET
+    credentials: true  // Allow cookies and credentials if necessary
+}));
 
 // load enviranment variable
 require("dotenv").config(); // Load .env file
