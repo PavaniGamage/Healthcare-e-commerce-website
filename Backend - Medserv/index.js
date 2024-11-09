@@ -48,17 +48,7 @@ app.get("/", (req, res) => {
     res.send("Hello, MongoDB!, Express App is Running");
 });
 
-
-
-
-
-
-
-
-
-
-
-
+//---------on change------------------
 
 // Schema for Creating Products
 const Product = mongoose.model("Product", {
@@ -143,18 +133,6 @@ const Product = mongoose.model("Product", {
     }
 }, "medserv_products"); // the collection name
 
-// // getting all products
-// app.get('/allproducts', async (req, res) => {
-//     try {
-//         const products = await Product.find({});
-//         console.log("All Products Fetched");
-//         res.status(200).send(products);
-//     } catch (error) {
-//         console.error("Error fetching products:", error);
-//         res.status(500).send("Error fetching products");
-//     }
-// });
-
 // create endpoint for products, send to frontend
 app.get('/formattedProducts', async (req, res) => {
     try {
@@ -192,6 +170,9 @@ app.get('/formattedProducts', async (req, res) => {
     }
 });
 
+// // for getting products
+// app.use("/formattedProducts", productRoutes);
+
 // Starting the server
 app.listen(port, (error) => {
     if (!error) {
@@ -201,71 +182,7 @@ app.listen(port, (error) => {
     }
 });
 
-
-// ----------------------------------------------------------
-
-// express server running port
-// const port = process.env.PORT || 4000; 
-
-// // load enviranment variable
-// require("dotenv").config(); // Load .env file
-
-// // import dependencies and modules
-// const express = require("express");
-// const dbConnect = require("./dbConnect");             
-// const productRoutes = require("./routes/products");
-// const cors = require("cors");
-// const app = express();
-
-// app.use(express.json());
-
-// // Allow specific frontend URL to access backend
-// app.use(cors());
-// // app.use(cors({
-// //     origin: 'http://localhost:5173',                                       // Allow only the frontend's URL to access the backend
-// //     methods: ['GET'],                                                      // 'GET', 'POST', 'PUT', 'DELETE' - Only GET
-// //     credentials: true                                                      // Allow cookies and credentials if necessary
-// // }));
-
-// // Call the connection function immediately
-// dbConnect();
-
-// // other dependencies
-// // Authentication and security dependencies 
-// const jwt = require("jsonwebtoken");                                         // Handles JWT for authentication.
-
-// // File handling and storage dependencies
-// const multer = require("multer");                                            // Handles file uploads.
-// const path = require("path");                                                // Manipulates file paths.
-// const fs = require("fs");                                                    // Works with the file system.
-
-// // Debugging and REPL utilities
-// const { start } = require("repl");                                           // Used for interactive JavaScript evaluation
-
-// // Create the upload directory if it doesn't exist
-// const uploadDir = './upload/images';
-// if (!fs.existsSync(uploadDir)){
-//     fs.mkdirSync(uploadDir, { recursive: true });
-// }
-
-// // API creation root path
-// app.get("/", (req, res) => {
-//     res.send("Hello, MongoDB!, Express App is Running");
-// });
-
-// // for getting products
-// app.use("/formattedProducts", productRoutes);
-
-// // Starting the server
-// app.listen(port, (error) => {
-//     if (error) {
-//         console.error("Error starting server:", error);
-//     } else {
-//         console.log(`Server running on port ${port}`);
-//     }
-// });
-
-
+// // ----------------------------------------------------------------------------------------------
 // // -----for file handling---------------------------------------------------------------
 
 // // // Image storage engine

@@ -4,8 +4,8 @@ export default function LocationPage() {
   return (
     <div>
       <section className="text-gray-600 body-font relative">
-        <div className="container px-5 py-12 mx-auto flex sm:flex-nowrap flex-wrap max-w-4xl">
-          <div className="lg:w-1/2 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-5 flex items-end justify-start relative h-96">
+        <div className="container px-5 py-12 mx-auto flex sm:flex-nowrap flex-wrap max-w-4xl items-center justify-center">
+          <div className="lg:w-1/2 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-5 flex items-end relative h-96 w-96">
             <iframe
               width="100%"
               height="100%"
