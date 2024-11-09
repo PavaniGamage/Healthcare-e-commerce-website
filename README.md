@@ -32,3 +32,13 @@ Additionally, Medserv features:
 - Open the provided URL
 
 </small>
+
+## To run servers
+
+<small> 
+
+- **Admin**: `npm start` - (Port: 5000)
+- **Backend**: `node ./index.js` (Port: 4000)
+- For further details, please refer to the `README.md` in each directory. 
+
+</small>

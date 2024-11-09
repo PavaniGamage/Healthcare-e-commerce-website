@@ -3,13 +3,13 @@ const router = require("express").Router();
 const Product = require("../models/Product");
 
 // create endpoint for products, send to frontend
-router.get('/formattedProducts', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const products = await Product.find({});
         console.log("Fetched Products:", products); // Log the fetched products
 
         if (products.length === 0) {
-            return res.status(404).send("No products found");
+            return res.status(404).send("No products found (In Routes)");
         }
 
         const formattedProducts = products.map(product => ({
@@ -34,8 +34,8 @@ router.get('/formattedProducts', async (req, res) => {
 
         res.status(200).json(formattedProducts);
     } catch (error) {
-        console.error("Error fetching formatted products:", error);
-        res.status(500).send("Error fetching formatted products");
+        console.error("Error fetching formatted products: (In Routes)", error);
+        res.status(500).send("Error fetching formatted products (In Routes)");
     }
 });
 
