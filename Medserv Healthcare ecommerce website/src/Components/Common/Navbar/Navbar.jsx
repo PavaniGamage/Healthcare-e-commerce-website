@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import './Navbar.css'
 import {FaShoppingCart, FaUser, FaMapMarkerAlt, FaMap, FaBook, FaFileAlt, FaStickyNote} from 'react-icons/fa';
 import logo from '../../Assets/NavBar/logo.png';
+import SearchBar from '../Navbar/SearchBar/SearchBar';
 import {Link , useLocation} from 'react-router-dom';
 
 const Navbar = () => {
@@ -93,9 +94,11 @@ const Navbar = () => {
             </div>
 
             <div className='navBar-cloumn-2'>
-                <div className='navBar-search'>
+                {/* <div className='navBar-search'>
                     <input type="text" placeholder='Search..'/>
-                </div>
+                </div>  */}
+                <SearchBar className='navBar-search'/>
+
                 <div className='nav-upload-prescriptions'>
                     <Link className='nav-bar-link' to='/upload_prescriptions'>
                         <button>
