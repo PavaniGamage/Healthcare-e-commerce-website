@@ -9,6 +9,8 @@ import { FaAngleDown } from 'react-icons/fa';
 const ShopForSearch = ({ queryForSearch }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState('name'); // Default sorting by name
+  const [sortDirection, setSortDirection] = useState('asc'); // Default sorting direction (ascending)  
   const productsPerPage = 20;
 
   useEffect(() => {
@@ -25,11 +27,33 @@ const ShopForSearch = ({ queryForSearch }) => {
     item.name.toLowerCase().includes(queryForSearch.toLowerCase())
   );
 
+   // Sorting logic
+   const sortProducts = (products) => {
+    return [...products].sort((a, b) => {
+      let comparison = 0;
+
+      if (sortBy === 'name') {
+        const nameA = a.name.toLowerCase();
+        const nameB = b.name.toLowerCase();
+        comparison = nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+      } else if (sortBy === 'price') {
+        comparison = a.price - b.price;
+      } else if (sortBy === 'rating') {
+        comparison = a.rating - b.rating;
+      }
+
+      return sortDirection === 'asc' ? comparison : -comparison;
+    });
+  };
+
+  // Apply sorting
+  const sortedProducts = sortProducts(filteredProducts);
+
   // Pagination: Calculate the current items to display
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = sortedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   return (
     <div className='shop'>
@@ -41,7 +65,19 @@ const ShopForSearch = ({ queryForSearch }) => {
         </div>
         <div className='category-sort'>
           <p>Sort by</p>
-          <FaAngleDown className='category-sort-FaAngleDown' />
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className='appearance-none border border-gray-300 rounded-lg p-2 pr-8 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500'
+          >
+            <option value="name">Name</option>
+            <option value="price">Price</option>
+            <option value="rating">Rating</option>
+          </select>
+          {/* <FaAngleDown className='category-sort-FaAngleDown' /> */}
+          <button onClick={() => setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')}>
+            {sortDirection === 'asc' ? 'ASC' : 'DESC'}
+          </button>
         </div>
       </div>
 
