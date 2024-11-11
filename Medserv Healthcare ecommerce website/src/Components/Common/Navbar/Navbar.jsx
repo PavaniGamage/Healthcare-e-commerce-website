@@ -63,6 +63,11 @@ const Navbar = () => {
         };
     }, []);
 
+    // for searching products
+    const handleSearch = (query) => {
+        console.log('Searching for:', query);
+    };
+
     return (
         <div className='navBar'>
             <div className='navBar-cloumn-1'>
@@ -94,10 +99,7 @@ const Navbar = () => {
             </div>
 
             <div className='navBar-cloumn-2'>
-                {/* <div className='navBar-search'>
-                    <input type="text" placeholder='Search..'/>
-                </div>  */}
-                <SearchBar className='navBar-search'/>
+                <SearchBar className='navBar-search' onSearch={handleSearch}/>
 
                 <div className='nav-upload-prescriptions'>
                     <Link className='nav-bar-link' to='/upload_prescriptions'>

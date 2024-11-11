@@ -22,7 +22,7 @@
 // ----------------------------------------------------------------
 import fetchAllProducts from './fetchAllProducts';
 
-async function createProductsArray() {
+async function createProductsArray(searchOptions) {
     try {
         // Fetch all products asynchronously
         const products = await fetchAllProducts();
@@ -43,7 +43,7 @@ async function createProductsArray() {
             category2: products[key].categorySub,
             keywords: products[key].keywords,
             rating: products[key].rating,
-            DaillyRental: products[key].daillyRental,
+            DaillyRental: products[key].dailyRental,
             WeeklyRental: products[key].weeklyRental,
             MonthlyRental: products[key].monthlyRental,
             Deposit: products[key].deposit            
