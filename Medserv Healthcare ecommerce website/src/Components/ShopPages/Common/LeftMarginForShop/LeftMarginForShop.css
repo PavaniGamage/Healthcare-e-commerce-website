@@ -71,3 +71,29 @@
     margin-inline: 10px;
     margin-top: 0rem;
 }
+
+/* searchProducts styles */
+.keyword-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+}
+  
+.keyword-list p {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 50px;
+    padding-inline: 15px;
+    padding-block: 1px;
+    display: inline-block;
+    align-items: center;
+    margin: 10px 10px 0 0;
+}
+
+.keyword-list p:hover{
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}
+/* end - searchProducts styles */

@@ -16,6 +16,7 @@ import BlogPost from "./WebPages/Blog/BlogPost";
 import Location from "./WebPages/LocationPage";
 import About from "./WebPages/About";
 import SendUsMessage from "./Components/HomePage/SendUsMessage/SendUsMessage.jsx";
+import SearchProducts from "./WebPages/SearchProducts.jsx";
 
 function App() {
   return (
@@ -30,20 +31,17 @@ function App() {
           <Route path='/hearts' element={<Hearts/>}/>
           <Route path='/rent' element={<Shop category1="Rent"/>}/>
           <Route path='/blog' element={<Blog/>}/>
-             <Route path="/blog/:id" element={<BlogPost />} />{" "}
-          {/* Dynamic route */}
+             <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/product" element={<Product />}>
             <Route path=":productID" element={<Product />} />
           </Route>
           <Route path="/cart" element={<Cart />} />
           <Route path="/sign_in" element={<LogInSignUp />} />
-          <Route
-            path="/upload_prescriptions"
-            element={<UploadPrescriptions />}
-          ></Route>
+          <Route path="/upload_prescriptions" element={<UploadPrescriptions />}></Route>
           <Route path="/location" element={<Location />}></Route>
           <Route path="/contact" element={<SendUsMessage />}></Route>
           <Route path="/about" element={<About />}></Route>
+          <Route path="/search_products" element={<SearchProducts/>}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>
