@@ -5,7 +5,7 @@ let wellness_products = Object.keys(WellnessProducts.Wellness).map(key => ({
     id: key,
     name: WellnessProducts.Wellness[key].name,
     image: WellnessProducts.Wellness[key].imageUrl,
-    price: `Rs. ${WellnessProducts.Wellness[key].price.toFixed(2)}`
+    price: WellnessProducts.Wellness[key].price
 }));
 
 export default wellness_products

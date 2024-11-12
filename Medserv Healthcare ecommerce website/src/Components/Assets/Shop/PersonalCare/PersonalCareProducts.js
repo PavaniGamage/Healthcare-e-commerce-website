@@ -5,7 +5,7 @@ let personal_care_products = Object.keys(PersonalCareProducts.PersonalCare).map(
     id: key,
     name: PersonalCareProducts.PersonalCare[key].name,
     image: PersonalCareProducts.PersonalCare[key].imageUrl,
-    price: `Rs. ${PersonalCareProducts.PersonalCare[key].price.toFixed(2)}`
+    price:PersonalCareProducts.PersonalCare[key].price
 }));
 
 export default personal_care_products

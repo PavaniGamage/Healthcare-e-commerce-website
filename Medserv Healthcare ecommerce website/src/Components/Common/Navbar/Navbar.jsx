@@ -1,58 +1,53 @@
-import React, {useState, useEffect, useRef} from 'react'
-import './Navbar.css'
-import {FaShoppingCart, FaUser, FaMapMarkerAlt, FaMap, FaBook, FaFileAlt, FaStickyNote} from 'react-icons/fa';
-
+import React, { useState, useEffect, useRef } from 'react';
+import './Navbar.css';
+import { FaShoppingCart, FaUser, FaMapMarkerAlt, FaFileAlt } from 'react-icons/fa';
 import logo from '../../Assets/NavBar/logo.png';
-
-import {Link , useLocation} from 'react-router-dom';
+import { useCart } from '../../../WebPages/CartContext'; // Import useCart from CartContext
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+    const { cart } = useCart(); // Access the cart array from the context
+    const cartCount = cart.length; // Get the count of items in the cart
 
-    // for changing the state of clicked nav bar item
-    // const [menu, setMenu] = useState("home"); 
     const location = useLocation();
 
     const getActiveMenu = () => {
         switch (location.pathname) {
-          case '/':
-            return 'home';
-          case '/wellness':
-            return 'wellness';
-          case '/medical_devices':
-            return 'medicalDevices';
-          case '/personal_care':
-            return 'personalCare';
-          case '/hearts':
-            return 'hearts';
-          case '/rent':
-            return 'rent';
-          case '/blog':
-            return 'blog';
-          default:
-            return 'home';
+            case '/':
+                return 'home';
+            case '/wellness':
+                return 'wellness';
+            case '/medical_devices':
+                return 'medicalDevices';
+            case '/personal_care':
+                return 'personalCare';
+            case '/hearts':
+                return 'hearts';
+            case '/rent':
+                return 'rent';
+            case '/blog':
+                return 'blog';
+            default:
+                return 'home';
         }
-      };
-
-    const activeMenu = getActiveMenu();
-    
-    //for displaying the nav bar when clicked span icon
-    const [isClicked, setClicked] = useState(false); 
-
-    const toggleMenu = () => {
-        setClicked(prevClicked => !prevClicked);
     };
 
-    // for dissapear nav bar clicked outside of navbar
+    const activeMenu = getActiveMenu();
+
+    const [isClicked, setClicked] = useState(false);
+
+    const toggleMenu = () => {
+        setClicked((prevClicked) => !prevClicked);
+    };
+
     const navbarRef = useRef(null);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (navbarRef.current && !navbarRef.current.contains(event.target)) {
-                // Clicked outside the navbar
                 setClicked(false);
             }
             if (event.target.closest('.nav-menu-span')) {
-                // Clicked on the span icon
                 setClicked(false);
             }
         };
@@ -109,13 +104,15 @@ const Navbar = () => {
                     </Link>
                     <Link className='nav-bar-link' to='/cart'>
                         <FaShoppingCart className='nav-icons'/>
-                        <div className="nav-cart-count">0</div>
+                        <div className="nav-cart-count">{cartCount}</div> {/* Display dynamic cart count */}
                     </Link>
-                    <Link className='nav-bar-link' to='/location'><FaMapMarkerAlt className='nav-icons'/></Link>
+                    <Link className='nav-bar-link' to='/location'>
+                        <FaMapMarkerAlt className='nav-icons'/>
+                    </Link>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;
