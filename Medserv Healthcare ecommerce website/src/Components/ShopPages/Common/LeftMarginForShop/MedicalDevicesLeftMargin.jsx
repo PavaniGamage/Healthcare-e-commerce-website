@@ -33,6 +33,7 @@ const MedicalDevicesLeftMargin = () => {
                 </dl>
             </div>
         </div>
+        
 
         <div className='horizontal-hr'>
             <hr/>

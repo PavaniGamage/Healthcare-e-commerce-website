@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
 
 import Navbar from './Components/Common/Navbar/Navbar';
@@ -8,6 +9,7 @@ import Hearts from './WebPages/Hearts';
 import Rent from './WebPages/Rent';
 import Blog from './WebPages/Blog';
 import Cart from './WebPages/Cart';
+import { CartProvider } from "./WebPages/CartContext";  // Import CartProvider
 import LogInSignUp from './WebPages/LoginSignup';
 import UploadPrescriptions from './WebPages/UploadPrescriptions';
 import Footer from './Components/Common/Footer/Footer';
@@ -17,7 +19,7 @@ import PersonalCare from './WebPages/PersonalCare';
 
 function App() {
   return (
-    <div>
+    <CartProvider>
       <BrowserRouter>
         <Navbar/>
         <Routes>
@@ -37,7 +39,7 @@ function App() {
         </Routes>
         <Footer/>
       </BrowserRouter>
-    </div>
+      </CartProvider>
   );
 }
 
