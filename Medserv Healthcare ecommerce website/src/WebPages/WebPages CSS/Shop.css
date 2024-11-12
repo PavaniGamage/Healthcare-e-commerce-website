@@ -1,0 +1,15 @@
+.shop-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.shop {
+    flex: auto;
+} 
+
+@media (max-width: 650px) {
+    .left-margin {
+        display: none;
+    }
+}

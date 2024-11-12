@@ -12,6 +12,11 @@
     cursor: default;
 } 
 
+.footer-link {
+    text-decoration: inherit;
+    color: inherit;
+}
+
 .footer-copyright {
     margin-top: 50px;
     text-align: center;
@@ -115,4 +120,75 @@
 .footer-contact-us li:hover {
     color: inherit;
     cursor: default;
+}
+
+@media (max-width: 1000px) {
+
+    .footer-content {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .footer-logo {
+        margin-top: 30px;
+    } 
+
+    .footer-logo-logo img {
+        width: 55px;
+        height: 55px;
+    }
+
+    .footer-logo-logo p {
+        margin-top: 32px;
+        margin-left: -16px;
+        font-size: 23px;
+    }
+
+    .footer-logo-quote {
+        margin-top: -15px;
+        font-size: 13px;
+    }
+
+    .footer-links-social-media,
+    .footer-links-shop,
+    .footer-links-medserv,
+    .footer-links-other,
+    .footer-contact-us {
+        align-items: center;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .footer-links-social-media p, .footer-links-social-media h1,
+    .footer-links-shop p, .footer-links-shop h1,
+    .footer-links-medserv p, .footer-links-medserv h1,
+    .footer-links-other p, .footer-links-other h1 {
+        font-size: 15px;
+    }
+
+    .footer li,
+    .footer-copyright p {
+        font-size: 13px;
+    }
+
+    .footer-copyright {
+        margin-top: 30px;
+    }
+
+    .footer-links-social-media {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer-links-social-media-icons {
+        gap: 10px;
+        font-size: 20px;
+    }
+
+    .footer-links-social-media-icons a {
+        border: 1.5px solid #706B6B;
+        width: 20px;
+        height: 20px;
+        padding: 10px;
+    }
 }

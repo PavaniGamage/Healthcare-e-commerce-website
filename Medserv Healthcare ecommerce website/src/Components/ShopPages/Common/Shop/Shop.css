@@ -1,8 +1,139 @@
 .shop {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     width: 100%;
+}
+
+.shop-items-container {
+  height: 100%;
+  padding: 10px;
+}
+
+.shop-items {
+    display: grid;
+    flex: auto;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 4vw;
-    padding: 60px;
+    gap: 3vw;
+    padding: 50px;
     font-size: 16px;
+    margin-top: -20px;
+}
+
+.shop-items-p {
+  padding: 30px;
+}
+
+.lordmore {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 70px;
+    margin-inline: auto;
+    width: 170px;
+    height: 35px;
+    border-radius: 8px;
+    background: #000000;
+    color: #ffffff;
+    cursor: context-menu;
+    font-size: 13px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.lordmore:hover {
+    transform: scale(1.05);
+}
+
+.lordmore-pagination {
+    margin-bottom: 70px;
+    margin-inline: auto;
+    border-radius: 8px;
+    font-size: 13px;
+    padding: 10px;
+}
+
+/* for sort */
+.sort {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 20px; 
+    margin-top: 20px;
+    color: #333;
+}
+
+.category-sort {
+  display: flex;
+  align-items: center;
+  gap: 16px; 
+}
+
+.category-sort p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  margin: 0;
+}
+
+.category-sort select {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.category-sort select:hover,
+.category-sort select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+.category-sort button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.category-sort button:hover {
+  background-color: #0056b3;
+}
+
+.category-sort button:focus {
+  outline: none;
+}
+
+.category-sort .category-sort-FaAngleDown {
+  font-size: 1.2rem;
+  color: #007bff;
+  transition: transform 0.3s ease;
+}
+
+.category-sort button:hover .category-sort-FaAngleDown {
+  transform: rotate(180deg);
+}
+
+.custom-select {
+  appearance: none; /* Removes the default dropdown arrow in most browsers */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+  width: auto;
+}
+
+@media (max-width: 650px) {
+
+    .shop-items {
+        margin-inline: auto;
+    }
 }

@@ -1,0 +1,226 @@
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS Bundle (including Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    .no-link-style {
+        text-decoration: none;
+        color: inherit;
+    }
+    .rowSection {
+        align-items: center;
+    }
+    .hide {
+        display: none;
+    }
+    .show {
+        display: block;
+    } 
+</style>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">View Ptoduct Details</h1>
+
+    <div class="btn-toolbar mb-2 mb-mb 0">
+        <div class="btn-group me-2">
+            <a href="#" class="btn btn-sm btn-outline-secondary"> -- </a>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <p class="h2 fs-4"> <%= product.name %> </p> 
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="/edit/<%= product._id %>"><button type="button" class="btn btn-sm btn-outline-secondary" style="width: 100px;">Update</button></a>
+            <button 
+                class="btn btn-sm btn-outline-secondary border" 
+                style="border-color: rgb(199, 85, 85) !important; color: rgb(199, 85, 85); width: 100px;"
+                type="button" 
+                id="deleteButton" 
+                data-bs-toggle="modal" 
+                data-bs-target="#deleteModal">  
+                Delete
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- delete button pop-up -->
+<div class="modal fade" tabindex="-1" id="deleteModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">You are about to Remove a product record!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    This will remove the product record of  
+                    <b class="fw-bold"><%= product.name %> (Rs. <%= product.price %>).</li>
+                    <br/><br/>
+                    Are you sure?
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="/edit/<%= product._id %>?_method=DELETE" method="POST" class="position-relative">
+                    <button type="submit" class="btn btn-primary">Yes, Remove Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- breadcrumb -->
+<div class="col py-3">
+    <div class="row" id="row-">
+        <div class="col-auto">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" class="no-link-style">Dashboard</a></li>
+                    <li class="breadcrumb-item active">View</li> 
+                    <li class="breadcrumb-item active"><%= product.name %> </li> 
+                </ol>
+            </nav>
+        </div>
+        <div class="col d-flex flex-column align-items-end fw-lighter">
+            <b>Last Updated: <%= new Date(product.updatedAt).toLocaleString() %> </b>
+            <b style="color: rgb(172, 172, 172);">ProductID: <%= product._id %></b>
+        </div>        
+    </div>
+</div> 
+
+<!-- image of product -->
+<div class="text-center my-3">
+    <div style="padding: 10px; border: 3px solid #000; border-radius: 10px; width: 300px; margin-inline: auto;">
+        <img src="<%= product.imageUrl %>" 
+         alt="Product: <%= product.name %>" 
+         class="img-fluid rounded" 
+         style="width: 200px; height: auto;" />
+    </div>
+</div>
+
+<br/>
+
+<!-- details of product -->
+<div class="list-group">
+    <li class="list-group-item">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Item Type: </b></div>
+            <div class="col"><%= product.itemType %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Name: </b></div>
+            <div class="col"><%= product.name %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item <%= product.itemType === 'Rent' ? 'hide' : 'show' %>" id="priceField">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Price: </b></div>
+            <div class="col">Rs. <%= product.price %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Availability: </b></div>
+            <div class="col"><%= product.availability %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item <%= product.itemType === 'Rent' ? 'show' : 'hide' %>" id="rentalFields">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Daily Rental: </b></div>
+            <div class="col">Rs. <%= product.dailyRental %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item <%= product.itemType === 'Rent' ? 'show' : 'hide' %>"  id="rentalFields">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Weekly Rental: </b></div>
+            <div class="col">Rs. <%= product.weeklyRental %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item <%= product.itemType === 'Rent' ? 'show' : 'hide' %>"  id="rentalFields">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Monthly Rental: </b></div>
+            <div class="col">Rs. <%= product.monthlyRental %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item <%= product.itemType === 'Rent' ? 'show' : 'hide' %>"  id="rentalFields">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Deposit: </b></div>
+            <div class="col">Rs. <%= product.deposit %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Description: </b></div>
+            <div class="col"><%= product.description %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item <%= product.itemType === 'Rent' ? 'show' : 'hide' %>"  id="rentalFields">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Additional Facts: </b></div>
+            <div class="col"><%= product.subDescription %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Keywords: </b></div>
+            <div class="col"><%= product.keywords %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Ratings: </b></div>
+            <div class="col"><%= product.rating %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Main Category: </b></div>
+            <div class="col"><%= product.category1 %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Sub Category: </b></div>
+            <div class="col"><%= product.category2 %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Date Created: </b></div>
+            <div class="col"><%= new Date(product.createdAt).toLocaleString() %></div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Date Modified: </b></div>
+            <div class="col"><%= new Date(product.updatedAt).toLocaleString() %></div>
+        </div>
+    </li>
+</div>
+
+<br/><br/>
+

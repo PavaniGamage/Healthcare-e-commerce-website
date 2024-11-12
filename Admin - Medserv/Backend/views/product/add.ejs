@@ -1,0 +1,414 @@
+<style>
+    .col-form-label {
+        min-width: 150px; 
+    }
+
+    .btn-submit Button {
+        background-color: black;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .no-link-style {
+        text-decoration: none;
+        color: inherit;
+    }
+    #row- {
+        flex-direction: column;
+    }
+    #radio-btn {
+        display: flex; 
+        gap: 20px;
+    }
+</style>
+
+<br/>
+
+<!-- heading -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Add New Product</h1>
+
+    <div class="btn-toolbar mb-2 mb-mb 0">
+        <div class="btn-group me-2">
+            <button class="btn btn-sm btn-outline-secondary">---</button>
+        </div>
+    </div>
+</div>
+
+<!-- breadcrumb -->
+<div class="col py-3">
+    <div class="row" id="row-">
+        <div class="col-auto">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" class="no-link-style">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Add</li> 
+                    <li class="breadcrumb-item active">New Product</li> 
+                </ol>
+            </nav>
+        </div>
+
+        <!-- <div class="col-auto text-start fw-lighter"> 
+            <br/>
+            <b>Product ID</b>
+        </div> -->
+    </div>
+</div> 
+
+<!-- form of inputs -->
+<div class="container">
+    <form action="/add" method="POST" onsubmit="return validateForm()">       
+        
+        <!-- Product Type Selection -->
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label mb-1">Product Type</label>
+            <div class="col-sm-10" id="radio-btn">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="itemType" id="rent" value="Rent" onclick="toggleRentFields()">
+                    <label class="form-check-label" for="rent">Rent</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="itemType" id="sell" value="Sell" onclick="toggleRentFields()" checked>
+                    <label class="form-check-label" for="sell">Sell</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Name Input -->
+        <div class="row mb-3">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Product Name" required>
+            </div>
+        </div>
+
+        <!-- Price Input -->
+        <div class="row mb-3">
+            <label for="price" class="col-sm-2 col-form-label" id="priceLabel">Price</label>
+            <div class="col-sm-10">
+                <input type="number" name="price" class="form-control" id="price" placeholder="0.00" required>
+            </div>
+        </div>
+
+        <!-- Rental Fields (Initially Hidden) -->
+        <div id="rentalFields" style="display: none;">
+            <div class="row mb-3" id="dailyRentalDiv">
+                <label for="dailyRental" class="col-sm-2 col-form-label">Daily Rental</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name="dailyRental" id="dailyRental" value="0.00">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="weeklyRental" class="col-sm-2 col-form-label">Weekly Rental</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name="weeklyRental" id="weeklyRental" value="0.00">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="monthlyRental" class="col-sm-2 col-form-label">Monthly Rental</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name="monthlyRental" id="monthlyRental" value="0.00">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="deposit" class="col-sm-2 col-form-label">Deposit</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name="deposit" id="deposit" value="0.00">
+                </div>
+            </div>
+        </div>
+
+        <!-- Availability Selection -->
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Availability</label>
+            <div class="col-sm-10" id="radio-btn">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="availability" id="available" value="Available" checked>
+                    <label class="form-check-label" for="available">Available</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="availability" id="notAvailable" value="Not Available">
+                    <label class="form-check-label" for="notAvailable">Not Available</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description Input -->
+        <div class="row mb-3">
+            <label for="description" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" name="description" id="description" placeholder="-"></textarea>
+            </div>
+        </div>
+
+        <!-- Sub Description Input -->
+        <div class="row mb-3" id="subDescriptionDiv" style="display: none;">
+            <label for="subDescription" class="col-sm-2 col-form-label">Additional Facts</label>
+            <div class="col-sm-10">
+                <p class="small mb-2 fw-lighter" style="color: rgb(223, 105, 105);">Enter your values separated by commas. (eg: Fact 1, Fact 2, ...)</p>
+                <textarea class="form-control" name="subDescription" id="subDescription" placeholder="-"></textarea>
+            </div>
+        </div>
+
+        <!-- Keywords Input -->
+        <div class="row mb-3">
+            <label for="keywords" class="col-sm-2 col-form-label">Keywords</label>
+            <div class="col-sm-10">
+                <p class="small mb-2 fw-lighter" style="color: rgb(223, 105, 105);">Enter your values separated by commas. (eg: Keyword 1, Keyword 2, ...)</p>
+                <input type="text" class="form-control" name="keywords" id="keywords" placeholder="-">
+            </div>
+        </div>
+
+        <!-- Rating Input -->
+        <div class="row mb-3">
+            <label for="rating" class="col-sm-2 col-form-label">Rating</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" name="rating" id="rating" placeholder="0.0" step="0.1" min="0" max="5">
+            </div>
+        </div>
+
+        <!-- Image Source Selection -->
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Image Source</label>
+            <div class="col-sm-10" id="radio-btn">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="imageSource" id="imageUrlOption" value="url" onclick="toggleImageInput()" checked>
+                    <label class="form-check-label" for="imageUrlOption">Image URL</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="imageSource" id="fileUploadOption" value="file" onclick="toggleImageInput()">
+                    <label class="form-check-label" for="fileUploadOption">Upload File</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image URL Input -->
+        <div class="row mb-3" id="imageUrlInput">
+            <label for="imageUrl" class="col-sm-2 col-form-label">Image URL</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="imageUrl" id="imageUrl" placeholder="Enter Image URL">
+            </div>
+        </div>
+
+        <!-- File Upload Input (Initially Hidden) -->
+        <div class="row mb-3" id="fileUploadInput" style="display: none;">
+            <label for="uploadImage" class="col-sm-2 col-form-label">Upload Image</label>
+            <div class="col-sm-10">
+                <input type="file" class="form-control" name="uploadImage" id="uploadImage" accept="image/*">
+            </div>
+        </div>
+
+        <!-- Categories Inputs -->
+        <div class="row mb-3">
+            <label for="category1" class="col-sm-2 col-form-label">Main Category</label>
+            <div class="col-sm-10">
+                <!-- <input type="text" class="form-control" name="category1" id="category1" placeholder="-"> -->
+                <select class="form-select" name="category1" id="category1" onchange="updateCategory2Options()" required>
+                    <option value="" disabled selected>Select Main Category</option>
+                    <option value="Wellness">Wellness</option>
+                    <option value="MedicalDevices">Medical Devices</option>
+                    <option value="PersonalCare">Personal Care</option>
+                    <option value="Rent">Rent</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- <div class="row mb-3">
+            <label for="category2" class="col-sm-2 col-form-label">Category 2</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="category2" id="category2" placeholder="-">
+            </div>
+        </div> -->
+
+        <div class="row mb-3">
+            <label for="category2" class="col-sm-2 col-form-label">Sub Category</label>
+            <div class="col-sm-10">
+                <select class="form-select" name="category2" id="category2">
+                    <option value="" disabled selected>Select Sub Category</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="row mb-3">
+            <div class="btn-submit">
+                <button type="submit" class="btn btn-primary">Add Product</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // hide rent field if select sell
+    function toggleRentFields() {
+        const rentalFields = document.getElementById('rentalFields');
+        const rentRadio = document.getElementById('rent');
+        const sellRadio = document.getElementById('sell');
+        const priceLabel = document.getElementById('priceLabel');
+        const dailyRentalDiv = document.getElementById('dailyRentalDiv');
+        const subDescriptionDiv = document.getElementById('subDescriptionDiv');
+        const categorySelect = document.getElementById('category1');
+
+        // Show rental fields if "Rent" is selected, hide otherwise
+        if (rentRadio.checked) {
+            rentalFields.style.display = 'block';
+            priceLabel.textContent  = 'Daily Rental';
+            dailyRentalDiv.style.display = 'none';
+            subDescriptionDiv.style.display = 'flex';
+
+            // Enable only "Rent" category in the dropdown if Rent is selected
+            updateCategoryOptions('Rent');
+        } else {
+            rentalFields.style.display = 'none';
+            priceLabel.textContent  = 'Price';
+            dailyRentalDiv.style.display = 'none';
+            subDescriptionDiv.style.display = 'none';
+
+            // Enable all categories if Sell is selected
+            updateCategoryOptions('Sell');
+        }
+    } 
+
+    // Category1 Options -Function to enable or disable options in the category select dropdown based on selected itemType
+    function updateCategoryOptions(itemType) {
+        const categorySelect = document.getElementById('category1');
+        const options = categorySelect.querySelectorAll('option');
+        
+        // Enable all options by default
+        options.forEach(option => option.disabled = false);
+        
+        // Disable non-relevant categories based on itemType selection
+        if (itemType === 'Rent') {
+            options.forEach(option => {
+                option.disabled = option.value !== 'Rent';  // Disable all options except "Rent"
+                categorySelect.value = 'Rent';  // Set the dropdown to "Rent"
+            });
+        } else if (itemType === 'Sell') {
+            options.forEach(option => {
+                option.disabled = option.value === 'Rent';  // Disable only the "Rent" option
+            });
+        }
+    }
+
+    // Set initial value to 'Sell' when the window loads
+    window.onload = () => {
+        updateCategoryOptions('Sell');
+    };
+
+    // Set daily rental value to price input value when rent radio button is checked
+    function updateDailyRental() {
+        const dailyRental = document.getElementById('dailyRental');
+        const priceInput = document.getElementById('price');
+        const rentRadio = document.getElementById('rent');
+
+        // Update daily rental value if rent radio button is checked
+        if (rentRadio.checked) {
+            dailyRental.value = priceInput.value; // Set daily rental value to price input value
+        }
+    }
+
+    // Add event listener to price input to update daily rental value
+    document.getElementById('price').addEventListener('input', updateDailyRental);
+
+    // Add event listener to rent radio button
+    document.getElementById('rent').addEventListener('change', updateDailyRental);
+
+    // Handle form submission
+    function handleSubmit(event) {
+        event.preventDefault(); // Prevent form submission
+        const dailyRental = document.getElementById('dailyRental');
+        const priceInput = document.getElementById('price');
+        const rentRadio = document.getElementById('rent');
+
+        // If the rent radio button is checked, set daily rental value to price input value
+        if (rentRadio.checked) {
+            dailyRental.value = priceInput.value; // This ensures dailyRental reflects the latest price value
+        }
+    }
+
+    // Add the handleSubmit function to the form's submit event
+    document.querySelector('form').addEventListener('submit', handleSubmit);
+
+    // handle image url or file
+    function toggleImageInput() {
+        const imageUrlInput = document.getElementById('imageUrlInput');
+        const fileUploadInput = document.getElementById('fileUploadInput');
+        const imageUrlOption = document.getElementById('imageUrlOption');
+
+        if (imageUrlOption.checked) {
+            imageUrlInput.style.display = 'flex';
+            fileUploadInput.style.display = 'none';
+        } else {
+            imageUrlInput.style.display = 'none';
+            fileUploadInput.style.display = 'flex';
+        }
+    }
+
+    // check if select sell or rent
+    function validateForm() {
+        const rentRadio = document.getElementById('rent');
+        const sellRadio = document.getElementById('sell');
+
+        // Check if neither radio button is selected
+        if (!rentRadio.checked && !sellRadio.checked) {
+            alert('Please select a product type (Rent or Sell) before filling in the product name.');
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission if validation passes
+    }
+
+    // select sub category according to main category
+    function updateCategory2Options() {
+        const category1 = document.getElementById("category1").value;
+        const category2 = document.getElementById("category2");
+
+        // Clear previous options in Category 2
+        category2.innerHTML = '<option value="" disabled selected>Select Sub Category</option>';
+
+        // Define the options for each Category 1 selection
+        const options = {
+            Wellness: [
+                "Diet & Nutrition",
+                "Mother & Baby",
+                "Adults & Diabetic Care"
+            ],
+            MedicalDevices: [
+                "First Aid",
+                "Diagnostic Devices",
+                "Personal Protective Devices",
+                "Other"
+            ],
+            PersonalCare: [
+                "Nourishment",
+                "Skin Care",
+                "Hair Treating",
+                "Hygiene",
+                "Other"
+            ],
+            Rent: [
+                "Mobility",
+                "Daily Living AIDs",
+                "Bathroom Safety",
+                "Other"
+            ]
+        };
+
+        // Add new options based on selected Category 1
+        if (options[category1]) {
+            options[category1].forEach(subCategory => {
+                const option = document.createElement("option");
+                option.value = subCategory;
+                option.textContent = subCategory;
+                category2.appendChild(option);
+            });
+        }
+    }
+</script> 
+
+
+
