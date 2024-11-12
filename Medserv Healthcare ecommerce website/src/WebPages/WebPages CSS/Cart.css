@@ -3,7 +3,7 @@
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -19,6 +19,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-bottom: 30px;
 }
 
 .cart-item {
@@ -63,7 +64,7 @@
 
 .cart-item button {
     padding: 8px 12px;
-    background-color: #0a88ba;
+    background-color: #333;
     color: #ffffff;
     border: none;
     border-radius: 5px;
@@ -82,55 +83,78 @@
     text-align: right;
     color: #333;
 }
+
 .cart-item-quantity {
-    display: flex;
-    align-items: center;
-    margin-top: 5px;
-  }
-  
-  .cart-item-quantity button {
-    padding: 5px;
-    margin: 0 5px;
-    cursor: pointer;
-    background-color: #ddd;
-    border: none;
-    border-radius: 4px;
-  }
-  
-  .cart-item-quantity button:hover {
-    background-color: #bbb;
-  }
-  
-  .clear-cart-button,
-  .buy-now-button {
-    margin-top: 20px;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-  
-  .clear-cart-button {
-    background-color: #0a88ba;
-    color: white;
-  }
-  
-  .clear-cart-button:hover {
-    background-color:  #0a88ba;
-  }
-  
-  .buy-now-button {
-    background-color: #0a88ba;
-    color: white;
-  }
-  
-  .buy-now-button:hover {
-    background-color: #0077a3;
-  }
-  .cart-actions {
-    display: flex;
-    gap: 10px; /* Adds space between buttons */
-    margin-top: 20px;
-  }
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.cart-item-quantity button {
+  padding: 5px;
+  margin: 0 5px;
+  cursor: pointer;
+  background-color: #ddd;
+  border: none;
+  border-radius: 4px;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+}
+
+.cart-item-quantity button:hover {
+  background-color: #bbb;
+}
+
+.quantity-count {
+  margin-inline: 10px;
+}
+
+.remove-button {
+  margin-right: 10px;
+}
+
+.clear-cart-button,
+.buy-now-button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.clear-cart-button {
+  background-color: #0a88ba;
+  color: white;
+}
+
+.clear-cart-button:hover {
+  background-color:  #0a88ba;
+}
+
+.buy-now-button {
+  background-color: #0a88ba;
+  color: white;
+}
+
+.buy-now-button:hover {
+  background-color: #0077a3;
+}
+.cart-actions {
+  display: flex;
+  gap: 10px; /* Adds space between buttons */
+  margin-top: 20px;
+}
+
+.cart-summary {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  justify-content: end;
+}
+
+.hr-line {
+  border-top: 1px solid #e1e1e1;
+}
