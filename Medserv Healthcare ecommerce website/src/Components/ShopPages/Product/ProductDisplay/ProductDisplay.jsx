@@ -1,14 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect } from 'react'
 import './ProductDisplay.css';
 import MedservLogo from '../../Common/Item/medserv_logo-for-products.png';
 import { FaShoppingCart, FaStar} from 'react-icons/fa';
+import { useCart } from "../../../../WebPages/Cart/CartContext";
 
 const ProductDisplay = (props) => { 
     const {product} = props;
+    const [confirmationMessage, setConfirmationMessage] = useState('');
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     // for handling errors of images
-    const [imageError, setImageError] = useState(false);
-  
+    const [imageError, setImageError] = useState(false);  
     const handleImageError = () => {
       setImageError(true);
     };
@@ -17,7 +19,7 @@ const ProductDisplay = (props) => {
     const lines = product.description.split('\n');
 
     // State to manage the quantity value
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState(1);
 
     // Function to handle increment
     const handleIncrement = () => {
@@ -26,9 +28,33 @@ const ProductDisplay = (props) => {
 
     // Function to handle decrement
     const handleDecrement = () => {
-        if (quantity > 0) {
+        if (quantity > 1) {
         setQuantity(quantity - 1);
         }
+    };
+
+    // for add to cart
+    const { addToCart } = useCart(); 
+    const handleAddToCart = () => {
+        addToCart({ ...product, quantity });
+        setConfirmationMessage(`Added ${quantity} ${product.name}(s) to your cart!`);
+        setShowConfirmation(true); 
+    };
+
+    // Clear the toast after 3 seconds
+    useEffect(() => {
+        if (confirmationMessage) {
+        const timer = setTimeout(() => {
+            setConfirmationMessage(false);
+        }, 3000);
+
+        return () => clearTimeout(timer);
+        }
+    }, [confirmationMessage]);
+
+    // Close button handler (confirm message)
+    const handleClose = () => {
+        setShowConfirmation(false);
     };
   
     return (
@@ -53,8 +79,8 @@ const ProductDisplay = (props) => {
             </div>
 
             <div className='item-availability-price'>
-                <p>Availability: &nbsp; <div className='value'>{product.availability}</div></p>
-                <p>Price: &nbsp; <div className='value'>{product.price}</div></p>
+                <p>Availability: &nbsp; <span className='value'>{product.availability}</span></p>
+                <p>Price: &nbsp; <span className='value'>{product.price}</span></p>
             </div>
 
             <div className='item-description'>
@@ -80,19 +106,31 @@ const ProductDisplay = (props) => {
                         type='number' 
                         className='quantity-input' 
                         value={quantity} 
-                        onChange={(e) => setQuantity(Number(e.target.value))} 
+                        // onChange={(e) => setQuantity(Number(e.target.value))} 
+                        onChange={(e) => {
+                            const newQuantity = Math.max(1, Number(e.target.value)); // Ensure quantity is at least 1
+                            setQuantity(newQuantity);
+                        }}
+                        min="1" // Ensure the input can't go below 1
                     />
                     <p onClick={handleIncrement} className='quantity-change-button'>+</p>
                 </div>
             </div>
 
             <div className='add-to-cart'>
-                <button>
+                <button onClick={handleAddToCart}>
                     <FaShoppingCart className='cart-icon'/>
                     <p>Add to cart</p>
                 </button>
             </div>
         </div>
+        {/* Display the confirmation message */}
+        {confirmationMessage && (
+                <div className={`confirmation-message ${!showConfirmation ? 'hidden' : ''}`}>
+                    <p>{confirmationMessage}</p>
+                    {/* <button className="confirmation-message-btn" onClick={handleClose}>X</button> */}
+                </div>
+        )}
       </div>
     )
 }

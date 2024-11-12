@@ -6,7 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./WebPages/Home";
 import Hearts from "./WebPages/Hearts";
 import Blog from "./WebPages/Blog/Blog";
-import Cart from "./WebPages/Cart";
+import Cart from "./WebPages/Cart/Cart.jsx";
+import { CartProvider } from "./WebPages/Cart/CartContext.jsx";  // Import CartProvider
 import LogInSignUp from "./WebPages/LoginSignup";
 import UploadPrescriptions from "./WebPages/UploadPrescriptions";
 import Footer from "./Components/Common/Footer/Footer";
@@ -45,7 +46,7 @@ function App() {
         </Routes>
         <Footer />
       </BrowserRouter>
-      </CartProvider>
+    </CartProvider>
   );
 }
 
