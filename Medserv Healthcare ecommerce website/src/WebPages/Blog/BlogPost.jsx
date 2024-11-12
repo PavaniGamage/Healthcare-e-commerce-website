@@ -7,7 +7,7 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import blogData from "../../data.json";
+import blogData from "./data.json";
 
 const BlogPost = () => {
   const { id } = useParams();

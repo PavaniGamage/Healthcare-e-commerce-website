@@ -442,7 +442,8 @@
             Wellness: [
                 "Diet & Nutrition",
                 "Mother & Baby",
-                "Adults & Diabetic Care"
+                "Adults & Diabetic Care",
+                "Other"
             ],
             MedicalDevices: [
                 "First Aid",
@@ -577,18 +578,40 @@
     window.onload = function() {
         console.log("Page loaded");
 
+        // Store initial form values
+        const initialValues = {
+            itemType: document.querySelector('input[name="itemType"]:checked')?.value || '',
+            name: document.getElementById('name')?.value || '',
+            price: document.getElementById('price')?.value || '',
+            dailyRental: document.getElementById('dailyRental')?.value || '',
+            weeklyRental: document.getElementById('weeklyRental')?.value || '',
+            monthlyRental: document.getElementById('monthlyRental')?.value || '',
+            deposit: document.getElementById('deposit')?.value || '',
+            availability: document.querySelector('input[name="availability"]:checked')?.value || '',
+            description: document.getElementById('description')?.value || '',
+            subDescription: document.getElementById('subDescription')?.value || '',
+            keywords: document.getElementById('keywords')?.value || '',
+            rating: document.getElementById('rating')?.value || '',
+            imageUrl: document.getElementById('imageUrl')?.value || '',
+            category1: document.getElementById('category1')?.value || '',
+            category2: document.getElementById('category2')?.value || ''
+        };
+
+        console.log("Initial values: ", initialValues);
+
         // Ensure selectedCategory1 is defined
         if (typeof selectedCategory1 === 'undefined') {
             console.error("selectedCategory1 is not defined.");
             return;
         }
         console.log("Selected Category1: ", selectedCategory1);
+        console.log("Selected Category2: ", selectedCategory2);
 
         // Set Category 1 value and update Category 2 options
         const category1Element = document.getElementById("category1");
         if (category1Element) {
             category1Element.value = selectedCategory1;
-            updateCategory2Options();  // Ensure this function is defined
+            updateCategory2Options();  
         } else {
             console.error("Category 1 element not found.");
         }
@@ -628,27 +651,6 @@
 
         hideMessageAfterFade('messageSuccess');
         hideMessageAfterFade('messageFail');
-
-        // Store initial form values
-        const initialValues = {
-            itemType: document.querySelector('input[name="itemType"]:checked')?.value || '',
-            name: document.getElementById('name')?.value || '',
-            price: document.getElementById('price')?.value || '',
-            dailyRental: document.getElementById('dailyRental')?.value || '',
-            weeklyRental: document.getElementById('weeklyRental')?.value || '',
-            monthlyRental: document.getElementById('monthlyRental')?.value || '',
-            deposit: document.getElementById('deposit')?.value || '',
-            availability: document.querySelector('input[name="availability"]:checked')?.value || '',
-            description: document.getElementById('description')?.value || '',
-            subDescription: document.getElementById('subDescription')?.value || '',
-            keywords: document.getElementById('keywords')?.value || '',
-            rating: document.getElementById('rating')?.value || '',
-            imageUrl: document.getElementById('imageUrl')?.value || '',
-            category1: document.getElementById('category1')?.value || '',
-            category2: document.getElementById('category2')?.value || ''
-        };
-
-        console.log("Initial values: ", initialValues);
 
         // Enable/disable the submit button based on changes
         const updateButton = document.getElementById('updateButton');

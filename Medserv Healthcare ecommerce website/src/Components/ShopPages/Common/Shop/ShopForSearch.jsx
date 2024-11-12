@@ -24,11 +24,13 @@ const ShopForSearch = ({ queryForSearch }) => {
 
   // Filter products based on the search query
   const filteredProducts = allProducts.filter(item =>
-    item.name.toLowerCase().includes(queryForSearch.toLowerCase())
+    item.name?.toLowerCase().includes(queryForSearch.toLowerCase()) ||
+    item.keywords.toLowerCase().includes(queryForSearch.toLowerCase()) ||
+    item.availability?.toLowerCase().includes(queryForSearch.toLowerCase()) 
   );
 
-   // Sorting logic
-   const sortProducts = (products) => {
+  // Sorting logic
+  const sortProducts = (products) => {
     return [...products].sort((a, b) => {
       let comparison = 0;
 
@@ -81,17 +83,21 @@ const ShopForSearch = ({ queryForSearch }) => {
         </div>
       </div>
 
-      <div className='shop-items'>        
+      <div className='shop-items-container'>        
         {currentProducts.length > 0 ? (
-          currentProducts.map((item, i) => (
-            item.itemType === 'Rent' ? (
-              <ItemForRent key={i} {...item} />
-            ) : (
-              <Item key={i} {...item} />
-            )
-          ))
+          <div className='shop-items'>
+            { currentProducts.map((item, i) => (
+              item.itemType === 'Rent' ? (
+                <ItemForRent key={i} {...item} />
+              ) : (
+                <Item key={i} {...item} />
+              )
+            )) } 
+          </div>
         ) : (
-          <p>No products found for "{queryForSearch}"</p>
+          <div className='shop-items-p'>
+            <p>No products found for "{queryForSearch}"</p>
+          </div>
         )}
       </div>
 
@@ -105,4 +111,4 @@ const ShopForSearch = ({ queryForSearch }) => {
   );
 };
 
-export default ShopForSearch;
+export default ShopForSearch; 

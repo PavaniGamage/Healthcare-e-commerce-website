@@ -1,6 +1,6 @@
 import React from "react";
 import BlogCard from "./BlogCard";
-import blogData from "../../data.json";
+import blogData from "./data.json";
 
 const Blog = () => {
   const chunkedBlogs = [];
@@ -10,10 +10,10 @@ const Blog = () => {
 
   return (
     <div>
-      <section className="py-24">
+      <section className="py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="font-manrope text-4xl font-extrabold text-gray-900 text-center mb-16">
-            Medserv blog
+            Medserv Blog
           </h2>
 
           {chunkedBlogs.map((chunk, chunkIndex) => (

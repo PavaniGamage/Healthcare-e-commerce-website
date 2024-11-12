@@ -17,11 +17,16 @@ const SearchProducts = ({}) => {
   useEffect(() => {
     setQuery(query); 
   }, [query]);
+
+  // Define the onSearch function
+  const handleSearch = (searchTerm) => {
+    setQuery(searchTerm);
+  };
   
   return (
     <div className='shop-container'> 
         <div className='left-margin'>
-            <LeftMarginForSearchProducts/>
+            <LeftMarginForSearchProducts onSearch={handleSearch}/>
         </div>
         <div className='shop'>
             <Shop queryForSearch={queryForSearch}/>

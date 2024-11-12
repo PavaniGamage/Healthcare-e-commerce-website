@@ -10,6 +10,11 @@
     cursor: default;
 }
 
+.link-in-margin {
+    text-decoration: none;
+    color: inherit;
+}
+
 .horizontal-hr hr{
     background-color: #c1c1c1;
     border: none;
@@ -77,6 +82,7 @@
     display: flex;
     flex-wrap: wrap;
     width: 200px;
+    margin-top: 0px;
 }
   
 .keyword-list p {

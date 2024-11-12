@@ -6,7 +6,7 @@ import ItemForRent from '../Item/ItemForRent.jsx';
 import createProductsArray from '../../../Assets/Shop/AllProducts/AllProducts.js';
 import { FaAngleDown } from 'react-icons/fa';
 
-const Shop = ({ category1 }) => {
+const Shop = ({ category1, queryKeyword }) => {
   const [allProducts, setAllProducts] = useState([]); // for fetching data
   const [currentPage, setCurrentPage] = useState(1);  // for pagination
   const [sortBy, setSortBy] = useState('name'); // Default sorting by name
@@ -25,7 +25,18 @@ const Shop = ({ category1 }) => {
   }, []); 
 
   // Filter products based on the category
-  const filteredProducts = allProducts.filter(item => item.category1 === category1);
+  const filteredProducts1 = allProducts.filter(item => item.category1 === category1);
+  
+  // Filter products based on the search keyword
+  console.log("Search term received in LeftMargin:", queryKeyword);
+  const filteredProducts2 = allProducts.filter(item =>
+    item.name?.toLowerCase().includes(queryKeyword.toLowerCase()) ||
+    item.keywords.toLowerCase().includes(queryKeyword.toLowerCase()) ||
+    item.availability?.toLowerCase().includes(queryKeyword.toLowerCase()) 
+  );
+
+  // Conditional filtering based on whether the queryKeyword is empty
+  const filteredProducts = queryKeyword.trim() === "" ? filteredProducts1 : filteredProducts2;
 
   // Sorting logic
   const sortProducts = (products) => {
