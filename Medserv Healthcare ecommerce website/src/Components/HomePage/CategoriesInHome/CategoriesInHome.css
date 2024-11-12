@@ -37,4 +37,44 @@
 .category-link:hover {
     color: #F2AE00;
 }
+
+@media (min-width: 750px) and (max-width: 1000px) {
+
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+    }
+
+    .category-text {
+        margin-top: 1px;
+        font-size: 13px;
+        width: 150%;
+    }
+
+    .category-image {
+        width: 150%;
+    }
+}
+
+@media (max-width: 750px) {
+    
+    .categories-grid {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .category-grid-item {
+        width: 65.5%;
+        margin-inline: auto;
+    } 
+    
+    .category-text {
+        margin-top: 1px;
+        font-size: 13px;
+    } 
+    
+    .category-image {
+        width: 100%;
+    } 
+}
   

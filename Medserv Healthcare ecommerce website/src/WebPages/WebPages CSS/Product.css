@@ -1,0 +1,12 @@
+.product-content h1 {
+    margin-inline: 20px;
+} 
+
+.not-found-message {
+    padding: 20px; 
+    text-align: center; 
+    font-size: 18px; 
+    color: #555;
+    margin-top: 20px; 
+}
+  

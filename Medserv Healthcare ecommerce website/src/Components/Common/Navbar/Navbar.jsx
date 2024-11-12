@@ -1,53 +1,62 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './Navbar.css';
-import { FaShoppingCart, FaUser, FaMapMarkerAlt, FaFileAlt } from 'react-icons/fa';
+import React, {useState, useEffect, useRef} from 'react'
+import './Navbar.css'
+import {FaShoppingCart, FaUser, FaMapMarkerAlt, FaFileAlt} from 'react-icons/fa';
 import logo from '../../Assets/NavBar/logo.png';
-import { useCart } from '../../../WebPages/CartContext'; // Import useCart from CartContext
-import { Link, useLocation } from 'react-router-dom';
+import SearchBar from '../Navbar/SearchBar/SearchBar';
+import { useCart } from '../../../WebPages/Cart/CartContext'; // Import useCart from CartContext
+import {Link , useLocation} from 'react-router-dom';
 
 const Navbar = () => {
     const { cart } = useCart(); // Access the cart array from the context
-    const cartCount = cart.length; // Get the count of items in the cart
+    // const cartCount = cart.length; // Get the count of items in the cart
+    // Calculate the total item count in the cart
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0); 
 
+    // for changing the state of clicked nav bar item
+    // const [menu, setMenu] = useState("home");
     const location = useLocation();
 
     const getActiveMenu = () => {
         switch (location.pathname) {
-            case '/':
-                return 'home';
-            case '/wellness':
-                return 'wellness';
-            case '/medical_devices':
-                return 'medicalDevices';
-            case '/personal_care':
-                return 'personalCare';
-            case '/hearts':
-                return 'hearts';
-            case '/rent':
-                return 'rent';
-            case '/blog':
-                return 'blog';
-            default:
-                return 'home';
+          case '/':
+            return 'home';
+          case '/wellness':
+            return 'wellness';
+          case '/medical_devices':
+            return 'medicalDevices';
+          case '/personal_care':
+            return 'personalCare';
+          case '/hearts':
+            return 'hearts';
+          case '/rent':
+            return 'rent';
+          case '/blog':
+            return 'blog';
+          default:
+            return 'none';
         }
     };
 
     const activeMenu = getActiveMenu();
 
+    //for displaying the nav bar when clicked span icon
     const [isClicked, setClicked] = useState(false);
 
     const toggleMenu = () => {
         setClicked((prevClicked) => !prevClicked);
     };
 
+    // for dissapear nav bar clicked outside of navbar
     const navbarRef = useRef(null);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+                // Clicked outside the navbar
                 setClicked(false);
             }
             if (event.target.closest('.nav-menu-span')) {
+                // Clicked outside the navbar
                 setClicked(false);
             }
         };
@@ -58,6 +67,11 @@ const Navbar = () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    // for searching products
+    const handleSearch = (query) => {
+        console.log('Searching for:', query);
+    };
 
     return (
         <div className='navBar'>
@@ -90,9 +104,8 @@ const Navbar = () => {
             </div>
 
             <div className='navBar-cloumn-2'>
-                <div className='navBar-search'>
-                    <input type="text" placeholder='Search..'/>
-                </div>
+                <SearchBar className='navBar-search' onSearch={handleSearch}/>
+
                 <div className='nav-upload-prescriptions'>
                     <Link className='nav-bar-link' to='/upload_prescriptions'>
                         <button>
