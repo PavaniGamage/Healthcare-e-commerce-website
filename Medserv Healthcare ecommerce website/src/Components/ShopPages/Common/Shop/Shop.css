@@ -4,6 +4,11 @@
     width: 100%;
 }
 
+.shop-items-container {
+  height: 100%;
+  padding: 10px;
+}
+
 .shop-items {
     display: grid;
     flex: auto;
@@ -12,6 +17,10 @@
     padding: 50px;
     font-size: 16px;
     margin-top: -20px;
+}
+
+.shop-items-p {
+  padding: 30px;
 }
 
 .lordmore {

@@ -1,7 +1,17 @@
-import React from 'react'
+import React,  { useState } from 'react'
 import './LeftMarginForShop.css'
 
-const MedicalDevicesLeftMargin = () => {
+const MedicalDevicesLeftMargin = ({onSearch}) => {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSearchSubmit = (event, keyword = searchTerm) => {
+        event.preventDefault();
+        console.log("Searching for:", keyword);
+
+        // Perform search using the keyword
+        onSearch(keyword);
+    };
+
   return (
     <div className='left-margin-for-shop'>
         <div className='lists'>
@@ -15,12 +25,17 @@ const MedicalDevicesLeftMargin = () => {
                 </ul>
             </div>
             <div className='brands'>
-                <h1>Brands</h1>
-                <ul>
-                    <li><input type="radio" name="Brands 1" value="Brands 1"/>Brands 1</li>
-                    <li><input type="radio" name="Brands 2" value="Brands 2"/>Brands 2</li>
-                    <li><input type="radio" name="Brands 3" value="Brands 3"/>Brands 3</li>
-                </ul>
+                <h1>Keywords</h1>
+                <div className='keyword-list'>
+                    <p className="link-in-margin" onClick={(e) => handleSearchSubmit(e, 'Surgical')}>Surgical Instruments</p>
+                    <p className="link-in-margin" onClick={(e) => handleSearchSubmit(e, 'First Aid')}>First Aid</p>
+                    <p className="link-in-margin" onClick={(e) => handleSearchSubmit(e, 'Injection')}>Injection</p>
+                    <p className="link-in-margin" onClick={(e) => handleSearchSubmit(e, 'Wound')}>Wound Care</p>
+                    <p className="link-in-margin" onClick={(e) => handleSearchSubmit(e, 'Protective')}>Protective Devices</p>
+                    <p className="link-in-margin" onClick={(e) => handleSearchSubmit(e, 'Plasters')}>Plasters</p>
+                    <p className="link-in-margin" onClick={(e) => handleSearchSubmit(e, 'Bandages')}>Bandages</p>
+                    <p className="link-in-margin" onClick={(e) => handleSearchSubmit(e, 'Diagnostic Tools')}>Diagnostic Tools</p>
+                </div>
             </div>
             <div className='price'>
                 <h1>Price</h1>
