@@ -25,5 +25,9 @@ router.delete('/delete/:id', productController.deleteProduct);
     // other pages routes
 */
 router.get('/about', productController.about);
+router.get('/services', productController.services);
+
+router.get('/prescriptions', productController.prescriptions);
+router.get('/feedback', productController.feedback);
 
 module.exports = router;
