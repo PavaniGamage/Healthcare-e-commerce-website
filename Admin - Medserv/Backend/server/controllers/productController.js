@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const Feedback = require('../models/Feedback');
 const mongoose = require('mongoose');
 
 /*
@@ -289,9 +290,71 @@ exports.about = async (req, res) => {
     };
 
     try {
-        res.render('about', locals); // Pass products and locals/messages to the view
+        res.render('about', locals); 
     } catch (error) {
         console.error("An error occurred while rendering the About page:", error);
         res.render('error', { message: "We encountered an issue. Please try again later." });
     }
 };  
+
+
+/*
+    // GET /
+    // Services
+*/
+
+exports.services = async (req, res) => {
+    const locals = {
+        title: 'Services',
+        description: 'Medserv - Product Data Management System'
+    };
+
+    try {
+        res.render('services', locals); 
+    } catch (error) {
+        console.error("An error occurred while rendering the Services page:", error);
+        res.render('error', { message: "We encountered an issue. Please try again later." });
+    }
+}; 
+
+/*
+    // GET /
+    // Prescriptions
+*/
+
+exports.prescriptions = async (req, res) => {
+    const locals = {
+        title: 'Prescriptions',
+        description: 'Medserv - Product Data Management System'
+    };
+
+    try {
+        res.render('services/prescription', locals); 
+    } catch (error) {
+        console.error("An error occurred while rendering the Prescriptions page:", error);
+        res.render('error', { message: "We encountered an issue. Please try again later." });
+    }
+}; 
+
+/*
+    // GET /
+    // Feedback
+*/
+
+exports.feedback = async (req, res) => {
+    const locals = {
+        title: 'Feedback',
+        description: 'Medserv - Product Data Management System',
+    };
+
+    try {
+        // Fetch all feedback records
+        const feedbackData = await Feedback.find({}).sort({ createdAt: -1 }); // Sort by latest
+
+        // Render the page with feedback data
+        res.render('services/feedback', { locals, feedbackData });
+    } catch (error) {
+        console.error("An error occurred while rendering the Feedback page:", error);
+        res.render('error', { message: "We encountered an issue. Please try again later." });
+    }
+};

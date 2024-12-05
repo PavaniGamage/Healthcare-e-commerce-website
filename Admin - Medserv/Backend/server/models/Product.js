@@ -70,17 +70,7 @@ const ProductSchema = new Schema({
     deposit: {
         type: Number,
         default: 0
-    },
-    createdAt: {
-        type: Date,
-        // required: true
-        default: Date.now()
-    },
-    updatedAt: {
-        type: Date,
-        // required: true
-        default: Date.now()
-    }
-});
+    }    
+}, { timestamps: true });
 
 module.exports = mongoose.model('medserv_products', ProductSchema);
