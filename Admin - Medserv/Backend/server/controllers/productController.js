@@ -1,6 +1,11 @@
 const Product = require('../models/Product');
 const Feedback = require('../models/Feedback');
+const Prescription = require('../models/Prescription');
+const Account = require('../models/Account');
 const mongoose = require('mongoose');
+
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 /*
     // GET /
@@ -185,7 +190,7 @@ exports.edit = async (req, res) => {
 };
 
 /*
-    // GET /:id
+    // PUT /:id
     // Update Product Data
 */
 
@@ -244,7 +249,7 @@ exports.deleteProduct = async (req, res) => {
 };
 
 /*
-    // GET /:id
+    // POST /:id
     // Search Product Data
 */
 
@@ -329,12 +334,89 @@ exports.prescriptions = async (req, res) => {
     };
 
     try {
-        res.render('services/prescription', locals); 
+        // Fetch all records
+        const prescriptionData = await Prescription.find({}).sort({ createdAt: -1 }); // Sort by latest
+
+        if (!prescriptionData.length) {
+            locals.message = "No prescriptions available.";
+        }
+
+        // Render the page with data
+        res.render('services/prescription', { locals, prescriptionData }); 
     } catch (error) {
         console.error("An error occurred while rendering the Prescriptions page:", error);
         res.render('error', { message: "We encountered an issue. Please try again later." });
     }
 }; 
+
+/*
+    // GET /
+    // Prescriptions Uploads
+*/
+
+exports.prescriptionUploads = async (req, res) => {
+    const locals = {
+        title: 'Prescription Uploads',
+        description: 'Medserv - Product Data Management System'
+    };
+
+    try {
+        const prescription = await Prescription.findById(req.params.id);
+
+        if (prescription && prescription.prescriptionFile && prescription.prescriptionFile.data) {
+            // Set the correct Content-Type for the image (e.g., 'image/jpeg', 'image/png')
+            res.setHeader('Content-Type', prescription.prescriptionFile.contentType);
+            res.send(prescription.prescriptionFile.data);
+        } else {
+            res.status(404).send('Image/File not found');
+        }
+    } catch (error) {
+        res.status(500).send('Error retrieving image/file'); 
+    }
+};
+
+/*
+    // PUT /:id
+    // Update Prescription Review
+*/
+
+exports.editReview = async (req, res) => {
+    try {
+        // Extract review data from request body
+        const { reviewStatus, reviewFeedback } = req.body;
+
+        // Find the prescription by ID and update the review fields
+        const updatedPrescription = await Prescription.findByIdAndUpdate(
+            req.params.id, 
+            {
+                $set: {
+                    'review.reviewStatus': reviewStatus,
+                    'review.reviewFeedback': reviewFeedback,
+                    'review.reviewTime': Date.now() // Set the review time to the current date/time
+                }
+            },
+            { new: true } // return the updated document
+        );
+
+        // Check if the prescription was found and updated
+        if (!updatedPrescription) {
+            return res.status(404).send('Prescription not reviewed!');
+        }
+
+        console.log('Review Status:', reviewStatus);
+        console.log('Review Feedback:', reviewFeedback);
+
+        // Redirect or send a success message
+        res.redirect('/prescriptions'); 
+        // res.status(200).json({ 
+        //     success: true, 
+        //     message: 'Review submitted successfully' 
+        // });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error - In Prescription Reviewing');
+    }
+};
 
 /*
     // GET /
@@ -358,3 +440,168 @@ exports.feedback = async (req, res) => {
         res.render('error', { message: "We encountered an issue. Please try again later." });
     }
 };
+
+/*
+    // GET /
+    // Sign In
+*/
+
+exports.signIn = async (req, res) => {
+    const locals = {
+        title: 'Sign In',
+        description: 'Medserv - Product Data Management System'
+    };
+
+    try {
+        res.render('signIn', locals); 
+        
+    } catch (error) {
+        console.error("An error occurred while rendering the signIn page:", error);
+        res.render('error', { message: "We encountered an issue. Please try again later." }); 
+    }
+};
+
+/*
+    // POST /
+    // Sign In - Details
+*/
+
+// Create Admin User Route
+exports.createAdmin = async (req, res) => {
+    try {
+        // Check if admin user exists
+        const existingAdmin = await Account.findOne({ username: process.env.usernameAdmin });
+
+        if (!existingAdmin) {
+            // Create and save a new admin user
+            const adminUser = new Account({
+                username: process.env.usernameAdmin,
+                password: process.env.passwordAdmin, // Use passwordAdmin from environment variables
+                role: 'admin',
+            });
+
+            await adminUser.save();
+            return res.status(201).json({ message: 'Admin user created!' });
+        } else {
+            return res.status(400).json({ message: 'Admin user already exists.' });
+        }
+    } catch (error) {
+        console.error('Error creating admin user:', error);
+        return res.status(500).json({ message: 'Error creating admin user' });
+    }
+};
+
+// Create Pharmacist User Route
+exports.createPharmacist = async (req, res) => {
+    try {
+        // Check if pharmacist user exists
+        const existingPharmacist = await Account.findOne({ username: process.env.usernamePharmacist });
+
+        if (!existingPharmacist) {
+            // Create and save a new pharmacist user
+            const pharmacistUser = new Account({
+                username: process.env.usernamePharmacist,
+                password: process.env.passwordPharmacist, // Use passwordPharmacist from environment variables
+                role: 'pharmacist',
+            });
+
+            await pharmacistUser.save();
+            return res.status(201).json({ message: 'Pharmacist user created!' });
+        } else {
+            return res.status(400).json({ message: 'Pharmacist user already exists.' });
+        }
+    } catch (error) {
+        console.error('Error creating pharmacist user:', error);
+        return res.status(500).json({ message: 'Error creating pharmacist user' });
+    }
+};
+
+// User Login Route (Authentication)
+exports.loginUser = async (req, res) => {
+    const { username, password } = req.body; 
+
+    if (!username || !password) {
+        return res.status(400).json({ message: 'Please provide both username and password.' });
+    }
+
+    try {
+        const user = await Account.findOne({ username });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Compare the provided password with the hashed password stored in the database
+        const isMatch = await user.comparePassword(password);
+
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid credentials' });
+        }
+
+        // Store user details in session
+        req.session.user = {
+            id: user._id,
+            username: user.username,
+            role: user.role,
+        };
+
+        // If login is successful, generate a JWT token (optional)
+        const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, {
+            expiresIn: '1h',
+        });
+
+        const role = user.role;
+        const session = req.session.user;
+
+        // Redirect to a dashboard or any other page after successful login
+        return res.status(200).json({ message: 'Login successful', session, token, role });
+    } catch (error) {
+        console.error('Error during login:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}; 
+
+/*
+    // POST /
+    // Log Out - Details
+*/
+
+// User Logout Route (Authentication)
+exports.logoutUser = (req, res) => {
+    try {
+        // Destroy the session to log out the user
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).json({ message: 'Failed to log out' });
+            }
+
+            // JWT token expiration handle in client-side
+
+            // Send a response indicating successful logout
+            return res.status(200).json({ message: 'Logout successful' });
+        });
+    } catch (error) {
+        console.error('Error during logout:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}; 
+
+/*
+    // GET /
+    // Access Denied Page
+*/
+
+exports.accessDenied = async (req, res) => {
+    const locals = {
+        title: 'Access Denied',
+        description: 'Medserv - Product Data Management System'
+    };
+
+    try {
+        res.render('accessDenied', locals); 
+        
+    } catch (error) {
+        console.error("An error occurred while rendering the accessDenied page:", error);
+        res.render('error', { message: "We encountered an issue. Please try again later." }); 
+    }
+}; 
