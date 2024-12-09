@@ -14,7 +14,7 @@ To run the application, follow these steps:
 
 #### 4. Start the Application 
 - Open the file directry in terminal and use this command:
-  `node ./index.js`
+  `node ./index.js` 
 
 ##### Note: The port is: http://localhost:4000/
 - Make sure to keep the terminal open to view any logs or error messages. If the server starts successfully, you should see a message indicating that the server is running, and you can access the application at http://localhost:4000/.
