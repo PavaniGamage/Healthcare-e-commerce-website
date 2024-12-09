@@ -1,0 +1,126 @@
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS Bundle (including Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    /* Basic Styling for Section */
+    .section {
+        background-color: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+        color: #000;
+        font-weight: 600;    
+        text-align: center;
+    }
+
+    .btn-class {
+        display: flex; 
+        gap: 50px;
+        margin-top: 50px;        
+        justify-content: center;
+    }
+
+    .list-group-item {
+        border: none;
+        background-color: transparent;
+        padding-left: 0;
+    }
+
+    .list-group-item a {
+        width: 200px;
+    }
+
+    @media (max-width: 1100px) {
+        .form-container {
+            width: 75%;
+        }
+    }
+
+    @media (min-width: 1100px) {
+        .form-container {
+            width: 50%;
+        }
+    }
+</style>
+
+<!-- Page Header -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Log In</h1>
+
+    <div class="btn-toolbar mb-2 mb-mb 0">
+        <div class="btn-group me-2">
+            <a href="/logout" id="logout-button" class="btn btn-sm btn-outline-secondary"> Log out </a>
+        </div>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="container-fluid py-4">
+    <section class="section">
+        <h2 class="section-title">
+            <span class="me-2">&#128100;</span> Please Select Your Role
+        </h2>
+        <div class="btn-class">
+            <li class="list-group-item">
+                <a href="#" class="btn btn-primary" id="admin-btn" data-role="admin">
+                    Admin
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#" class="btn btn-primary" id="pharmacist-btn" data-role="pharmacist">
+                    Pharmacist
+                </a>
+            </li>
+        </div>
+    </section>
+
+    <br/>
+
+    <section class="section">
+        <h4 class="section-title"> Log In </h4>
+        <div class="container mt-5 d-flex justify-content-center p-0">
+            <form id="login-form" class="form-container" method="POST" action="http://localhost:5000/sign_in"> 
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-control"
+                        placeholder="Enter your username" 
+                        required 
+                        maxlength="30" 
+                        autocomplete="username"
+                    />
+                </div>
+        
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-control"
+                        placeholder="Enter your password" 
+                        required 
+                        maxlength="30" 
+                        autocomplete="current-password"
+                    />
+                </div>
+        
+                <br/>
+                <button type="submit" class="btn btn-primary mb-3">Submit</button>
+            </form>
+        </div>
+    </section>
+</div> 
+
+<!-- Load the external script -->
+<script type="module" src="./signin.js"></script> 
