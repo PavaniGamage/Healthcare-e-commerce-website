@@ -17,6 +17,6 @@ Currently, two official plugins are available:
 - Open file directory in cmd
 - npm install
 - npm run dev
-- Open the provided URL
+- Open the provided URL 
 
 </small>
