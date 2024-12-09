@@ -32,6 +32,7 @@ app.use((err, req, res, next) => {
 
 // Static files                                             // Serve static files (CSS, images, JavaScript, etc.) from the "public" directory
 app.use(express.static('public')); 
+app.use(express.static('public/js')); 
 
 // Express Session - setup
 app.use(
