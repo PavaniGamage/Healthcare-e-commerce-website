@@ -21,9 +21,9 @@ app.use(express.urlencoded({ extended: true }));
 // Allow specific frontend URL to access backend
 // app.use(cors());
 app.use(cors({
-    // origin: 'http://localhost:5173',                                       // Allow only the frontend's URL to access the backend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],                                                      // 'GET', 'POST', 'PUT', 'DELETE' - Only GET
-    credentials: true                                                      // Allow cookies and credentials if necessary
+    // origin: 'http://localhost:5173',                                      // Allow only the frontend's URL to access the backend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],                               // 'GET', 'POST', 'PUT', 'DELETE' - Only GET
+    credentials: true                                                        // Allow cookies and credentials if necessary
 }));
 
 // Call the connection function immediately
