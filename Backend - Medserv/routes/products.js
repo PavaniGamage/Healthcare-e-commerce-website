@@ -1,8 +1,10 @@
-// for routes
+// for routes produtes
 const router = require("express").Router();
 const Product = require("../models/Product");
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
+// // for routes payment
+// require('dotenv').config();
+// const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 // // create endpoint for products, send to frontend
 // router.get('/', async (req, res) => {
@@ -125,42 +127,6 @@ router.get('/', async (req, res) => {
         console.error("Error fetching formatted products: (In Routes)", error);
         res.status(500).send("Error fetching formatted products (In Routes)");
     }
-});
-
-router.post("/create-checkout-session", async (req, res) => {
-  try {
-    const { products } = req.body;
-
-    if (!products || !Array.isArray(products) || products.length === 0) {
-      return res.status(400).json({ error: "Invalid products data" });
-    }
-
-    const lineItems = products.map((product) => ({
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: product.name,
-          images: product.image ? [product.image] : [],
-        },
-        unit_amount: Math.round(product.price * 100),
-      },
-      quantity: product.quantity,
-    }));
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: lineItems,
-      mode: "payment",
-      success_url: "http://localhost:4000/success",
-      cancel_url: "http://localhost:4000/cancel",
-    });
-
-    res.json({ id: session.id });
-  } catch (error) {
-    console.error("Error creating checkout session:", error);
-    res.status(500).json({ error: "Unable to create session" });
-  }
-});
-
+}); 
 
 module.exports = router;
