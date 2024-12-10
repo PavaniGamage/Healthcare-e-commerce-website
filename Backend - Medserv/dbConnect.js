@@ -1,20 +1,25 @@
 const mongoose = require("mongoose");
 
-// db connection
-const dbConnect = () => {
-    mongoose.connect(process.env.MONGODB_URI);
+const dbConnect = async () => {
+    if (!process.env.MONGODB_URI) {
+        console.error("MongoDB URI is not defined in environment variables.");
+        return;
+    }
 
-    mongoose.connection.on("connected", () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+
         console.log("Connected to database successfully");
-    });
 
-    mongoose.connection.on("error", (error) => {
-        console.log("MongoDB connection error:", error);
-    });
-
-    mongoose.connection.on("disconnected", () => {
-        console.log("MongoDB disconnected");
-    });
+        mongoose.connection.on("disconnected", () => {
+            console.log("MongoDB disconnected");
+        });
+    } catch (error) {
+        console.error("MongoDB connection error:", error);
+    }
 };
 
 module.exports = dbConnect;

@@ -9,11 +9,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dbConnect = require("./dbConnect");    
 const Product = require("./models/Product");         
+const checkoutRoutes = require("./routes/checkout");
 const productRoutes = require("./routes/products");
 const cors = require("cors");
 const app = express();
 
 app.use(express.json());
+app.use("/checkout", checkoutRoutes); 
 
 // Allow specific frontend URL to access backend
 // app.use(cors());
@@ -52,14 +54,14 @@ app.get("/", (req, res) => {
 // for getting products
 app.use("/formattedProducts", productRoutes);
 
-// Starting the server
-app.listen(port, (error) => {
-    if (!error) {
-        console.log("Server Running on Port " + port);
-    } else {
-        console.log("Error: " + error);
-    }
+app.use("/checkout", checkoutRoutes);
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
+
+// Starting the server
 
 // // ----------------------------------------------------------------------------------------------
 // // -----for file handling---------------------------------------------------------------
