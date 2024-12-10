@@ -2,13 +2,37 @@ import React from 'react';
 import '../WebPages CSS/Cart.css';
 import { useCart } from './CartContext';
 import fallbackImage from '../../Components/ShopPages/Common/Item/medserv_logo-for-products.png';
+import {loadStripe} from '@stripe/stripe-js';
+
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart, total, totalItemCount } = useCart();
+  console.log(cart)
 
-  const handleBuyNow = () => {
-    alert('Thank you for your purchase!');
-    clearCart();
+  const makePayment= async() => {
+    
+    const stripe = await loadStripe("pk_test_51QTzM8KQ0PtWHj4D8H2ibe5D1GlrWJVDTM4JvA7vgVYqBZe11deOwQ6JNzkAIVmZ8AkMajJtNWKHV7UnXRqCCIYu00fsJnxHow");
+
+    const body = {
+      products: cart
+    }
+    const headers={
+      "Content-Type":"application/json"
+    }
+    const response = await fetch("http://localhost:4000/create-checkout-session", {
+          method:"POST",
+          headers:headers,
+          body:JSON.stringify(body)
+    })
+
+    const session = await response.json();
+
+    const result = stripe.redirectToCheckout({
+      sessionId:session.id
+    });
+    if(result.error){
+      console.log((await result).error)
+    }
   };
 
   const handleImageError = (event) => {
@@ -67,7 +91,9 @@ const Cart = () => {
     
       <div className='cart-actions'>
         <button onClick={clearCart} className='clear-cart-button'>Clear Cart</button>
-        <button onClick={handleBuyNow} className='buy-now-button'>Buy Now</button>
+        <button onClick={makePayment} className='buy-now-button'>
+          Buy Now
+          </button>
       </div>
     </div>
   );

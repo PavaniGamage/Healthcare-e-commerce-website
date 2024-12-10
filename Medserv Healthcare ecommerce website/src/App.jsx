@@ -18,6 +18,9 @@ import Location from "./WebPages/LocationPage";
 import About from "./WebPages/About";
 import SendUsMessage from "./Components/HomePage/SendUsMessage/SendUsMessage.jsx";
 import SearchProducts from "./WebPages/SearchProducts.jsx";
+import SuccessPage from "./WebPages/Cart/SuccessPage"; 
+import CancelPage from "./WebPages/Cart/CancelPage";
+
 
 function App() {
   return (
@@ -43,6 +46,8 @@ function App() {
           <Route path="/contact" element={<SendUsMessage />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/search_products" element={<SearchProducts/>}></Route>
+          <Route path="/success" element={<SuccessPage />} />
+          <Route path="/cancel" element={<CancelPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>
