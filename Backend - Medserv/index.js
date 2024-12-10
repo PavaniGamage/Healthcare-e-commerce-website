@@ -14,15 +14,14 @@ const productRoutes = require("./routes/products");
 const cors = require("cors");
 const app = express();
 
-app.use(express.json());
-app.use("/checkout", checkoutRoutes); 
+app.use(express.json()); 
 
 // Allow specific frontend URL to access backend
 // app.use(cors());
 app.use(cors({
-    // origin: 'http://localhost:5173',                                       // Allow only the frontend's URL to access the backend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],                                                      // 'GET', 'POST', 'PUT', 'DELETE' - Only GET
-    credentials: true                                                      // Allow cookies and credentials if necessary
+    // origin: 'http://localhost:5173',                                      // Allow only the frontend's URL to access the backend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],                               // 'GET', 'POST', 'PUT', 'DELETE' - Only GET
+    credentials: true                                                        // Allow cookies and credentials if necessary
 }));
 
 // Call the connection function immediately
@@ -54,7 +53,8 @@ app.get("/", (req, res) => {
 // for getting products
 app.use("/formattedProducts", productRoutes);
 
-app.use("/checkout", checkoutRoutes);
+// for payments
+app.use("/api/checkout", checkoutRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
