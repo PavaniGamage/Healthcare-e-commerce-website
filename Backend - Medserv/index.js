@@ -33,7 +33,8 @@ const jwt = require("jsonwebtoken");                                         // 
 
 // File handling and storage dependencies
 const multer = require("multer");                                            // Handles file uploads.
-const path = require("path");                                                // Manipulates file paths.
+const path = require("path"); 
+// Manipulates file paths.
 const fs = require("fs");                                                    // Works with the file system.
 
 // Debugging and REPL utilities
@@ -49,6 +50,7 @@ if (!fs.existsSync(uploadDir)){
 app.get("/", (req, res) => {
     res.send("Hello, MongoDB!, Express App is Running");
 });
+
 
 // for getting products
 app.use("/formattedProducts", productRoutes);

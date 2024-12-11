@@ -1,0 +1,56 @@
+/* Center the page */
+.cancel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    background-color: #f8f9fa;
+  }
+  
+  /* Style the card */
+  .cancel-card {
+    text-align: center;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+  }
+  
+  /* Icon styling */
+  .cancel-icon {
+    font-size: 50px;
+    color: #e53935; /* Red color for the error icon */
+    margin-bottom: 1rem;
+  }
+  
+  /* Heading styling */
+  .cancel-card h2 {
+    font-size: 24px;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  /* Paragraph styling */
+  .cancel-card p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Button styling */
+  .cancel-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #e53935; /* Red button */
+    transition: background-color 0.3s;
+  }
+  
+  .cancel-button:hover {
+    background-color: #d32f2f; /* Darker red for hover */
+  }
+  

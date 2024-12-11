@@ -1,6 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // Create a checkout session
 router.post('/create-checkout-session', async (req, res) => {
@@ -15,33 +16,11 @@ router.post('/create-checkout-session', async (req, res) => {
       return res.status(400).json({ error: "Invalid products data" });
     }
 
-    // Map products to Stripe line items
-    const lineItems = products.map((product) => ({
-      price_data: {
-        currency: 'usd',
-        product_data: {
-          name: product.name,
-          images: product.image ? [product.image] : [],
-        },
-        unit_amount: Math.round(product.price * 100), // Stripe expects amounts in cents
-      },
-      quantity: product.quantity,
-    }));
-
-    // // Create a checkout session
-    // const session = await stripe.checkout.sessions.create({
-    //   payment_method_types: ['card'],
-    //   line_items: lineItems,
-    //   mode: 'payment',
-    //   success_url: `${process.env.CLIENT_URL}/success`,
-    //   cancel_url: `${process.env.CLIENT_URL}/cancel`,
-    // });
-
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: products.map((product) => ({
           price_data: {
-            currency: 'usd',
+            currency: 'lkr',
             product_data: {
               name: product.name,
               images: product.image ? [product.image] : [],
@@ -51,8 +30,8 @@ router.post('/create-checkout-session', async (req, res) => {
           quantity: product.quantity,
         })),
         mode: 'payment',
-        success_url: 'http://localhost:4000/success',
-        cancel_url: 'http://localhost:4000/cancel',
+        success_url: 'http://localhost:5173/success',
+        cancel_url: 'http://localhost:5173/cancel',
     }); 
     
     console.log("Stripe session created:", session);

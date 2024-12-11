@@ -1,11 +1,15 @@
 import React from "react";
+import "./SuccessPage.css";
 
 const SuccessPage = () => {
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Payment Successful</h1>
-      <p>Thank you for your purchase! Your order has been received and is being processed.</p>
-      <a href="/">Go back to Home</a>
+    <div className="success-container">
+      <div className="success-card">
+        <div className="success-icon">✅</div>
+        <h2>Payment Successful</h2>
+        <p>Thank you for your payment!</p>
+        <a href="/" className="success-button">Continue Shopping</a>
+      </div>
     </div>
   );
 };
