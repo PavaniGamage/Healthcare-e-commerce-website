@@ -1,12 +1,16 @@
 import React from "react";
+import "./CancelPage.css";
 
 const CancelPage = () => {
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Payment Canceled</h1>
-      <p>It seems like you canceled the payment. If this was a mistake, please try again.</p>
-      <a href="/cart">Go back to Cart</a>
+    <div className="cancel-container">
+    <div className="cancel-card">
+      <div className="cancel-icon">❌</div>
+      <h2>Payment Canceled</h2>
+      <p>Your payment was canceled. Please try again.</p>
+      <a href="/" className="cancel-button">Return to Home</a>
     </div>
+  </div>
   );
 };
 

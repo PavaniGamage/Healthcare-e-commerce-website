@@ -18,8 +18,8 @@ import Location from "./WebPages/LocationPage";
 import About from "./WebPages/About";
 import SendUsMessage from "./Components/HomePage/SendUsMessage/SendUsMessage.jsx";
 import SearchProducts from "./WebPages/SearchProducts.jsx";
-import SuccessPage from "./WebPages/Cart/SuccessPage"; 
-import CancelPage from "./WebPages/Cart/CancelPage";
+import SuccessPage from "./WebPages/Cart/SuccessPage.jsx"; 
+import CancelPage from "./WebPages/Cart/CancelPage.jsx";
 
 
 function App() {
