@@ -4,15 +4,19 @@ import { useCart } from './CartContext';
 import fallbackImage from '../../Components/ShopPages/Common/Item/medserv_logo-for-products.png';
 import {loadStripe} from '@stripe/stripe-js';
 
-
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart, total, totalItemCount } = useCart();
-  console.log(cart)
+  console.log(cart);
 
   const makePayment = async () => {
     try {
-      const stripe = await loadStripe("pk_test_51QTzM8KQ0PtWHj4D8H2ibe5D1GlrWJVDTM4JvA7vgVYqBZe11deOwQ6JNzkAIVmZ8AkMajJtNWKHV7UnXRqCCIYu00fsJnxHow");
-  
+      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+      
+      if (!stripe) {
+        console.error('Failed to load Stripe.');
+        return;
+      }
+      
       const body = {
         products: cart
       }
@@ -23,6 +27,7 @@ const Cart = () => {
 
       if (!cart || cart.length === 0) {
         console.error("Cart is empty. Cannot proceed to checkout.");
+        alert("Cart is empty. Please add some products first..");
         return;
       }
 
@@ -55,6 +60,7 @@ const Cart = () => {
       }
     } catch (error) {
       console.error("Error in makePayment:", error);
+      alert("An error occurred");
     }
   };
 
