@@ -1,3 +1,6 @@
 # database - product
 .env
 
+# modules
+node_modules
+
