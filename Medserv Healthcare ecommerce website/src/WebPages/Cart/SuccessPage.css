@@ -1,4 +1,3 @@
-/* Center the page */
 .success-container {
     display: flex;
     justify-content: center;
@@ -7,7 +6,6 @@
     background-color: #f8f9fa;
   }
   
-  /* Style the card */
   .success-card {
     text-align: center;
     width: 400px; 
@@ -18,29 +16,25 @@
     max-width: 400px;
   }
   
-  /* Icon styling */
   .success-icon {
     font-size: 50px;
     color: #4caf50; 
-    border: none;/* Green color for success */
+    border: none;
     margin-bottom: 1rem;
   }
   
-  /* Heading styling */
   .success-card h2 {
     font-size: 24px;
     margin-bottom: 1rem;
     color: #333;
   }
   
-  /* Paragraph styling */
   .success-card p {
     font-size: 16px;
     color: #666;
     margin-bottom: 1.5rem;
   }
   
-  /* Button styling */
   .success-button {
     display: inline-block;
     padding: 0.75rem 1.5rem;
@@ -48,11 +42,11 @@
     font-size: 16px;
     text-decoration: none;
     color: #fff;
-    background-color: #4caf50; /* Green button */
+    background-color: #4caf50; 
     transition: background-color 0.3s;
   }
   
   .success-button:hover {
-    background-color: #388e3c; /* Darker green for hover */
+    background-color: #388e3c; 
   }
   

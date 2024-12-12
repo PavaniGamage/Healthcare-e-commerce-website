@@ -9,35 +9,6 @@ const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart, total, totalItemCount } = useCart();
   console.log(cart)
 
-  // const makePayment= async() => {   
-  //   const stripe = await loadStripe("pk_test_51QTzM8KQ0PtWHj4D8H2ibe5D1GlrWJVDTM4JvA7vgVYqBZe11deOwQ6JNzkAIVmZ8AkMajJtNWKHV7UnXRqCCIYu00fsJnxHow");
-
-  //   const body = {
-  //     products: cart
-  //   }
-  //   const headers={
-  //     "Content-Type":"application/json"
-  //   }
-  //   const response = await fetch("http://localhost:4000/api/checkout/create-checkout-session", {
-  //         method:"POST",
-  //         headers:headers,
-  //         body:JSON.stringify(body)
-  //   })
-
-  //   const session = await response.json();
-  //   if (!session.id) {
-  //     console.error("Session ID missing from response:", session);
-  //     return;
-  //   }
-
-  //   const result = stripe.redirectToCheckout({
-  //     sessionId:session.id
-  //   });
-  //   if(result.error){
-  //     console.log((await result).error)
-  //   }
-  // };
-
   const makePayment = async () => {
     try {
       const stripe = await loadStripe("pk_test_51QTzM8KQ0PtWHj4D8H2ibe5D1GlrWJVDTM4JvA7vgVYqBZe11deOwQ6JNzkAIVmZ8AkMajJtNWKHV7UnXRqCCIYu00fsJnxHow");
