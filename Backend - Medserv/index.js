@@ -58,12 +58,11 @@ app.use("/formattedProducts", productRoutes);
 // for payments
 app.use("/api/checkout", checkoutRoutes);
 
+// Starting the server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-// Starting the server
 
 // // ----------------------------------------------------------------------------------------------
 // // -----for file handling---------------------------------------------------------------
