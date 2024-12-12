@@ -37,8 +37,9 @@ Additionally, Medserv features:
 
 <small> 
 
+- **Frontend**: `npm run dev` - (Port: 5173)
+- **Backend**: `npm run start` (Port: 4000)
 - **Admin**: `npm start` - (Port: 5000)
-- **Backend**: `node ./index.js` (Port: 4000)
 - For further details, please refer to the `README.md` in each directory. 
 
-</small>
+</small>  

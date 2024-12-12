@@ -53,7 +53,7 @@ const Item = (props) => {
               </div>
               <div className='item-link-details'>
                 <p className='item-name'>{props.name}</p>
-                <p className='item-price'>{props.price}</p>
+                <p className='item-price'>Rs. {props.price}</p>
               </div>
             </Link>
             {/* <button onClick={() => addToCart(props)}> */}

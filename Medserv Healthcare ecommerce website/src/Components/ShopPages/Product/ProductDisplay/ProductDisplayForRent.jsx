@@ -61,19 +61,19 @@ const ProductDisplay = (props) => {
                 <div className='item-rent-prices-grid'>
                     <div className='rental'>
                         Daily Rental: &nbsp;
-                        <p>{product.DaillyRental}</p>  
+                        <p>Rs. {product.DaillyRental}</p>  
                     </div>
                     <div className='rental'>
                         Weekly Rental: &nbsp;
-                        <p>{product.WeeklyRental}</p>  
+                        <p>Rs. {product.WeeklyRental}</p>  
                     </div>
                     <div className='rental'>
                         Monthly Rental: &nbsp;
-                        <p>{product.MonthlyRental}</p>  
+                        <p>Rs. {product.MonthlyRental}</p>  
                     </div>
                     <div className='rental'>
                         Deposit:&nbsp;
-                        <p>{product.Deposit}</p>  
+                        <p>Rs. {product.Deposit}</p>  
                     </div>
                 </div>
             </div>

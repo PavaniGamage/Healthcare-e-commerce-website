@@ -80,7 +80,7 @@ const ProductDisplay = (props) => {
 
             <div className='item-availability-price'>
                 <p>Availability: &nbsp; <span className='value'>{product.availability}</span></p>
-                <p>Price: &nbsp; <span className='value'>{product.price}</span></p>
+                <p>Price: &nbsp; <span className='value'>Rs. {product.price}</span></p>
             </div>
 
             <div className='item-description'>

@@ -11,10 +11,13 @@ const dbConnect = require("./dbConnect");
 const Product = require("./models/Product");         
 const checkoutRoutes = require("./routes/checkout");
 const productRoutes = require("./routes/products");
+const feedbackRoutes = require("./routes/feedback");
+const prescriptionRoutes = require("./routes/prescription");
 const cors = require("cors");
 const app = express();
 
-app.use(express.json()); 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Allow specific frontend URL to access backend
 // app.use(cors());
@@ -37,23 +40,28 @@ const path = require("path");
 // Manipulates file paths.
 const fs = require("fs");                                                    // Works with the file system.
 
+const GridFsStorage = require("multer-gridfs-storage");                      // store images/fles in MongoDB
+
 // Debugging and REPL utilities
 const { start } = require("repl");                                           // Used for interactive JavaScript evaluation
 
 // Create the upload directory if it doesn't exist
-const uploadDir = './upload/images';
-if (!fs.existsSync(uploadDir)){
-    fs.mkdirSync(uploadDir, { recursive: true });
-}
+// const uploadDir = './upload/images';
+// if (!fs.existsSync(uploadDir)){
+//     fs.mkdirSync(uploadDir, { recursive: true });
+// }
 
 // API creation root path
 app.get("/", (req, res) => {
     res.send("Hello, MongoDB!, Express App is Running");
 });
 
-
 // for getting products
 app.use("/formattedProducts", productRoutes);
+app.use("/feedback", feedbackRoutes);
+
+// app.use('/upload/prescriptions', express.static(path.join(__dirname, 'uploads')));
+app.use("/prescriptionsUpload", prescriptionRoutes);
 
 // for payments
 app.use("/api/checkout", checkoutRoutes);

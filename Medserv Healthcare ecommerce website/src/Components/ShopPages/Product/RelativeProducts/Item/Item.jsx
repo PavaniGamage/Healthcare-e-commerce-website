@@ -29,7 +29,7 @@ const Item = (props) => {
             </div>
             <div>
               <p className='item-name-relative'>{props.name}</p>
-              <p className='item-price-relative'>{props.price}</p>
+              <p className='item-price-relative'>Rs. {props.price}</p>
             </div>
             <button>
               <FaEye className='button-eye-icon-relative'/>

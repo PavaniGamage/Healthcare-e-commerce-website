@@ -29,7 +29,7 @@ const ItemForRent = (props) => {
           </div>
           <div>
             <p className='item-name-relative'>{props.name}</p>
-            <p className='item-price-relative'>{props.dailyRental} /Day</p>
+            <p className='item-price-relative'>Rs. {props.dailyRental} /Day</p>
           </div>
           <button>
             <FaEye className='button-eye-icon-relative'/>
