@@ -16,7 +16,7 @@ app.use(express.json());
 
 // MongoDB connection
 connect(process.env.MONGO_URI)
-  .then(() => console.log("Connected to MongoDB"))
+  .then(() => console.log("Connected to MongoDB."))
   .catch((error) => console.error("MongoDB connection failed:", error));
 
 // Import and register routes
@@ -26,7 +26,7 @@ app.use("/api/auth", authRoutes); // Prefix all auth routes with /api/auth
 // Start the server
 const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port: ${PORT}`);
 });
 
 const path = require("path");
