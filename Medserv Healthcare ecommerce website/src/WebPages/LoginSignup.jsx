@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './WebPages CSS/LoginSignup.css';
-import axios from '../utils/axios'; 
+import axios from '../Utils/axios'; 
 import { useNavigate } from 'react-router-dom';
 
 const LoginSignup = () => {
