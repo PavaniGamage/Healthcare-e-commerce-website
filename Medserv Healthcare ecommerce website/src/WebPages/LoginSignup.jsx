@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './WebPages CSS/LoginSignup.css';
-import axios from '../Utils/axios'; 
+import axios from '../Utilities/axios'; 
 import { useNavigate } from 'react-router-dom';
 
 const LoginSignup = () => {
@@ -20,7 +20,7 @@ const LoginSignup = () => {
   const [registerError, setRegisterError] = useState('');
 
   const navigate = useNavigate();  // Use useNavigate hook to navigate
-  const API_BASE_URL = 'http://localhost:5000';
+  const API_BASE_URL = 'http://localhost:7000';
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +73,7 @@ const LoginSignup = () => {
         confirmPassword: confirmPassword,
       };
       console.log('Sending payload:', payload);
-      const response = await axios.post(`http://localhost:5000/api/auth/signup`, payload);
+      const response = await axios.post(`http://localhost:7000/api/auth/signup`, payload);
       console.log('Registration successful', response.data);
       navigate('/');
     } catch (error) {
