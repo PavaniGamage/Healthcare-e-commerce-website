@@ -6,7 +6,7 @@ import ItemForRent from '../Item/ItemForRent.jsx';
 import createProductsArray from '../../../Assets/Shop/AllProducts/AllProducts.js';
 import { FaAngleDown } from 'react-icons/fa';
 
-const ShopForSearch = ({ queryForSearch }) => {
+const ShopForSearch = ({ queryForSearch, queryMinPrice, queryMaxPrice }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState('name'); // Default sorting by name
@@ -23,11 +23,25 @@ const ShopForSearch = ({ queryForSearch }) => {
   }, [queryForSearch]);
 
   // Filter products based on the search query
-  const filteredProducts = allProducts.filter(item =>
+  const filteredProducts1 = allProducts.filter(item =>
     item.name?.toLowerCase().includes(queryForSearch.toLowerCase()) ||
     item.keywords.toLowerCase().includes(queryForSearch.toLowerCase()) ||
-    item.availability?.toLowerCase().includes(queryForSearch.toLowerCase()) 
+    item.availability?.toLowerCase().includes(queryForSearch.toLowerCase()) ||
+    item.category2?.toLowerCase().includes(queryForSearch.toLowerCase())  
   );
+
+  let filteredProducts = filteredProducts1;
+
+  // Default values for min and max price
+  const minPrice = Number(queryMinPrice) || 0; 
+  const maxPrice = Number(queryMaxPrice) || Infinity;
+  
+  // filter based on min max prices
+  if (queryMaxPrice || queryMinPrice) {
+    filteredProducts = filteredProducts.filter(item => {
+      return item.price > minPrice && item.price < maxPrice;
+    });
+  }
 
   // Sorting logic
   const sortProducts = (products) => {
@@ -80,6 +94,17 @@ const ShopForSearch = ({ queryForSearch }) => {
           <button onClick={() => setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')}>
             {sortDirection === 'asc' ? 'ASC' : 'DESC'}
           </button>
+        </div>
+      </div>
+
+      <div className='filters'>
+        <p>Filters: </p>
+        <div>
+          <dl className='sort-filters-words'>
+            {queryForSearch && <dd>{queryForSearch}</dd>} 
+            {queryMinPrice !== undefined && <dd>Min Price: {queryMinPrice <= 0 ? 0 : queryMinPrice}</dd>}
+            {queryMaxPrice && <dd>Max Price: {queryMaxPrice > 100000 ? 100000 : queryMaxPrice}</dd>}
+          </dl>
         </div>
       </div>
 

@@ -98,9 +98,14 @@ const ProductDisplay = (props) => {
                 {/* check if description is null or not */}
                 {product.description ? (
                     <ul>
-                        {lines.map((line, index) => (
+                        {/* {lines.map((line, index) => (
                             <li key={index} className='item-description-line'>
                                 {line}
+                            </li>
+                        ))} */}
+                        {product.description.split('|').map((line, index) => (
+                            <li key={index} className='item-description-line'>
+                                {line.trim()}
                             </li>
                         ))}
                     </ul>
@@ -116,9 +121,14 @@ const ProductDisplay = (props) => {
                     {product.descriptionForRent ? (
                         <ul>
                             {linesForRent.map((line, index) => (
-                                <li key={index} className='item-description-line'>
-                                    {line}
-                                </li>
+                                // <li key={index} className='item-description-line'>
+                                //     {line}
+                                // </li>
+                                line.split('|').map((splitLine, splitIndex) => (
+                                    <li key={`${index}-${splitIndex}`} className='item-description-line'>
+                                      {splitLine.trim()}
+                                    </li>
+                                ))
                             ))}
                         </ul>
                     ) : (

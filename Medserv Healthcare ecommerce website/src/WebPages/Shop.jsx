@@ -10,18 +10,38 @@ import ShopShop from '../Components/ShopPages/Common//Shop/Shop.jsx'
 const Shop = ({category1}) => {
   // Define the state for query
   const [queryKeyword, setQuery] = useState('');
+  const [queryMinPrice, setQueryMinPrice] = useState('');
+  const [queryMaxPrice, setQueryMaxPrice] = useState('');
+  const [queryCategory2, setQueryCategory2] = useState('');
   const location = useLocation();
   
   // when change the location set the keyword
   useEffect(() => {
     setQuery('');
+    setQueryMinPrice('');
+    setQueryMaxPrice('');
+    setQueryCategory2('');
+    console.log('Filters reset due to location or category change.');
   }, [location.pathname]); 
 
-  // Define the onSearch function
+  // Handle search term
   const handleSearch = (searchTerm) => {
+    console.log('Main Shop received keyword: ', searchTerm);
     setQuery(searchTerm);
   };
-  console.log("Keyword receive to shop.jsx:" , queryKeyword);
+
+  // Handle price range
+  const handlePrice = (minPrice, maxPrice) => {
+    console.log('Main Shop received price range: ', minPrice, '-', maxPrice);
+    setQueryMinPrice(minPrice);
+    setQueryMaxPrice(maxPrice);
+  };
+
+  // Handle selected category
+  const handleCategory2 = (category2) => {
+    console.log('Main Shop received category2: ', category2);
+    setQueryCategory2(category2);
+  };
 
   return (
     <div className='shop-container'> 
@@ -29,13 +49,13 @@ const Shop = ({category1}) => {
           {(() => {
             switch (category1) {
               case "Wellness":
-                return <WellnessLeftMargin onSearch={handleSearch}/>;
+                return <WellnessLeftMargin onSearch={handleSearch} onPrice={handlePrice} onCateory2={handleCategory2}/>;
               case "MedicalDevices":
-                return <MedicalDevicesLeftMargin onSearch={handleSearch}/>;
+                return <MedicalDevicesLeftMargin onSearch={handleSearch} onPrice={handlePrice} onCateory2={handleCategory2}/>;
               case "PersonalCare":
-                return <PersonalCareLeftMargin onSearch={handleSearch}/>;
+                return <PersonalCareLeftMargin onSearch={handleSearch} onPrice={handlePrice} onCateory2={handleCategory2}/>;
               case "Rent":
-                return <RentLeftMargin onSearch={handleSearch}/>;
+                return <RentLeftMargin onSearch={handleSearch} onPrice={handlePrice} onCateory2={handleCategory2}/>;
               default:
                 return null;
             }
@@ -43,7 +63,12 @@ const Shop = ({category1}) => {
       </div> 
 
       <div className='shop'>
-        <ShopShop category1={category1} queryKeyword={queryKeyword}/>
+        <ShopShop 
+          category1={category1} 
+          queryKeyword={queryKeyword}
+          queryMinPrice={queryMinPrice}
+          queryMaxPrice={queryMaxPrice}
+          queryCategory2={queryCategory2}/>
       </div>        
     </div>
   )
