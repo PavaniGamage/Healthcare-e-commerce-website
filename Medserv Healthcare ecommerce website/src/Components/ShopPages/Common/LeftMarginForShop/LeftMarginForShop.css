@@ -77,6 +77,15 @@
     margin-top: 0rem;
 }
 
+.btn-apply {
+    border: none;
+    border-radius: 5px;
+    background-color: #01A3FF;
+    color: #fff;
+    padding-block: 5px;
+    padding-inline: 8px;
+}
+
 /* searchProducts styles */
 .keyword-list {
     display: flex;

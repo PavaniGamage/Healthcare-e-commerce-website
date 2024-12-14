@@ -4,9 +4,8 @@ import Pagination from './Components/Pagination.jsx';
 import Item from '../Item/Item.jsx';
 import ItemForRent from '../Item/ItemForRent.jsx';
 import createProductsArray from '../../../Assets/Shop/AllProducts/AllProducts.js';
-import { FaAngleDown } from 'react-icons/fa';
 
-const Shop = ({ category1, queryKeyword }) => {
+const Shop = ({ category1, queryKeyword, queryMinPrice, queryMaxPrice, queryCategory2 }) => {
   const [allProducts, setAllProducts] = useState([]); // for fetching data
   const [currentPage, setCurrentPage] = useState(1);  // for pagination
   const [sortBy, setSortBy] = useState('name'); // Default sorting by name
@@ -16,27 +15,52 @@ const Shop = ({ category1, queryKeyword }) => {
   // Fetch products when the component mounts
   useEffect(() => {
     const fetchProducts = async () => {
-      const products = await createProductsArray();
+      const products = await createProductsArray(); 
       setAllProducts(products);
       console.log(products);
     };
 
     fetchProducts();
-  }, []); 
+  }, []);  
 
-  // Filter products based on the category
+  // Filter products based on ctegory1
   const filteredProducts1 = allProducts.filter(item => item.category1 === category1);
-  
-  // Filter products based on the search keyword
-  console.log("Search term received in LeftMargin:", queryKeyword);
-  const filteredProducts2 = allProducts.filter(item =>
-    item.name?.toLowerCase().includes(queryKeyword.toLowerCase()) ||
-    item.keywords.toLowerCase().includes(queryKeyword.toLowerCase()) ||
-    item.availability?.toLowerCase().includes(queryKeyword.toLowerCase()) 
-  );
+  let filteredProducts = filteredProducts1;
 
-  // Conditional filtering based on whether the queryKeyword is empty
-  const filteredProducts = queryKeyword.trim() === "" ? filteredProducts1 : filteredProducts2;
+  // filter based on keyword
+  if (queryKeyword) {
+    filteredProducts = filteredProducts.filter(item =>
+      item.name.includes(queryKeyword) || item.description.includes(queryKeyword) ||
+      item.keywords.toLowerCase().includes(queryKeyword.toLowerCase()) ||
+      item.availability?.toLowerCase().includes(queryKeyword.toLowerCase()) 
+    );
+  }
+
+  // Default values for min and max price
+  const minPrice = Number(queryMinPrice) || 0; 
+  const maxPrice = Number(queryMaxPrice) || Infinity;
+  
+  // filter based on min max prices
+  if (queryMaxPrice || queryMinPrice) {
+    filteredProducts = filteredProducts.filter(item => {
+      return item.price > minPrice && item.price < maxPrice;
+    });
+  }
+  
+  // filter based on category2
+  if (queryCategory2) {
+    filteredProducts = filteredProducts.filter(item =>
+      item.category2?.toLowerCase().includes(queryCategory2.toLowerCase()) 
+    );
+  }
+
+  // // btn-x
+  // const handleClearKeyword = (type) => {
+  //   if (type === 'keyword') {queryKeyword = null};
+  //   if (type === 'category') {queryCategory2 = null};
+  //   if (type === 'minPrice') {queryMinPrice = null};
+  //   if (type === 'maxPrice') {queryMaxPrice = null};
+  // };
 
   // Sorting logic
   const sortProducts = (products) => {
@@ -92,49 +116,36 @@ const Shop = ({ category1, queryKeyword }) => {
         </div>
       </div>
 
-      <div className='shop-items'>
-        {currentProducts.map((item, i) => {
-          if (category1 === 'Rent') {
-            if (category1 === item.category1) {
-              return (
-                <ItemForRent
-                  key={i}
-                  id={item.id}
-                  name={item.name}
-                  image={item.image}
-                  price={item.price}
-                  category1={item.category1}
-                  category2={item.category2}
-                  dailyRental={item.DaillyRental}
-                />
-              );
-            } else {
-              return null;
-            }
-          } else {
-            if (category1 === item.category1) {
-              return (
-                <Item
-                  key={i}
-                  id={item.id}
-                  name={item.name}
-                  image={item.image}
-                  price={item.price}
-                  category1={item.category1}
-                  category2={item.category2}
-                />
-              );
-            } else {
-              return null;
-            }
-          }
-        })}
+      <div className='filters'>
+        <p>Filters: </p>
+        <div>
+          <dl className='sort-filters-words'>
+            {queryKeyword && <dd>{queryKeyword}</dd>}
+            {queryCategory2 && <dd>{queryCategory2}</dd>}
+            {queryMinPrice !== undefined && <dd>Min Price: {queryMinPrice <= 0 ? 0 : queryMinPrice}</dd>}
+            {queryMaxPrice && <dd>Max Price: {queryMaxPrice > 100000 ? 100000 : queryMaxPrice}</dd>}
+          </dl>
+        </div>
       </div>
 
-      {/* <div className='lordmore'>
-        <p>Explore more</p>
-        <FaAngleDown className='category-sort-FaAngleDown' />
-      </div> */}
+      <div className='shop-items-container'>        
+        {currentProducts.length > 0 ? (
+          <div className='shop-items'>
+            { currentProducts.map((item, i) => (
+              item.itemType === 'Rent' ? (
+                <ItemForRent key={i} {...item} />
+              ) : (
+                <Item key={i} {...item} />
+              )
+            )) } 
+          </div>
+        ) : (
+          <div className='shop-items-p'>
+            <p>No products found.</p>
+          </div>
+        )}
+      </div>
+
        {/* Pagination Component */}
        <Pagination
         currentPage={currentPage}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './LeftMarginForShop.css'
 import { Link, useNavigate } from "react-router-dom";
 
-const LeftMarginForSearchProducts = ({onSearch}) => {
+const LeftMarginForSearchProducts = ({onSearch, onPrice}) => {
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
 
@@ -20,6 +20,19 @@ const LeftMarginForSearchProducts = ({onSearch}) => {
         // Navigate to search results page with query
         navigate(`/search_products?query=${keyword}`);
     };
+
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
+
+    const handlePriceSubmit = () => {
+        let minPriceValue = minPrice || 0; // Use 0 if minPrice is not set
+        let maxPriceValue = maxPrice || Number.MAX_SAFE_INTEGER; // Use a large number if maxPrice is not set
+    
+        console.log("Price range passed by left-margin:", { min: minPriceValue, max: maxPriceValue });
+    
+        // Pass these values to a parent component or use them for search
+        onPrice(minPriceValue ,maxPriceValue);
+    };   
 
     return (
         <div className='left-margin-for-shop'>
@@ -53,11 +66,12 @@ const LeftMarginForSearchProducts = ({onSearch}) => {
                     <h1>Price</h1>
                     <dl>
                         <dt>Min</dt>
-                        <dd><input type='number'/></dd>
+                        <dd> <input type='number' onChange={(e) => setMinPrice(e.target.value)}/> </dd>
                         <p> - </p>
                         <dt>Max</dt>
-                        <dd><input type='number'/></dd>
+                        <dd> <input type='number' onChange={(e) => setMaxPrice(e.target.value)}/> </dd>
                     </dl>
+                    <button className='btn-apply' onClick={handlePriceSubmit}>Apply</button>
                 </div>
             </div>
 

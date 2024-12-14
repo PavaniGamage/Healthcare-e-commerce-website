@@ -1,16 +1,32 @@
 import React,  { useState } from 'react'
 import './LeftMarginForShop.css'
 
-const MedicalDevicesLeftMargin = ({onSearch}) => {
+const MedicalDevicesLeftMargin = ({onSearch, onPrice, onCateory2}) => {
     const [searchTerm, setSearchTerm] = useState('');
-
+    
     const handleSearchSubmit = (event, keyword = searchTerm) => {
         event.preventDefault();
         console.log("Searching for:", keyword);
-
-        // Perform search using the keyword
         onSearch(keyword);
     };
+
+    const handleCategoryClick = (category2) => {
+        console.log("Selected category2 passed by Left-Margin:", category2);
+        onCateory2(category2); 
+    };
+
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
+
+    const handlePriceSubmit = () => {
+        let minPriceValue = minPrice || 0; // Use 0 if minPrice is not set
+        let maxPriceValue = maxPrice || Number.MAX_SAFE_INTEGER; // Use a large number if maxPrice is not set
+    
+        console.log("Price range passed by left-margin:", { min: minPriceValue, max: maxPriceValue });
+    
+        // Pass these values to a parent component or use them for search
+        onPrice(minPriceValue ,maxPriceValue);
+    };   
 
   return (
     <div className='left-margin-for-shop'>
@@ -18,10 +34,10 @@ const MedicalDevicesLeftMargin = ({onSearch}) => {
             <div className='wellness'>
                 <h1>Medical Devices</h1>
                 <ul>
-                    <li>First Aid</li>
-                    <li>Diagnostic Devices</li>
-                    <li>Personal Protective Devices</li>
-                    <li>Other</li>
+                    <li onClick={() => handleCategoryClick('First Aid')}>First Aid</li>
+                    <li onClick={() => handleCategoryClick('Diagnostic Devices')}>Diagnostic Devices</li>
+                    <li onClick={() => handleCategoryClick('Personal Protective Devices')}>Personal Protective Devices</li>
+                    <li onClick={() => handleCategoryClick('Other')}>Other</li>
                 </ul>
             </div>
             <div className='brands'>
@@ -41,11 +57,12 @@ const MedicalDevicesLeftMargin = ({onSearch}) => {
                 <h1>Price</h1>
                 <dl>
                     <dt>Min</dt>
-                    <dd><input type='number'/></dd>
+                    <dd> <input type='number' onChange={(e) => setMinPrice(e.target.value)}/> </dd>
                     <p> - </p>
                     <dt>Max</dt>
-                    <dd><input type='number'/></dd>
+                    <dd> <input type='number' onChange={(e) => setMaxPrice(e.target.value)}/> </dd>
                 </dl>
+                <button className='btn-apply' onClick={handlePriceSubmit}>Apply</button>
             </div>
         </div>
         

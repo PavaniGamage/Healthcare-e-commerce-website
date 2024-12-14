@@ -55,7 +55,7 @@ const Breadcrum = (props) => {
       }
 
       {
-        product.category1 === "rent" && (
+        product.category1 === "Rent" && (
           <>
             <div className='breadcrum_links'>
               <Link className='link' to='/rent' onClick={() => window.scrollTo(0, 0)}>
