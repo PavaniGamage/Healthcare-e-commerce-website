@@ -20,6 +20,8 @@ import SendUsMessage from "./Components/HomePage/SendUsMessage/SendUsMessage.jsx
 import SearchProducts from "./WebPages/SearchProducts.jsx";
 import SuccessPage from "./WebPages/Cart/SuccessPage.jsx"; 
 import CancelPage from "./WebPages/Cart/CancelPage.jsx";
+import ForgotPassword from './WebPages/ForgotPassword';
+import ResetPassword from './WebPages/ResetPassword';
 
 
 function App() {
@@ -48,6 +50,8 @@ function App() {
           <Route path="/search_products" element={<SearchProducts/>}></Route>
           <Route path="/success" element={<SuccessPage />} />
           <Route path="/cancel" element={<CancelPage />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
         <Footer />
       </BrowserRouter>
