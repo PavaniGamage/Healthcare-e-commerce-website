@@ -123,7 +123,7 @@ const Footer = () => {
           <div className="footer-contact-us">
             <h1 className="footer-title">Contact Us</h1>
             <p>Reach us,</p>
-            <li>By email: medserv@gmail.com</li>
+            <a href="mailto:medservehealthcare2@gmail.com"> medservehealthcare2@gmail.com</a>
             <li>By phone: +94 11 2345678</li>
           </div>
         </div>

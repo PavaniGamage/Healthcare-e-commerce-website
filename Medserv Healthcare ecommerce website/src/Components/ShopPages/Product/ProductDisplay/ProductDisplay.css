@@ -300,6 +300,50 @@ input[type='number'] {
 .item-name-rating-availability-extra {
     display: none;
 }
+.calculate-rent {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 30px; 
+    margin-bottom: 20px; 
+    gap: 20px; 
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.calculate-rent-button {
+    width: 150px;
+    height: 40px;
+    background-color: #01A3FF;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.calculate-rent-button:hover {
+    background-color: #006dac;
+    transform: scale(1.05);
+}
+
+.calculate-rent p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.calculate-rent span {
+    font-weight: bold;
+    color: #01A3FF;
+}
+
+.additional-spacing {
+    margin-top: 20px; 
+}
 
 @media (max-width: 650px) {
     .product-display {
@@ -320,7 +364,6 @@ input[type='number'] {
         margin-top: -10px;
     }
     
-    /* for rent */
     .item-name-rating-availability-rent {
         display: none;
     }

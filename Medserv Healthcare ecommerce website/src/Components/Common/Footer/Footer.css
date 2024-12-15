@@ -101,6 +101,10 @@
     color: #F2AE00;
     border: 1px solid #F2AE00;
 }
+.footer-contact-us a {
+    color: inherit; /* Removes blue color */
+    text-decoration: none; /* Removes underline */
+  }
 
 .footer-title {
     font-size: 1.3vw;
