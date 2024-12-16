@@ -31,6 +31,12 @@ const Cart = () => {
         return;
       }
 
+      if (total < 200) {
+        console.error("The minimum purchase amount is Rs. 200.00");
+        alert("The minimum purchase amount is Rs. 200.00. Please add more items to your cart.");
+        return;
+      }
+
       console.log("Cart being sent to backend:", cart);
       
       const response = await fetch("http://localhost:4000/api/checkout/create-checkout-session", {

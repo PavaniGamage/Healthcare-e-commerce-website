@@ -8,6 +8,8 @@ import Hearts from "./WebPages/Hearts";
 import Blog from "./WebPages/Blog/Blog";
 import Cart from "./WebPages/Cart/Cart.jsx";
 import { CartProvider } from "./WebPages/Cart/CartContext.jsx";  // Import CartProvider
+import PaymentHistory from "./WebPages/PaymentHistory/PaymentHistory.jsx";
+import PaymentHistoryItem from "./WebPages/PaymentHistory/PaymentHistoryItem.jsx";
 import LogInSignUp from "./WebPages/LoginSignup";
 import UploadPrescriptions from "./WebPages/UploadPrescriptions";
 import Footer from "./Components/Common/Footer/Footer";
@@ -23,8 +25,7 @@ import CancelPage from "./WebPages/Cart/CancelPage.jsx";
 import ForgotPassword from './WebPages/ForgotPassword';
 import ResetPassword from './WebPages/ResetPassword';
 
-
-function App() {
+function App() { 
   return (
     <CartProvider>
       <BrowserRouter>
@@ -42,6 +43,8 @@ function App() {
             <Route path=":productID" element={<Product />} />
           </Route>
           <Route path="/cart" element={<Cart />} />
+          <Route path="/payment_history" element={<PaymentHistory />} />
+          <Route path="/payment_history/:orderID" element={<PaymentHistoryItem />} />
           <Route path="/sign_in" element={<LogInSignUp />} />
           <Route path="/upload_prescriptions" element={<UploadPrescriptions />}></Route>
           <Route path="/location" element={<Location />}></Route>

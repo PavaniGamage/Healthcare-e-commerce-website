@@ -11,6 +11,7 @@ const dbConnect = require("./dbConnect");
 const Product = require("./models/Product");         
 const checkoutRoutes = require("./routes/checkout");
 const productRoutes = require("./routes/products");
+const paymentHistoryRoutes = require("./routes/paymentHistory");
 const feedbackRoutes = require("./routes/feedback");
 const prescriptionRoutes = require("./routes/prescription");
 const cors = require("cors");
@@ -65,6 +66,8 @@ app.use("/prescriptionsUpload", prescriptionRoutes);
 
 // for payments
 app.use("/api/checkout", checkoutRoutes);
+// for payment history
+app.use("/paymentHistory", paymentHistoryRoutes);
 
 // Starting the server
 const PORT = process.env.PORT || 4000;
