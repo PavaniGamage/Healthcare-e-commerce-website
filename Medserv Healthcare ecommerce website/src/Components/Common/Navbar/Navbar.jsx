@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react'
 import './Navbar.css'
+import { useUser } from '../../../Context/UserContext';
 import {FaShoppingCart, FaUser, FaMapMarkerAlt, FaFileAlt} from 'react-icons/fa';
 import logo from '../../Assets/NavBar/logo.png';
 import SearchBar from '../Navbar/SearchBar/SearchBar';
@@ -8,9 +9,7 @@ import {Link , useLocation} from 'react-router-dom';
 
 const Navbar = () => {
     const { cart } = useCart(); // Access the cart array from the context
-    // const cartCount = cart.length; // Get the count of items in the cart
-    // Calculate the total item count in the cart
-    const cartCount = cart.reduce((total, item) => total + item.quantity, 0); 
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);  // Calculate the total item count in the cart
 
     // for changing the state of clicked nav bar item
     // const [menu, setMenu] = useState("home");
@@ -68,6 +67,27 @@ const Navbar = () => {
         };
     }, []);
 
+    // handle login details
+    const { isLoggedIn, userName, logout } = useUser();  // Access user state and logout function from context
+    const [signInMessage, setSignInMessage] = useState("Sign In");
+    const [pathForIcon, setpathForIcon] = useState('/sign_in');
+
+    useEffect(() => {
+        if (userName) {
+          setSignInMessage(userName);
+          setpathForIcon('/my_profile');
+        } else {
+          setSignInMessage("Sign In");
+          setpathForIcon('/sign_in');
+        }
+    }, [isLoggedIn, userName]);
+
+    // Handle logout action
+    const handleLogout = () => {
+        logout();  // Call logout from context
+        setSignInMessage("Sign In");
+    };
+
     // for searching products
     const handleSearch = (query) => {
         console.log('Searching for:', query);
@@ -91,9 +111,9 @@ const Navbar = () => {
                     <Link className='nav-bar-link' to='/blog'><li className={activeMenu === "blog" ? "active" : ""}>Blog{activeMenu === "blog" ? <hr /> : null}</li></Link>
                 </ul>
                 <div className='nav-signin'>
-                    <Link className='nav-bar-link' to='/sign_in'>
+                    <Link className='nav-bar-link' to={pathForIcon}>
                         <FaUser className='nav-icons'/>
-                        <p>Sign In</p>
+                        <p id='sign-in'>{signInMessage}</p>
                     </Link>
                 </div>
                 <div className='nav-menu-span' onClick={toggleMenu}>

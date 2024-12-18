@@ -9,8 +9,9 @@ const CancelPage = () => {
       const sendSessionStatus = async () => {
         // Get the session_id from the URL query parameters
         const session_id = new URLSearchParams(window.location.search).get('session_id');
-        
-        if (session_id) {
+        const email = localStorage.getItem('userEmail');
+
+        if (session_id || email) {
           const status = "cancel"; // Set the status as 'success'
   
           try {
@@ -22,6 +23,7 @@ const CancelPage = () => {
               body: JSON.stringify({
                 session_id: session_id,
                 status: status,
+                userEmail: email,
               }), // Sending session_id and status as JSON to the backend
             });
   

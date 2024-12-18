@@ -7,10 +7,14 @@ const Order = require("../models/Order");
 // Create a checkout session
 router.post('/create-checkout-session', async (req, res) => {
   try {
-    const { products } = req.body;
+    const { products, userEmail } = req.body;
     
     if (!products || !Array.isArray(products) || products.length === 0) {
       return res.status(400).json({ error: "Invalid products data" });
+    }
+
+    if (!userEmail) {
+      return res.status(400).json({ error: "User not logged in." });
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -43,9 +47,9 @@ router.post('/create-checkout-session', async (req, res) => {
 
 // Getting Order details and save into database
 router.post('/checkout-session-status', async (req, res) => {
-  const { session_id, status } = req.body;
+  const { session_id, status, userEmail } = req.body;
 
-  if (session_id && status) {
+  if (session_id && status && userEmail) {
     try {
       // Fetch the Stripe Checkout session
       const session = await stripe.checkout.sessions.retrieve(session_id);
@@ -88,7 +92,7 @@ router.post('/checkout-session-status', async (req, res) => {
 
             // Create the order document
             const order = new Order({
-              customerEmail: session.customer_email || '-',
+              userEmail: userEmail || '-',
               products,
               totalAmount,
               sessionId: session.id,

@@ -36,9 +36,9 @@ const LoginSignup = () => {
   
       // Save the token securely
       localStorage.setItem('token', response.data.token);
-  
-      // Redirect to the dashboard
-      navigate('/upload_prescriptions');
+
+      // Navigate 
+      navigate('/my_profile');
     } catch (error) {
       console.error('Login error', error);
   
@@ -75,11 +75,12 @@ const LoginSignup = () => {
       console.log('Sending payload:', payload);
       const response = await axios.post(`http://localhost:7000/api/auth/signup`, payload);
       console.log('Registration successful', response.data);
-      navigate('/');
+      alert('Please sign-in to access your account..');
+      navigate('/login');
     } catch (error) {
       console.error('Registration error', error.response || error.message);
       setRegisterError(error.response?.data?.message || 'Registration failed');
-
+      alert('Registration failed..'); 
     }
   }    
 

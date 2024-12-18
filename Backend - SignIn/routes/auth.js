@@ -109,7 +109,7 @@ router.post('/signin', async (req, res) => {
 
     // Generate token
     const token = jwt.sign({ email: user.email, id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-    
+
     // Log the response here before sending
     console.log('Login successful:', { result: user, token });
 
@@ -121,10 +121,105 @@ router.post('/signin', async (req, res) => {
   }
 });
 
+// Middleware to verify JWT token
+const authenticate = (req, res, next) => {
+  const token = req.header('Authorization')?.replace('Bearer ', '');
+
+  if (!token) {
+    return res.status(401).json({ message: 'Access denied. No token provided.' });
+  }
+
+  try {
+    // Decode the token to get the user ID
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // Store the decoded token (user info) in the request object
+    next();
+  } catch (error) {
+    return res.status(400).json({ message: 'Invalid token.' });
+  }
+};
+
+// Profile route
+router.get('/profile', authenticate, async (req, res) => {
+  try {
+    // Use the user ID from the decoded token to find the user in the database
+    const user = await User.findById(req.user.id);  // req.user.id is set in the authenticate middleware
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    // Send the user data in the response
+    res.status(200).json({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      mobile: user.mobile,
+      address: user.address,
+      city: user.city,
+    });
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    res.status(500).json({ message: 'Something went wrong.' });
+  }
+});
 
 
+// Logout Route 
+router.post('/logout', authenticate, (req, res) => {
+  // Invalidate the token on the client side
+  res.send('Logged out successfully');
+});
 
 
+// Edit Profile Route
+router.put('/edit-profile', authenticate, async (req, res) => {
+  const { firstName, lastName, mobile, address, city } = req.body;
+
+  // Validate required fields
+  if (!firstName || !lastName || !mobile || !address || !city) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  // Validate mobile number
+  const validateMobileNumber = (mobile) => /^\d{10}$/.test(mobile);
+  if (!validateMobileNumber(mobile)) {
+    return res.status(400).json({ message: "Invalid mobile number format. It should be 10 digits" });
+  }
+
+  const allowedCities = ["Colombo", "Kandy", "Jaffna", "Galle"];
+  if (!allowedCities.includes(city)) {
+    return res.status(400).json({ message: "Invalid city selection." });
+  }
+
+  try {
+    // Find and update the user's profile
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id, // User ID from the authenticated token
+      { firstName, lastName, mobile, address, city }, // Update fields
+      { new: true, runValidators: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Send updated user data in the response
+    res.status(200).json({
+      message: "Profile updated successfully.",
+      user: {
+        firstName: updatedUser.firstName,
+        lastName: updatedUser.lastName,
+        mobile: updatedUser.mobile,
+        address: updatedUser.address,
+        city: updatedUser.city,
+      },
+    });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 
 // Forgot password route

@@ -27,10 +27,10 @@ router.post("/", prescritionUploads.single("prescriptionFile"), async (req, res)
         }
 
         // Validate the required fields
-        const { patientName, patientAge, patientGender, frequency, fulfillment, substitutes, message } = req.body;
+        const { userEmail, patientName, patientAge, patientGender, frequency, fulfillment, substitutes, message } = req.body;
 
         // Check for missing fields
-        if (!patientName || !patientAge || !patientGender || !frequency || !fulfillment || !substitutes) {
+        if (!userEmail || !patientName || !patientAge || !patientGender || !frequency || !fulfillment || !substitutes) {
             return res.status(400).json({ error: "All fields are required." });
         }
 
@@ -39,20 +39,34 @@ router.post("/", prescritionUploads.single("prescriptionFile"), async (req, res)
             return res.status(400).json({ error: "Patient age must be a positive number." });
         }
 
+        // Fetch the last orderID and increment
+        const getNextOrderID = async () => {
+            const lastOrder = await Prescription.findOne().sort({ orderID: -1 }).limit(1);
+            return lastOrder ? lastOrder.orderID + 1 : 1;
+        };
+
+        // Generate the orderID
+        const orderID = await getNextOrderID();
+
+        // set the status
+        const status = 'Pending';
+
         // Save prescription details in the database
         const prescription = new Prescription({
+            userEmail,
+            orderID,
             patientName,
             patientAge,
             patientGender,
             frequency,
             fulfillment,
             substitutes,
-            // prescriptionFile: req.file.path, // File path where the file is stored
             prescriptionFile: {
                 data: req.file.buffer, // Binary file data from Multer
                 contentType: req.file.mimetype, // File MIME type
             },
             message,
+            status,
         });
 
         await prescription.save();
@@ -102,6 +116,60 @@ router.use((err, req, res, next) => {
     }
 });
 
-module.exports = router;
+// Get Prescription Data from DB
+router.get('/prescription_history/:email', async (req, res) => { 
+    try {
+      const userEmail = req.params.email; 
+      const prescriptionOrders = await Prescription.find({ userEmail });
+      
+      if (prescriptionOrders.length === 0) { 
+        return res.status(404).json({ message: 'No prescription orders found for this email' });
+      }
+      
+      res.status(200).json(prescriptionOrders); 
+    } catch (error) {
+      console.error('Error fetching prescription orders:', error);
+      res.status(500).json({ error: 'An error occurred while fetching prescription orders' });
+    }
+});
+
+// GET route for fetching order details by orderID and userEmail
+router.get('/prescription_history/:email/:orderID', async (req, res) => {
+    const userEmail = req.params.email; 
+    const orderID = req.params.orderID; 
+
+    try {      
+      const upload = await Prescription.findOne({ userEmail: userEmail, orderID: orderID });
+
+      if (!upload) {
+        return res.status(404).json({ message: 'Upload not found.' });
+      }
+
+      const prescriptionFileBase64 = upload.prescriptionFile
+        ? upload.prescriptionFile.data.toString('base64')
+        : null;
+
+      res.status(200).json({
+        orderID: upload.orderID,
+        patientName: upload.patientName,
+        patientAge: upload.patientAge,
+        patientGender: upload.patientGender,
+        frequency: upload.frequency,
+        fulfillment: upload.fulfillment,
+        substitutes: upload.substitutes,
+        status: upload.status,
+        message: upload.message,
+        prescriptionFile: {
+            data: prescriptionFileBase64,  // Base64 encoded string
+            contentType: upload.prescriptionFile.contentType, // Content type like "image/jpeg"
+        }
+      }); 
+    } catch (error) {
+      console.error('Error fetching the upload:', error);
+      res.status(500).json({ error: 'An error occurred while fetching the upload.' });
+    }
+});
+
+module.exports = router; 
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import axios
-import './WebPages CSS/ResetPassword.css';
+import "../WebPages/WebPages CSS/ForgotPassword.css";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -57,7 +57,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="reset-password-container">
+    <div className="forgot-password-container">
       <h2>Reset Password</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">

@@ -6,13 +6,31 @@ import fallbackImage from '../../Components/ShopPages/Common/Item/medserv_logo-f
 const PaymentHistoryItem = () => {
   const { orderID } = useParams(); // Access the orderID from the URL
   const [orderDetails, setOrderDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const userEmail = localStorage.getItem('userEmail');
 
   // fetch the order details based on orderID
   useEffect(() => {
     const fetchOrderDetails = async () => {
+      if (!orderID) {
+        console.error('Order ID is missing!');
+        setError('Order ID is missing');
+        setLoading(false);
+        return;
+      }
+  
+      if (!userEmail) {
+        // If the user is not logged in, set error and stop fetching data
+        setError('You must be logged in to view your uploads.');
+        setLoading(false);
+        return;
+      }
+
       try {
         // Fetch order data
-        const response = await fetch(`http://localhost:4000/paymentHistory/orders_details/${orderID}`);
+        const response = await fetch(`http://localhost:4000/paymentHistory/orders_details/${userEmail}/${orderID}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch orderDetails');
@@ -21,14 +39,21 @@ const PaymentHistoryItem = () => {
         setOrderDetails(data); 
       } catch (error) {
         console.error('Error fetching order details:', error);
+        setError('Failed to load order details. Please try again later.');
+      } finally {
+        setLoading(false); // Stop loading once the fetch is done
       }
     };
 
     fetchOrderDetails();
-  }, [orderID]);
+  }, [orderID, userEmail]);
 
-  if (!orderDetails) {
-    return <p className='ml-10 mt-10 h-[200px] flex items-start'>Loading...</p>; // Loading state while fetching data
+  if (loading) {
+    return <div className='p-10' style={{ height: '50vh' }}><p>Loading...</p></div>;
+  }
+
+  if (error) {
+    return <div className='p-10' style={{ height: '50vh' }}><p>{error}</p></div>;
   }
 
   // handle image

@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import './WebPages CSS/UploadPrescriptions.css';
 
 const UploadPrescriptions = () => {
+  const userEmail = localStorage.getItem('userEmail');
+
   const [formData, setFormData] = useState({
+    userEmail: userEmail,
     patientName: '',
     patientAge: '',
     patientGender: '',
@@ -31,6 +34,13 @@ const UploadPrescriptions = () => {
     setIsLoading(true);
     setError(null);
 
+    if (!userEmail) {
+      alert('Please log in before uploading.');
+      setError("You're not logged-in!"); 
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const formDataToSend = new FormData();
       Object.keys(formData).forEach((key) => {
@@ -50,6 +60,7 @@ const UploadPrescriptions = () => {
       if (response.ok) {
         alert('Prescription uploaded successfully!');
         setFormData({
+          userEmail: userEmail,
           patientName: '',
           patientAge: '',
           patientGender: '',

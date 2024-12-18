@@ -5,15 +5,26 @@ const PaymentHistory = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const email = "-";
+
+  const email = localStorage.getItem('userEmail');
 
   useEffect(() => {
     // Fetch order history from the backend
     const fetchOrders = async () => {
+      if (!email) {
+        // setError('User email is not available in localStorage.');
+        setError('Please login to access details.');
+        setLoading(false);
+        return;
+      }
+      
       try {
         const response = await fetch(`http://localhost:4000/paymentHistory/orders/${email}`);
+        if (response.status === 404) {
+          throw new Error('No orders found.');
+        }        
         if (!response.ok) {
-          throw new Error('Failed to fetch orders');
+          throw new Error('Failed to fetch orders.'); 
         }
         const data = await response.json();
         setOrders(data);
@@ -27,8 +38,8 @@ const PaymentHistory = () => {
     fetchOrders();
   }, [email]);
 
-  if (loading) return <p>Loading payment history...</p>;
-  if (error) return <p className="error-text">Error: {error}</p>;
+  if (loading) return <div className='p-10' style={{ height: '50vh' }}><p>Loading payment history...</p></div>;
+  if (error) return <div className='p-10' style={{ height: '50vh' }}><p className="error-text">Error: {error}</p></div>;
 
   return (
     <div className='cart-page'>
