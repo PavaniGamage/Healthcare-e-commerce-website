@@ -7,6 +7,28 @@ const ProductDisplay = (props) => {
     const {product} = props;
 
     const handleReserveNow = () => {
+        if (!quantity || quantity <= 0) {
+            alert('Please select a valid quantity.');
+            return;
+        }
+    
+        if (!startDate) {
+            alert('Please select a start date.');
+            return;
+        }
+    
+        if (!endDate) {
+            alert('Please select an end date.');
+            return;
+        }
+    
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+    
+        if (end <= start) {
+            alert('End Date must be after Start Date.');
+            return;
+        }
         const email = 'medserv@gmail.com'; // Replace with your actual email
         window.location.href = `mailto:${email}?subject=Reservation Inquiry&body=Hi, I am interested in reserving the product: ${product.name}`;
     };
