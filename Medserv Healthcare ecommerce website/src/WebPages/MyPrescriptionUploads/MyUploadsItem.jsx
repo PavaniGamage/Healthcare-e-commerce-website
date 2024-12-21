@@ -75,7 +75,7 @@ const MyUploadsItem = () => {
   };
 
   return (
-    <div className="cart-page">
+    <div className="cart-page text-[13px]">
         <div className='cart-page'>
           <h2>Upload Details</h2>
 

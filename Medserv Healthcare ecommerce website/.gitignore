@@ -26,6 +26,3 @@ dist-ssr
 # Keys
 .env 
 
-# Other
-myNotes.txt
-

@@ -22,7 +22,7 @@ export default function Hearts() {
             </p>
 
             <a
-              href="#"
+              href="/donation"
               className="inline-flex items-center justify-center px-7 py-3 mr-3 text-base font-medium text-center text-white bg-[#f2ae00] rounded-xl hover:bg-[#deb03a] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 no-underline"
             >
               Donate

@@ -42,7 +42,7 @@ const PaymentHistory = () => {
   if (error) return <div className='p-10' style={{ height: '50vh' }}><p className="error-text">Error: {error}</p></div>;
 
   return (
-    <div className='cart-page'>
+    <div className='cart-page text-[13px]'>
       <h2>Payment History</h2>
       <div className='table-item'>        
         <table className="table-auto w-full border-collapse text-center">

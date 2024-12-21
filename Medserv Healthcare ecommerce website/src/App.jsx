@@ -8,6 +8,9 @@ import { CartProvider } from "./WebPages/Cart/CartContext.jsx";
 import Navbar from "./Components/Common/Navbar/Navbar";
 import Home from "./WebPages/Home";
 import Hearts from "./WebPages/Hearts";
+import Donate from "./WebPages/Donation.jsx";
+import SuccessPageDonation from "./WebPages/Donation/SuccessPage.jsx"; 
+import CancelPageDonation from "./WebPages/Donation/CancelPage.jsx";
 import Blog from "./WebPages/Blog/Blog";
 import Cart from "./WebPages/Cart/Cart.jsx";
 import PaymentHistory from "./WebPages/PaymentHistory/PaymentHistory.jsx";
@@ -35,7 +38,7 @@ function App() {
   return (
     <UserProvider>
       <CartProvider>
-        <BrowserRouter>
+        <BrowserRouter> 
           <Navbar />
           <Routes>
             <Route path='/' element={<Home/>}/>
@@ -43,6 +46,9 @@ function App() {
             <Route path='/medical_devices' element={<Shop category1="MedicalDevices"/>}/>
             <Route path='/personal_care' element={<Shop category1="PersonalCare"/>}/>
             <Route path='/hearts' element={<Hearts/>}/>
+            <Route path='/donation' element={<Donate/>}/>
+            <Route path="/success-donation" element={<SuccessPageDonation />} />
+            <Route path="/cancel-donation" element={<CancelPageDonation />} />
             <Route path='/rent' element={<Shop category1="Rent"/>}/>
             <Route path='/blog' element={<Blog/>}/>
               <Route path="/blog/:id" element={<BlogPost />} />

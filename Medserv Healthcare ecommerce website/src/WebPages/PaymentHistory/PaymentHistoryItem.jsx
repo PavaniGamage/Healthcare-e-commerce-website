@@ -62,7 +62,7 @@ const PaymentHistoryItem = () => {
   };
  
   return (
-    <div className='cart-page'>
+    <div className='cart-page text-[13px]'>
       <h2>Order History</h2>
       <div className='cart-items payment-details'>        
         <div className="overflow-x-auto">

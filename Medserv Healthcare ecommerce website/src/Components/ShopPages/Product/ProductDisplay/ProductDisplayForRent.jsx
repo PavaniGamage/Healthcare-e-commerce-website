@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './ProductDisplay.css';
 import MedservLogo from '../../Common/Item/medserv_logo-for-products.png';
-import { FaToolbox, FaStar } from 'react-icons/fa';
+import { FaToolbox, FaStar, FaCalculator  } from 'react-icons/fa';
 
 const ProductDisplay = (props) => {
     const {product} = props;
@@ -31,6 +31,91 @@ const ProductDisplay = (props) => {
         setQuantity(quantity - 1);
         }
     };
+
+    // rent calculations
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [totalRent, setTotalRent] = useState(0);
+    const [months, setMonths] = useState(0);
+    const [weeks, setWeeks] = useState(0);
+    const [days, setDays] = useState(0);
+
+    // Get today's date in the format 'YYYY-MM-DD'
+    const today = new Date().toISOString().split('T')[0];
+
+    const handleStartDateChange = (e) => {
+        setStartDate(e.target.value);
+    };
+
+    const handleEndDateChange = (e) => {
+        setEndDate(e.target.value);
+    };
+
+    const calculateRent = () => {
+        if (!startDate || !endDate) {
+            alert("Please select both start and end dates.");
+            return;
+        }
+    
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+    
+        if (start >= end) {
+            alert("End date must be after start date.");
+            return;
+        }
+
+        if (quantity < 1) {
+            alert("Enter the quantity you want.");
+            return;
+        }
+
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+    
+            // Calculate total duration in milliseconds
+            const diffTime = Math.abs(end - start);
+    
+            // Convert time difference to days
+            const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+            // Calculate months, weeks, and remaining days
+            const months = Math.floor(totalDays / 30); // Approximate a month as 30 days
+            const weeks = Math.floor((totalDays % 30) / 7);
+            const days = totalDays % 7;
+    
+            // Calculate the rent based on the duration
+            const monthlyRent = Number(product.MonthlyRental);
+            const weeklyRent = Number(product.WeeklyRental);
+            const dailyRent = Number(product.DaillyRental);
+            const deposit = Number(product.Deposit);
+    
+            // Calculate the total rent
+            const totalMonthlyRent = Number(months * monthlyRent);
+            const totalWeeklyRent = Number(weeks * weeklyRent);
+            const totalDailyRent = Number(days * dailyRent);
+    
+            // Total rent is the sum of all applicable rents and deposit
+            const totalRentAmount = Number(totalMonthlyRent + totalWeeklyRent + totalDailyRent);
+    
+            // Total rent * Quantity
+            const totalRentAmountAccordingToQuantity = Number((totalRentAmount * quantity)  + deposit);
+
+            // Set the calculated values in the state
+            setMonths(months);
+            setWeeks(weeks);
+            setDays(days);
+            setTotalRent(totalRentAmountAccordingToQuantity);
+        }
+    };
+
+    // Reservation
+    const [showContact, setShowContact] = useState(false);
+
+    const handleReserveNow = () => {
+        setShowContact(true); 
+    };    
   
     return (
       <div className='product-display'>
@@ -145,26 +230,61 @@ const ProductDisplay = (props) => {
                         type='number' 
                         className='quantity-input' 
                         value={quantity} 
-                        onChange={(e) => setQuantity(Number(e.target.value))} 
+                        onChange={(e) => {
+                            const value = Number(e.target.value);
+                            if (Number.isInteger(value)) {
+                                setQuantity(Math.max(1, value)); // Ensure the number is at least 1
+                            }
+                        }}
+                        min="1" 
+                        step="1" 
                     />
                     <p onClick={handleIncrement} className='quantity-change-button'>+</p>
                 </div>
-            </div>
+            </div> 
 
             <div className='set-up-dates'>
                 <p>Start Date:</p>
-                <input type='date' placeholder='Start Date' id='startDate'></input>
+                <input type='date' value={startDate} onChange={handleStartDateChange} placeholder='Start Date' id='startDate' min={today}></input>
                 
                 <p>End Date:</p>
-                <input type='date' placeholder='End Date' id='endDate'></input>
+                <input type='date' value={endDate} onChange={handleEndDateChange} placeholder='End Date' id='endDate' min={today}></input>
+            </div>
+
+            <div className='add-to-cart'>
+                <button onClick={calculateRent} className='calculate-rent-button'>
+                    <FaCalculator className='cart-icon-tool-box'/>
+                    <p>Calculate Rent</p>
+                </button>
+                <br/>
+                <table className='table-rent-result'>
+                    <thead><tr><th>Details</th><th>Value</th></tr></thead>
+                    <tbody>
+                        <tr><td>Total Rent :</td><td>Rs. {totalRent.toFixed(2)}</td></tr>
+                        {quantity > 0 && <tr><td>Quantity : </td><td>{quantity}</td></tr>}
+                        {months > 0 && <tr><td>Months : </td><td>{months}</td></tr>}
+                        {weeks > 0 && <tr><td>Weeks : </td><td>{weeks}</td></tr>}
+                        {days > 0 && <tr><td>Days : </td><td>{days}</td></tr>}
+                    </tbody>
+                </table>
+                <br/>
             </div>
 
             <div className='add-to-cart'>
                 <button>
                     <FaToolbox className='cart-icon-tool-box'/>
-                    <p>Take For Rent</p>
+                    <p onClick={handleReserveNow}>Reserve Now</p>
                 </button>
             </div>
+
+            {showContact && (
+                <div className='contact' id='contact-for-reservation'>
+                    <p>Please contact us for more details about rental.</p>
+                    <p className='contact-topic'>Contact Details:</p>
+                    <p><strong>Email: </strong> medserv@gmail.com</p>
+                    <p><strong>Phone: </strong> +94 11 2345678</p>
+                </div>
+            )}
         </div>
       </div>
     )

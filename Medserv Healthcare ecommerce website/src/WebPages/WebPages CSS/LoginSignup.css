@@ -91,6 +91,47 @@
     font-size: 15px;
 }
 
+/* donation styles - start */
+
+.donations {
+    font-size: 13px;
+}
+
+.donations input, 
+.donations textarea {
+    font-size: 13px;
+}
+
+.message-input {
+    font-family: inherit;   
+}
+
+.amount input[type="number"] {
+    text-align: left;
+}
+
+.donation-select {
+    margin-bottom: 10px;
+}
+
+.donation-select select {
+    height: 50px;
+    padding: 12px;
+    width: 150px;
+}
+
+.field-topic {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.check-donations {
+    font-size: 15px;
+}
+
+/* donation styles - end */
+
 @media (max-width: 750px) {
     
     .form-container {

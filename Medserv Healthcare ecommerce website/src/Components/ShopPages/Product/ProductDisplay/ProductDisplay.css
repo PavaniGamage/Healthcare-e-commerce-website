@@ -301,6 +301,56 @@ input[type='number'] {
     display: none;
 }
 
+.table-rent-result {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 13px;
+}
+
+.table-rent-result th, 
+.table-rent-result td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    padding-inline: 20px;
+}
+
+.table-rent-result th {
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.contact {
+  background-color: #ffffff;
+  padding: 20px; 
+  border-radius: 10px; 
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1); 
+  max-width: 400px; 
+  margin: 50px 0px 50px 0px; 
+}
+
+.contact p { 
+  line-height: 1.6; 
+  margin-bottom: 10px; 
+}
+
+.contact-topic {
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #01A3FF;
+}
+
+.contact p strong {
+  font-weight: bold; 
+  margin-left: 10px;
+}
+
+.contact p:last-child {
+  margin-bottom: 0; 
+}
+
 @media (max-width: 650px) {
     .product-display {
         flex-direction: column;

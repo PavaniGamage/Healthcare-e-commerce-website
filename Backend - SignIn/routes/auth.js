@@ -121,6 +121,9 @@ router.post('/signin', async (req, res) => {
   }
 });
 
+
+
+
 // Middleware to verify JWT token
 const authenticate = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -132,9 +135,13 @@ const authenticate = (req, res, next) => {
   try {
     // Decode the token to get the user ID
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Store the decoded token (user info) in the request object
+    req.user = { id: decoded.id }; // Store the decoded token (user info) in the request object
     next();
   } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      // Log the user out by clearing their session or token
+      return res.status(401).json({ message: 'Session expired. Please log in again.' });
+    }
     return res.status(400).json({ message: 'Invalid token.' });
   }
 };
@@ -165,11 +172,14 @@ router.get('/profile', authenticate, async (req, res) => {
 });
 
 
+
 // Logout Route 
 router.post('/logout', authenticate, (req, res) => {
   // Invalidate the token on the client side
   res.send('Logged out successfully');
 });
+
+
 
 
 // Edit Profile Route

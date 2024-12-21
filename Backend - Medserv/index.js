@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 const dbConnect = require("./dbConnect");    
 const Product = require("./models/Product");         
 const checkoutRoutes = require("./routes/checkout");
+const donationCheckoutRoutes = require("./routes/donation-checkout");
 const productRoutes = require("./routes/products");
 const paymentHistoryRoutes = require("./routes/paymentHistory");
 const feedbackRoutes = require("./routes/feedback");
@@ -69,11 +70,14 @@ app.use("/api/checkout", checkoutRoutes);
 // for payment history
 app.use("/paymentHistory", paymentHistoryRoutes);
 
+// for donation
+app.use("/api/donate", donationCheckoutRoutes);
+
 // Starting the server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-});
+}); 
 
 // // ----------------------------------------------------------------------------------------------
 // // -----for file handling---------------------------------------------------------------

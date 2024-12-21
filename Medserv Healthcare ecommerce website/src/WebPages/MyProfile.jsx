@@ -13,6 +13,9 @@ const MyProfile = () => {
   const { login, logout } = useUser();  // Access login and logout functions from context
 
   const token = localStorage.getItem('token');
+  if (token) {
+    console.log('Token is there.')
+  }
   const email = localStorage.getItem('userEmail');
   const name = localStorage.getItem('userName');
 
@@ -23,45 +26,47 @@ const MyProfile = () => {
       return;
     }
 
-    // if (token && (!email || !name)) {
-    //   alert('Session expired. Please log again..');  
-    //   navigate('/login');
-    //   return;
-    // }
-
     const fetchProfile = async () => {
       try {
         const response = await fetch('http://localhost:7000/api/auth/profile', {
           method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
+          headers: {'Authorization': `Bearer ${token}`},
         });
+        console.log('User profile:', response.data);
 
         if (!response.ok) {
+          if (response.status === 401) {
+            alert('Your session has expired. Please log in again.');
+            localStorage.removeItem('token');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userName');
+            navigate('/login');
+            return;
+          }
           throw new Error('Failed to fetch profile');
         }
 
         const data = await response.json();
         setData(data);
 
-        if (data.firstName && data.email) {
+        if (data?.firstName && data?.email && (!email || !name)) {
           localStorage.setItem('userName', data.firstName);
           localStorage.setItem('userEmail', data.email);
           login(data.firstName);
         }
       } catch (error) {
         setError('Failed to fetch data.');
+        console.error('Error fetching profile:', error);
       }
     };
 
     fetchProfile();
-  }, [navigate, login, token, email, name]); 
+  }, [navigate, login, token, email, name]);  
 
   if (!token) {
     // Return nothing if no token is present
     return null;
-  }
+  } 
 
   if (!data) return <div className='p-10' style={{ height: '50vh' }}><p>Loading details...</p></div>;
   if (error) return <div className='p-10' style={{ height: '50vh' }}><p className="error-text">Error: {error}</p></div> ;
@@ -88,11 +93,11 @@ const MyProfile = () => {
   };
 
   return (
-    <div className="cart-page">
+    <div className="cart-page text-[13px]">
         <div className='cart-page'>
           <h2>My Profile</h2>
 
-          <div className="flex flex-col items-center mb-10">
+          <div className="flex flex-col items-center mb-10"> 
             <div className="w-32 h-32 rounded-full bg-blue-200 mb-4">
               <img src={fallbackImage} className="w-full h-full rounded-full object-cover" />
             </div>
@@ -103,7 +108,7 @@ const MyProfile = () => {
                 <table className="min-w-full table-auto border-collapse">
                   <tbody>                
                       <tr>
-                        <th className="border-b px-4 py-2 text-left w-[150px]">Name :</th>
+                        <th className="border-b px-4 py-2 text-left w-[70px]">Name :</th>
                         <td className="border-b px-4 py-2 text-left"> {data.firstName}  {data.lastName || '-'} </td>                                   
                       </tr>
 

@@ -37,7 +37,7 @@ const EditProfile = () => {
     //   alert('Session expired. Please log again..'); 
     //   navigate('/login');
     //   return;
-    // }
+    // } 
 
     // Make the API request to a protected route
     fetch('http://localhost:7000/api/auth/profile', {
@@ -144,7 +144,7 @@ const EditProfile = () => {
   return (
     <div className="form-container max-w-[550px] mx-auto flex flex-col">
       <div className='new-user'>
-        <div className='register-heading text-center mb-10 mt-10'>
+        <div className='register-heading text-center mb-10 mt-10'> 
           <h2>Edit Profile</h2> 
         </div>
 
@@ -158,7 +158,7 @@ const EditProfile = () => {
                 value={formData.firstName}
                 onChange={handleChange}
                 placeholder={data.firstName}
-                className='text-base'
+                className='text-base text-[13px]'
               />
             </div>
             <div className="form-group">
@@ -169,7 +169,7 @@ const EditProfile = () => {
                 value={formData.lastName}
                 onChange={handleChange}
                 placeholder={data.lastName}
-                className='text-base'
+                className='text-base text-[13px]'
               />
             </div>
             <div className="form-group">
@@ -180,7 +180,7 @@ const EditProfile = () => {
                 value={formData.mobile}
                 onChange={handleChange}
                 placeholder={data.mobile}
-                className='text-base'
+                className='text-base text-[13px]'
               />
             </div>
             <div className="form-group">
@@ -191,7 +191,7 @@ const EditProfile = () => {
                 value={formData.address}
                 onChange={handleChange}
                 placeholder={data.address}
-                className='text-base'
+                className='text-base text-[13px]'
               />
             </div>
             <div className="form-group">
@@ -202,7 +202,7 @@ const EditProfile = () => {
                   value={formData.city}
                   onChange={handleChange}
                   placeholder={data.city}
-                  className='text-base'
+                  className='text-base text-[13px]'
                 >
                   <option value="">{data.city}</option>
                   <option value="Colombo">Colombo</option>
@@ -223,4 +223,4 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
+export default EditProfile; 
