@@ -145,9 +145,22 @@ router.get('/prescription_history/:email/:orderID', async (req, res) => {
         return res.status(404).json({ message: 'Upload not found.' });
       }
 
+      if (!upload.billDetails) {
+        // If billDetails is missing, set default values
+        upload.billDetails = {
+          billFile: { data: null, contentType: 'null' },
+          totalPrice: '0',
+          other: '-'
+        };
+      }
+
       const prescriptionFileBase64 = upload.prescriptionFile
         ? upload.prescriptionFile.data.toString('base64')
         : null;
+
+      const billFileBase64 = upload.billDetails.billFile
+      ? upload.billDetails.billFile.data.toString('base64')
+      : null;
 
       res.status(200).json({
         orderID: upload.orderID,
@@ -162,6 +175,14 @@ router.get('/prescription_history/:email/:orderID', async (req, res) => {
         prescriptionFile: {
             data: prescriptionFileBase64,  // Base64 encoded string
             contentType: upload.prescriptionFile.contentType, // Content type like "image/jpeg"
+        },
+        billDetails: {
+            billFile: {
+                data: billFileBase64 || '',  // Base64 encoded string
+                contentType: upload.billDetails.billFile.contentType || '', // Content type like "image/jpeg"
+            },
+            totalPrice: upload.billDetails.totalPrice || '',
+            otherInBill: upload.billDetails.Other || '',
         }
       }); 
     } catch (error) {
