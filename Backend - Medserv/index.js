@@ -11,6 +11,7 @@ const dbConnect = require("./dbConnect");
 const Product = require("./models/Product");         
 const checkoutRoutes = require("./routes/checkout");
 const donationCheckoutRoutes = require("./routes/donation-checkout");
+const prescriptionPaymentCheckoutRoutes = require("./routes/prescription-checkout");
 const productRoutes = require("./routes/products");
 const paymentHistoryRoutes = require("./routes/paymentHistory");
 const feedbackRoutes = require("./routes/feedback");
@@ -64,6 +65,7 @@ app.use("/feedback", feedbackRoutes);
 
 // app.use('/upload/prescriptions', express.static(path.join(__dirname, 'uploads')));
 app.use("/prescriptionsUpload", prescriptionRoutes);
+app.use("/api/prescription-payment", prescriptionPaymentCheckoutRoutes);
 
 // for payments
 app.use("/api/checkout", checkoutRoutes);

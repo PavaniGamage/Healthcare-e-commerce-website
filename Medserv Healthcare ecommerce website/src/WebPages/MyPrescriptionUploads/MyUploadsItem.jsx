@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import '../../WebPages/WebPages CSS/Cart.css';
-import { useUser } from '../../Context/UserContext';
+import { loadStripe } from '@stripe/stripe-js';
 import fallbackImage from '../../Components/ShopPages/Common/Item/medserv_logo-for-products.png';
 
 const MyUploadsItem = () => {
@@ -9,9 +9,19 @@ const MyUploadsItem = () => {
   const [orderDetails, setOrderDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imageValue, setimageValue] = useState(null);  
+  const [ billDetails, setBillDetails] = useState({
+          name: '',
+          email: '',
+          phone: '',
+          amount: '',
+          paymentMethod: 'card',
+          paymentDate: '',
+  });
 
   const userEmail = localStorage.getItem('userEmail');
+  const token = localStorage.getItem('token');
 
   // Check if the orderID is undefined or null
   useEffect(() => {
@@ -44,6 +54,32 @@ const MyUploadsItem = () => {
         setError('Failed to fetch upload details');
         setLoading(false);
       }
+
+      const fetchProfile = async () => {
+            try {
+                const response = await fetch('http://localhost:7000/api/auth/profile', {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                });
+    
+                if (!response.ok) throw new Error('Failed to fetch profile.');
+    
+                const data = await response.json();
+                setBillDetails({
+                  name: data.firstName + " " + data.lastName,
+                  email: data.email,
+                  phone: data.mobile,
+                  amount: 0, 
+                  paymentMethod: 'card',
+                  paymentDate: new Date().toISOString(),
+                });
+            } catch (error) {
+                setError('Failed to fetch profile.');
+                console.error('Error fetching profile:', error);
+            }
+        };
+    
+        fetchProfile();
     };
 
     fetchOrderDetails();
@@ -64,6 +100,7 @@ const MyUploadsItem = () => {
 
   // `orderDetails` - the response from the backend
   const prescriptionImageSrc = `data:${orderDetails.prescriptionFile.contentType};base64,${orderDetails.prescriptionFile.data}`;
+  const billImageSrc = `data:${orderDetails.billDetails.billFile.contentType};base64,${orderDetails.billDetails.billFile.data}`;
 
   // image display
   const handleImageClick = () => {
@@ -72,6 +109,103 @@ const MyUploadsItem = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const prescriptionimageValue = () => {
+    setimageValue('prescription');
+  }
+
+  const billimageValue = () => {
+    setimageValue('bill');
+  }
+
+  const handleClickPrescription = () => {
+    handleImageClick();
+    prescriptionimageValue();
+  };
+
+  const handleClickBill = () => {
+    handleImageClick();
+    billimageValue();
+  };
+
+  // useEffect(() => {
+  //   const fetchProfile = async () => {
+  //       try {
+  //           const response = await fetch('http://localhost:7000/api/auth/profile', {
+  //               method: 'GET',
+  //               headers: { 'Authorization': `Bearer ${token}` },
+  //           });
+
+  //           if (!response.ok) throw new Error('Failed to fetch profile.');
+
+  //           const data = await response.json();
+  //           setBillDetails({
+  //             name: data.name,
+  //             email: data.email,
+  //             phone: data.phone,
+  //             amount: 0, 
+  //             paymentMethod: 'card',
+  //             paymentDate: new Date().toISOString(),
+  //           });
+  //       } catch (error) {
+  //           setError('Failed to fetch profile.');
+  //           console.error('Error fetching profile:', error);
+  //       }
+  //   };
+
+  //   fetchProfile();
+  // }, []); 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+        // Validate the minimum amount
+        if (!orderDetails.billDetails.totalPrice || orderDetails.billDetails.totalPrice < 500) {
+            alert('Minimum payment amount is Rs. 500.00.' + '\nYour payment amount is Rs. ' + orderDetails.billDetails.totalPrice);
+            setLoading(false);
+            return;
+        }
+
+        const payload = {
+            amount: Number(orderDetails.billDetails.totalPrice), 
+            paymentMethod: billDetails.paymentMethod,
+            email: billDetails.email,
+            name: billDetails.name,
+            phone: billDetails.phone,
+            paymentDate: billDetails.paymentDate,
+            orderID: orderDetails.orderID,
+        };
+
+        console.log("Payload:", payload);                      
+    
+        const response = await fetch("http://localhost:4000/api/prescription-payment/create-prescription-checkout-session", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}`},
+            body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+    
+        // Get sessionId from response
+        const { sessionId } = data;
+        if (!sessionId) throw new Error('Failed to retrieve session ID.');
+
+        console.log("Checkout Session Data:", data);
+
+        // Redirect to Stripe Checkout
+        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+        await stripe.redirectToCheckout({ sessionId });
+        
+      } catch (err) {
+          console.error('Error:', err.message);
+          alert(err.message || 'An error occurred. Please try again later.');
+          setError(err.message || 'An error occurred.');
+      } finally {
+          setLoading(false);
+      }
   };
 
   return (
@@ -164,7 +298,7 @@ const MyUploadsItem = () => {
                                 src={prescriptionImageSrc} 
                                 alt="Prescription" 
                                 onError={handleImageError} 
-                                onClick={handleImageClick} 
+                                onClick={handleClickPrescription} 
                                 className=' h-[150px] cursor-pointer hover:opacity-80'
                               />
                             </div>
@@ -183,13 +317,13 @@ const MyUploadsItem = () => {
                       <tr>
                         <th className="border-b px-4 py-2 text-left w-[150px]">Review Medicines with Prices :</th>
                         <td className="border-b px-4 py-2 text-left">
-                          {orderDetails.prescriptionFile && (
+                          {orderDetails.billDetails.billFile && (
                             <div>
                               <img 
-                                src={prescriptionImageSrc} 
+                                src={billImageSrc} 
                                 alt="Prescription" 
                                 onError={handleImageError} 
-                                onClick={handleImageClick} 
+                                onClick={handleClickBill} 
                                 className=' h-[150px] cursor-pointer hover:opacity-80'
                               />
                             </div>
@@ -202,19 +336,31 @@ const MyUploadsItem = () => {
           </div>
 
           <hr className='hr-line'/>
-          <div className='cart-summary mr-5'>
-            <h3>Total Items: &nbsp; 2 </h3>
-            <h3>Total Price: &nbsp; Rs. 1500.00 </h3>
+          <div className="cart-summary mr-5">
+            {/* Conditional rendering for Total Price */}
+            {orderDetails.billDetails && orderDetails.billDetails.totalPrice !== undefined ? (
+              <h3>Total Price: &nbsp; Rs. {Number(orderDetails.billDetails.totalPrice).toFixed(2)}</h3>
+            ) : (
+              <h3>Total Price: &nbsp; Rs. {(0).toFixed(2)}</h3>
+            )}
           </div>
           <hr className='hr-line'/>
 
           <p className="font-semibold text-gray-800 mb-2 mt-10">Please Note That : </p>
           <p className="text-gray-700">We will use the address associated with your account as the delivery address.</p>
 
-          <div className='cart-actions flex justify-end mb-4 mr-5'>
-            <button className='buy-now-button'>
-              Pay Now
-            </button>
+          <div className='cart-actions flex justify-end mb-4 mr-5'>           
+            <button
+              className={`buy-now-button ${
+                loading || !orderDetails?.billDetails?.billFile?.data || orderDetails?.status === 'paid'
+                  ? 'bg-gray-400 cursor-not-allowed hover:bg-gray-400' 
+                  : 'bg-blue-500 hover:bg-blue-600'
+              }`}
+              disabled={loading || !orderDetails?.billDetails?.billFile?.data || orderDetails?.status === 'paid'}
+              onClick={handleSubmit}
+            >
+              {loading ? 'Processing...' : 'Pay Now'}
+            </button>         
           </div>
 
           {/* Modal for Full-Screen Image */}
@@ -224,11 +370,19 @@ const MyUploadsItem = () => {
               onClick={closeModal} // Close modal when clicking on the overlay
             >
               <div className="relative w-full h-full flex items-center justify-center">
-                <img 
-                  src={prescriptionImageSrc} 
-                  alt="Prescription Full View" 
-                  className="w-auto h-auto max-w-full max-h-full object-contain"
-                />
+                { imageValue === 'prescription' ? (
+                    <img 
+                      src={prescriptionImageSrc} 
+                      alt="Prescription Full View" 
+                      className="w-auto h-auto max-w-full max-h-full object-contain"
+                    />
+                  ) : imageValue === 'bill' ? (
+                    <img 
+                      src={billImageSrc} 
+                      alt="Bill Full View" 
+                      className="w-auto h-auto max-w-full max-h-full object-contain"
+                    />
+                  ) : null }
                 {/* Close Button */}
                 <button 
                   onClick={closeModal} 

@@ -7,6 +7,9 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+const multer = require('multer');
+const upload = multer();
+
 /*
     // GET /
     // Homepage
@@ -376,6 +379,37 @@ exports.prescriptionUploads = async (req, res) => {
 };
 
 /*
+    // GET /
+    // Prescriptions Bill Uploads
+*/
+
+exports.prescriptionBillUploads = async (req, res) => {
+    const locals = {
+        title: 'Prescription Bill Uploads',
+        description: 'Medserv - Product Data Management System'
+    };
+
+    try {
+        const prescription = await Prescription.findById(req.params.id);
+
+        if (!prescription) {
+            return res.status(404).send('Prescription bill not found');
+        }
+
+        if (prescription.billDetails && prescription.billDetails.billFile && prescription.billDetails.billFile.data) {
+            res.setHeader('Content-Type', prescription.billDetails.billFile.contentType);
+            console.log('prescription.billDetails:', prescription.billDetails);
+            return res.send(prescription.billDetails.billFile.data);
+        } else {
+            return res.status(404).send('Bill file not found');
+        }
+    } catch (error) {
+        console.error('Error retrieving prescription bill:', error);
+        res.status(500).send('Error retrieving image/file');
+    }
+};
+
+/*
     // PUT /:id
     // Update Prescription Review
 */
@@ -417,6 +451,54 @@ exports.editReview = async (req, res) => {
         res.status(500).send('Server error - In Prescription Reviewing');
     }
 };
+
+/*
+    // PUT /:id
+    // Update Prescription Bill
+*/
+
+exports.editBillDetails = [
+    upload.single('billFile'), // Middleware to process the file upload
+    async (req, res) => {
+        try {
+            // Extract data from the request
+            const { totalPrice, Other } = req.body;
+
+            // Prepare the updated fields
+            const updateFields = {
+                'billDetails.totalPrice': totalPrice,
+                'billDetails.Other': Other,
+                'billDetails.billDate': Date.now(),
+            };
+
+            // Process the uploaded file
+            if (req.file) {
+                updateFields['billDetails.billFile'] = {
+                    data: req.file.buffer, // Binary data from Multer
+                    contentType: req.file.mimetype, // File MIME type
+                };
+            }
+
+            // Find the prescription by ID and update the fields
+            const updatedPrescription = await Prescription.findByIdAndUpdate(
+                req.params.id,
+                { $set: updateFields },
+                { new: true }
+            );
+
+            // Check if the prescription was found and updated
+            if (!updatedPrescription) {
+                return res.status(404).send('Prescription not found or not updated with bill details!');
+            }
+
+            // Respond with redirect
+            res.redirect('/prescriptions'); 
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Server error - Failed to update prescription bill details');
+        }
+    },
+];
 
 /*
     // GET /

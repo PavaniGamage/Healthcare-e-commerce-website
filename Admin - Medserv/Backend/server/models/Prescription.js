@@ -49,7 +49,23 @@ const PrescriptionSchema = new Schema({
             default: '-'
         },
         reviewTime: {
-            type: Date 
+            type: Date
+        }
+    },
+    billDetails: {
+        billFile: {
+            data: Buffer,
+            contentType: String 
+        },
+        totalPrice: {
+            type: Number, 
+            min: 0
+        },
+        Other: {
+            type: String
+        },
+        billDate: {
+            type: Date
         }
     }
 }, { timestamps: true });

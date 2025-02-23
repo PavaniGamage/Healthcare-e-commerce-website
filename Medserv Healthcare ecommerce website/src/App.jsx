@@ -21,6 +21,8 @@ import EditProfile from "./WebPages/EditProfile.jsx";
 import UploadPrescriptions from "./WebPages/UploadPrescriptions";
 import Uploads from "./WebPages/MyPrescriptionUploads/MyUploads.jsx";
 import UploadsItem from "./WebPages/MyPrescriptionUploads/MyUploadsItem.jsx";
+import SuccessPagePrescription from "./WebPages/Prescription/SuccessPage.jsx"; 
+import CancelPagePrescription from "./WebPages/Prescription/CancelPage.jsx";
 import Footer from "./Components/Common/Footer/Footer";
 import Product from "./WebPages/Product";
 import Shop from "./WebPages/Shop";
@@ -45,32 +47,41 @@ function App() {
             <Route path='/wellness' element={<Shop category1="Wellness"/>}/>
             <Route path='/medical_devices' element={<Shop category1="MedicalDevices"/>}/>
             <Route path='/personal_care' element={<Shop category1="PersonalCare"/>}/>
+            <Route path="/product" element={<Product />}>
+              <Route path=":productID" element={<Product />} />
+            </Route>
+            <Route path='/rent' element={<Shop category1="Rent"/>}/>
+            
             <Route path='/hearts' element={<Hearts/>}/>
             <Route path='/donation' element={<Donate/>}/>
             <Route path="/success-donation" element={<SuccessPageDonation />} />
             <Route path="/cancel-donation" element={<CancelPageDonation />} />
-            <Route path='/rent' element={<Shop category1="Rent"/>}/>
+            
             <Route path='/blog' element={<Blog/>}/>
               <Route path="/blog/:id" element={<BlogPost />} />
-            <Route path="/product" element={<Product />}>
-              <Route path=":productID" element={<Product />} />
-            </Route>
+            
             <Route path="/cart" element={<Cart />} />
+            <Route path="/success" element={<SuccessPage />} />
+            <Route path="/cancel" element={<CancelPage />} />
             <Route path="/payment_history" element={<PaymentHistory />} />
             <Route path="/payment_history/:orderID" element={<PaymentHistoryItem />} />
-            <Route path="/uploads_history" element={<Uploads />} />
-            <Route path="/uploads_history/:orderID" element={<UploadsItem />} />
+            
             <Route path="/sign_in" element={<LogInSignUp />} />
             <Route path="/login" element={<LogInSignUp />} />
             <Route path="/my_profile" element={<Profile />} />
             <Route path="/edit_profile" element={<EditProfile />} />
+
             <Route path="/upload_prescriptions" element={<UploadPrescriptions />}></Route>
+            <Route path="/uploads_history" element={<Uploads />} />
+            <Route path="/uploads_history/:orderID" element={<UploadsItem />} />
+            <Route path="/success-prescription-payment" element={<SuccessPagePrescription />} />
+            <Route path="/cancel-prescription-payment" element={<CancelPagePrescription />} />
+            
             <Route path="/location" element={<Location />}></Route>
             <Route path="/contact" element={<SendUsMessage />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="/search_products" element={<SearchProducts/>}></Route>
-            <Route path="/success" element={<SuccessPage />} />
-            <Route path="/cancel" element={<CancelPage />} />
+            
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
           </Routes>

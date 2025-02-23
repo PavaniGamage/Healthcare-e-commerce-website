@@ -32,8 +32,10 @@ router.get('/about', productController.about);
 router.get('/services', access, productController.services); 
 
 router.get('/file/:id', access, productController.prescriptionUploads);  // prescription uploads
+router.get('/bill-file/:id', access, productController.prescriptionBillUploads);  // prescription bill uploads
 router.get('/prescriptions', access, productController.prescriptions);   // prescription page 
 router.put('/prescriptions/edit/:id', restrictTo('pharmacist'), productController.editReview); // prescription edit
+router.put('/prescriptions/editbill/:id', restrictTo('admin'), productController.editBillDetails); // prescription bill edit
 router.get('/feedback', restrictTo('admin'), productController.feedback);
 
 router.post('/create_admin', restrictTo('admin'), productController.createAdmin);
@@ -44,6 +46,6 @@ router.get('/sign_in', productController.signIn);
 router.post('/sign_in', productController.loginUser);  
 
 router.get('/logout', productController.signIn); 
-router.post('/logout', productController.logoutUser); 
+router.post('/logout', productController.logoutUser);  
 
 module.exports = router;   
