@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const Order = require("../models/Order");
+const Product = require("../models/Product");
 
 // Create a checkout session
 router.post('/create-checkout-session', async (req, res) => {
@@ -15,6 +16,27 @@ router.post('/create-checkout-session', async (req, res) => {
 
     if (!userEmail) {
       return res.status(400).json({ error: "User not logged in." });
+    }
+
+    // Check if there is enough stock for each product
+    for (let i = 0; i < products.length; i++) {
+      const product = products[i];
+      const dbProduct = await Product.findById(product.itemId); 
+
+      if (!dbProduct) {
+        return res.status(400).json({ error: `Product with ID ${product.itemId} not found` });
+      }
+
+      // Check if the requested quantity is available in stock
+      if (product.quantity > dbProduct.quantity) {
+        // return res.status(400).json({ error: `Insufficient stock for ${product.name}. Only ${dbProduct.quantity} available.` });
+        return res.status(400).json({
+          status: "error",
+          message: `Insufficient stock for the requested product.`,
+          details: `Only ${dbProduct.stock || 0} units of '${product.name}' are available, but you requested ${product.quantity} units.`,
+          errorCode: "STOCK_NOT_ENOUGH"
+        });
+      }
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -72,7 +94,7 @@ router.post('/checkout-session-status', async (req, res) => {
           price: item.amount_total / 100, // Convert from cents to dollars
           quantity: item.quantity,
           images: item.price.product.images && item.price.product.images.length > 0 ? item.price.product.images : [],
-        }));
+        }));                 
 
         console.log(products);
 
@@ -104,9 +126,30 @@ router.post('/checkout-session-status', async (req, res) => {
             console.log('Order created successfully:', order);
 
             // Process the session data and items
-            // console.log(`Session ID: ${session_id}`);
-            // console.log(`Status: ${status}`);
-            // console.log('Purchased Products:', lineItems);
+            console.log(`Session ID: ${session_id}`);
+            console.log(`Status: ${status}`);
+            console.log('Purchased Products:', lineItems);
+
+            if (session.payment_status === "paid") {
+              const lineItems = await stripe.checkout.sessions.listLineItems(session_id);
+        
+              for (const item of lineItems.data) {
+                const dbProduct = await Product.findOne({ name: item.description });
+        
+                if (dbProduct) {
+                  dbProduct.quantity = Math.max(0, dbProduct.quantity - item.quantity);
+                  
+                  if (dbProduct.quantity === 0) {
+                    dbProduct.availability = 'Not Available'; 
+                  }
+
+                  await dbProduct.save();
+                  console.log(`Updated stock for ${dbProduct.name}: ${dbProduct.quantity} remaining.`);
+                }
+              }
+        
+              return res.json({ status: "paid" });
+            }
 
             // Access details / product info
             res.json({

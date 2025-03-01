@@ -62,10 +62,11 @@ router.get('/', async (req, res) => {
 
         // Format products for response
         const formattedProducts = products.map(product => ({
-            itemId: product._id,
+            itemId: product._id, 
             itemType: product.itemType,
             name: product.name,
             price: product.price.toFixed(2),
+            stock: product.quantity,
             availability: product.availability,
             description: product.description,
             subDescription: product.subDescription, 

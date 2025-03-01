@@ -92,6 +92,7 @@ exports.postProduct = async (req, res) => {
     const newProduct = new Product({
         name: req.body.name,
         price: req.body.price,
+        quantity: req.body.quantity,
         availability: req.body.availability,
         description: req.body.description,
         subDescription: req.body.subDescription,
@@ -206,7 +207,8 @@ exports.editPost = async (req, res) => {
                 itemType: req.body.itemType,
                 name: req.body.name,
                 price: req.body.price, 
-                availability: req.body.availability,
+                quantity: req.body.quantity,
+                availability: req.body.availability, 
                 description: req.body.description,
                 subDescription: req.body.subDescription,
                 keywords: req.body.keywords,
