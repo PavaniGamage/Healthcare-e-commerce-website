@@ -10,7 +10,7 @@ export default function Hearts() {
 
   return (
     <div>
-      <section className="grid bg-[#000] bg-opacity-90 p-4 mx-auto flex items-center justify-center">
+      <section className="grid bg-[#000] bg-opacity-90 p-4 mx-auto items-center justify-center">
         <div className="grid max-w-screen-xl ml-10 px-4 py-4 mx-auto lg:gap-8 xl:gap-0 lg:py-8 lg:grid-cols-12">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1 className="max-w-2xl mb-4 text-xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-white dark:text-white">
@@ -26,6 +26,13 @@ export default function Hearts() {
               className="inline-flex items-center justify-center px-7 py-3 mr-3 text-base font-medium text-center text-white bg-[#f2ae00] rounded-xl hover:bg-[#deb03a] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 no-underline"
             >
               Donate
+            </a>
+
+            <a
+              href="/application"
+              className="inline-flex items-center justify-center px-7 py-3 mr-3 text-base font-medium text-center text-white bg-[#f2ae00] rounded-xl hover:bg-[#deb03a] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 no-underline"
+            >
+              Apply for Donation
             </a>
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
