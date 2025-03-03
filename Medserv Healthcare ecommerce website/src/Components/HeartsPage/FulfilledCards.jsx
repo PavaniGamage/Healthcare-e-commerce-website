@@ -1,14 +1,21 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import fulfilledData from "./fulfilled.json";
 
 const FulfilledCard = () => {
+  const location = useLocation();
+
   return (
     <div className="max-w-6xl mx-auto p-4">
       {/* Tabs */}
       <div className="flex justify-center mb-14 mt-20 space-x-6">
         <a
           href="/make-donation"
-          className="px-7 py-3 text-2xl font-bold text-gray-500 hover:text-darkBlue no-underline hover:underline"
+          className={`px-7 py-3 text-2xl font-bold no-underline ${
+            location.pathname === "/make-donation"
+              ? "text-darkBlue underline"
+              : "text-gray-500 hover:text-darkBlue hover:underline"
+          }`}
           style={{ textUnderlineOffset: "10px" }}
         >
           Looking For Support
@@ -16,7 +23,11 @@ const FulfilledCard = () => {
 
         <a
           href="/fulfilled-donation"
-          className="px-7 py-3 text-2xl font-bold text-gray-500 hover:text-darkBlue no-underline hover:underline"
+          className={`px-7 py-3 text-2xl font-bold underline ${
+            location.pathname === "/fulfilled-donation"
+              ? "text-darkBlue underline"
+              : "text-gray-500 hover:text-darkBlue hover:underline"
+          }`}
           style={{ textUnderlineOffset: "10px" }}
         >
           Fulfilled
