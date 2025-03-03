@@ -3,18 +3,13 @@ import React, { useState } from "react";
 export default function Application() {
   const [formDetails, setFormDetails] = useState({
     fullName: "",
-    age: "",
     gender: "",
     dateOfBirth: "",
     contactNumber: "",
     email: "",
     residentialAddress: "",
-    schoolName: "",
-    grade: "",
-    academicPerformance: null,
     numberOfFamilyMembers: "",
     financialSituation: "",
-    proofOfEnrollment: null,
     proofOfIncome: null,
     proofOfResidence: null,
     medicalCondition: null,
@@ -40,41 +35,21 @@ export default function Application() {
 
   return (
     <div>
-      <div>
-        <section className="grid bg-[#000] bg-opacity-90 p-4 mx-auto items-center justify-center">
-          <div className="grid max-w-screen-xl ml-10 px-4 py-4 mx-auto lg:gap-8 xl:gap-0 lg:py-8 lg:grid-cols-12">
-            <div className="mr-auto place-self-center lg:col-span-7">
-              <h1 className="max-w-2xl mb-4 text-xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-white dark:text-white">
-                Your Health - Our Priority
-              </h1>
-              <p className="max-w-2xl mb-6 font-light text-gray-400 lg:mb-8 md:text-lg lg:text-xl dark:text-white">
-                Medserv brings healthcare to rural Sri Lanka. Join us in
-                building a healthier future.
-              </p>
-
-              <a
-                href="/donation"
-                className="inline-flex items-center justify-center px-7 py-3 mr-3 text-base font-medium text-center text-white bg-[#f2ae00] rounded-xl hover:bg-[#deb03a] focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 no-underline"
-              >
-                Donate
-              </a>
-            </div>
-            <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-              <img
-                src="https://cdn.pixabay.com/photo/2016/12/21/10/10/begging-1922612_640.png"
-                alt="mockup"
-                className="w-full h-auto max-w-xs rounded-xl" // Round border and size control
-              />
-            </div>
-          </div>
-        </section>
-      </div>
       <div className="flex justify-center items-center min-h-screen">
         <section>
           <div className="form-container w-[750px] mx-auto flex flex-col">
             <div className="new-user">
               <div className="register-heading text-lg text-center mb-10 mt-10">
-                <h2>Request Educational & Nutritional Aid</h2>
+                <div className="register-heading text-lg text-left mb-10 mt-10 flex items-center">
+                  <a
+                    href="/hearts"
+                    className="text-gray-200 font-medium text-xl hover:text-yellow-500 cursor-pointer"
+                  >
+                    &lt; Mederv Hearts
+                  </a>
+                </div>
+
+                <h2>Request Donation</h2>
               </div>
 
               <form onSubmit={handleSubmit}>
@@ -86,39 +61,36 @@ export default function Application() {
                     </h3>
                   </div>
 
-                  {/* Full name field */}
-                  {Object.keys(formDetails).map((key) =>
-                    key !== "termsAndConditions" &&
-                    key !== "proofOfEnrollment" &&
-                    key !== "proofOfIncome" &&
-                    key !== "proofOfResidence" &&
-                    key !== "medicalCondition" &&
-                    key !== "academicPerformance" ? (
-                      <div className="form-group text-left" key={key}>
-                        <input
-                          type={
-                            key === "email"
-                              ? "email"
-                              : key === "contactNumber" ||
-                                key === "age" ||
-                                key === "grade" ||
-                                key === "numberOfFamilyMembers"
-                              ? "number"
-                              : "text"
-                          }
-                          id={key}
-                          name={key}
-                          placeholder={key
-                            .replace(/([A-Z])/g, " $1") // Add space before uppercase letters
-                            .replace(/^./, (str) => str.toUpperCase()) // Capitalize the first letter
-                            .trim()}
-                          required
-                          className="text-base text-left placeholder:text-left"
-                          value={formDetails[key]}
-                          onChange={handleChange}
-                        />
-                      </div>
-                    ) : null
+                  {/* Input fields */}
+                  {Object.keys(formDetails).map(
+                    (key) =>
+                      key !== "termsAndConditions" &&
+                      key !== "proofOfIncome" &&
+                      key !== "proofOfResidence" &&
+                      key !== "medicalCondition" && (
+                        <div className="form-group text-left" key={key}>
+                          <input
+                            type={
+                              key === "email"
+                                ? "email"
+                                : key === "contactNumber" ||
+                                  key === "numberOfFamilyMembers"
+                                ? "number"
+                                : "text"
+                            }
+                            id={key}
+                            name={key}
+                            placeholder={key
+                              .replace(/([A-Z])/g, " $1")
+                              .replace(/^./, (str) => str.toUpperCase())
+                              .trim()}
+                            required
+                            className="text-base text-left placeholder:text-left"
+                            value={formDetails[key]}
+                            onChange={handleChange}
+                          />
+                        </div>
+                      )
                   )}
 
                   {/* Subtitle for Supporting Documents */}
@@ -129,21 +101,6 @@ export default function Application() {
                   </div>
 
                   {/* File inputs for Supporting Documents */}
-                  <div className="form-group text-left">
-                    <label htmlFor="proofOfEnrollment" className="block">
-                      School or university enrollment letter
-                    </label>
-                    <input
-                      type="file"
-                      id="proofOfEnrollment"
-                      name="proofOfEnrollment"
-                      accept=".jpg, .jpeg, .png, .pdf"
-                      onChange={handleChange}
-                      className="text-base"
-                      required
-                    />
-                  </div>
-
                   <div className="form-group text-left mt-4">
                     <label htmlFor="proofOfIncome" className="block">
                       Income certificate or parents' salary slips
@@ -182,21 +139,6 @@ export default function Application() {
                       type="file"
                       id="medicalCondition"
                       name="medicalCondition"
-                      accept=".jpg, .jpeg, .png, .pdf"
-                      onChange={handleChange}
-                      className="text-base"
-                      required
-                    />
-                  </div>
-
-                  <div className="form-group text-left mt-4">
-                    <label htmlFor="academicPerformance" className="block">
-                      Academic performance document (school/university)
-                    </label>
-                    <input
-                      type="file"
-                      id="academicPerformance"
-                      name="academicPerformance"
                       accept=".jpg, .jpeg, .png, .pdf"
                       onChange={handleChange}
                       className="text-base"
