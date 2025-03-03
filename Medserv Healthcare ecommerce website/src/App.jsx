@@ -9,6 +9,8 @@ import Navbar from "./Components/Common/Navbar/Navbar";
 import Home from "./WebPages/Home";
 import Hearts from "./WebPages/Hearts";
 import Donate from "./WebPages/Donation.jsx";
+import DonationCards from "./Components/HeartsPage/DonationCards.jsx";
+import FulfilledCards from "./Components/HeartsPage/FulfilledCards.jsx";
 import SuccessPageDonation from "./WebPages/Donation/SuccessPage.jsx";
 import CancelPageDonation from "./WebPages/Donation/CancelPage.jsx";
 import Blog from "./WebPages/Blog/Blog";
@@ -63,6 +65,8 @@ function App() {
             <Route path="/donation" element={<Donate />} />
             <Route path="/success-donation" element={<SuccessPageDonation />} />
             <Route path="/cancel-donation" element={<CancelPageDonation />} />
+            <Route path="/make-donation" element={<DonationCards />} />
+            <Route path="/fulfilled-donation" element={<FulfilledCards />} />
 
             <Route path="/application" element={<ApplicationPage />} />
 
