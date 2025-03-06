@@ -23,7 +23,7 @@ export const CartProvider = ({ children }) => {
         );
       }
       // If it's a new item, add it to the cart with the specified quantity or default to 1
-      return [...prevCart, { ...item, quantity: item.quantity || 1, price: Number(item.price) || 0 }];
+      return [...prevCart, { ...item, quantity: item.quantity || 1, price: Number(item.price) || 0, _id: item.itemId }];
     });
   };
 

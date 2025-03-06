@@ -28,7 +28,7 @@
     }
 </style>
 
-<br/>
+<br/> 
 
 <!-- heading -->
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -145,6 +145,23 @@
             </div>
         </div>
 
+        <!-- Quantity Input -->
+        <div class="row mb-3">
+            <label for="quantity" class="col-sm-2 col-form-label" style="padding-right: 0%; min-width: 200px;" id="quantityLabel">Existing Quantity</label>
+            <div class="col-sm-10">
+                <input type="number" name="quantity" class="form-control" id="quantity" value="<%= product.quantity ? product.quantity : 0 %>" min="1" step="1" readonly>
+            </div>
+        </div>
+
+        <!-- New Quantity Input -->
+        <div class="row mb-3">
+            <label for="newQuantity" class="col-sm-2 col-form-label" id="newQuantityLabel">New Quantity</label>
+            <div class="col-sm-10">
+                <p class="small mb-2 fw-lighter" style="color: rgb(223, 105, 105);">This will be added to the existing quantity value.</p>
+                <input type="number" name="newQuantity" class="form-control" id="newQuantity" placeholder="0" min="1" step="1">
+            </div>
+        </div>
+
         <!-- Rental Fields (Initially Hidden) -->
         <div id="rentalFields" style="display: none;">
             <div class="row mb-3" id="dailyRentalDiv">
@@ -189,7 +206,7 @@
                     <label class="form-check-label" for="notAvailable">Not Available</label>
                 </div>
             </div>
-        </div>
+        </div> 
 
         <!-- Description Input -->
         <div class="row mb-3">
@@ -234,7 +251,7 @@
                     <label class="form-check-label" for="imageUrlOption">Image URL</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="imageSource" id="fileUploadOption" value="file" onclick="toggleImageInput()">
+                    <input class="form-check-input" type="radio" name="imageSource" id="fileUploadOption" value="file" onclick="toggleImageInput()" disabled>
                     <label class="form-check-label" for="fileUploadOption">Upload File</label>
                 </div>
             </div>
@@ -361,6 +378,57 @@
             toggleRentFields('Sell');
         }
     });
+
+    // Update existing quantity according to new quantity value and update availability according to the quantity
+    document.addEventListener("DOMContentLoaded", function () {
+        const quantityInput = document.getElementById("quantity");
+        const newQuantityInput = document.getElementById("newQuantity");
+        const updateButton = document.getElementById("updateButton");
+        const availableRadio = document.getElementById("available");
+        const notAvailableRadio = document.getElementById("notAvailable");
+
+        if (!quantityInput || !newQuantityInput || !updateButton) return;
+
+        // Function to update availability based on quantity
+        const updateAvailability = () => {
+            const quantity = parseInt(quantityInput.value) || 0;
+            if (quantity > 0) {
+                availableRadio.checked = true;
+                notAvailableRadio.checked = false;
+            } else {
+                availableRadio.checked = false;
+                notAvailableRadio.checked = true;
+            }
+        };
+
+        // Function to update existing quantity with new quantity
+        updateButton.addEventListener("click", function () {
+            let existingQuantity = parseInt(quantityInput.value) || 0;
+            let newQuantity = parseInt(newQuantityInput.value) || 0;
+
+            let updatedQuantity = existingQuantity + newQuantity;
+            quantityInput.value = updatedQuantity >= 0 ? updatedQuantity : 0;
+
+            // Clear new quantity input field
+            newQuantityInput.value = "";
+
+            // Update availability immediately after updating quantity
+            updateAvailability();
+        });
+
+        // Initial availability check on page load
+        updateAvailability();
+
+        // Update availability when quantity is manually changed
+        quantityInput.addEventListener("input", updateAvailability);
+    }); 
+
+    // prevent user input on availability
+    document.querySelectorAll('.prevent-click').forEach(input => {
+        input.addEventListener('click', function(event) {
+            event.preventDefault(); 
+        });
+    }); 
 
     // Set daily rental value to price input value when rent radio button is checked
     function updateDailyRental() {

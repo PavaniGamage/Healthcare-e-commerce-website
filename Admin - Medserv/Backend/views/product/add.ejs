@@ -88,7 +88,15 @@
             <div class="col-sm-10">
                 <input type="number" name="price" class="form-control" id="price" placeholder="0.00" required>
             </div>
-        </div>
+        </div> 
+
+        <!-- Quantity Input -->
+        <div class="row mb-3">
+            <label for="quantity" class="col-sm-2 col-form-label" id="quantityLabel">Quantity</label>
+            <div class="col-sm-10">
+                <input type="number" name="quantity" class="form-control" id="quantity" placeholder="0" required min="1" step="1" required>
+            </div>
+        </div>  
 
         <!-- Rental Fields (Initially Hidden) -->
         <div id="rentalFields" style="display: none;">
@@ -134,7 +142,7 @@
                     <label class="form-check-label" for="notAvailable">Not Available</label>
                 </div>
             </div>
-        </div>
+        </div>      
 
         <!-- Description Input -->
         <div class="row mb-3">
@@ -179,7 +187,7 @@
                     <label class="form-check-label" for="imageUrlOption">Image URL</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="imageSource" id="fileUploadOption" value="file" onclick="toggleImageInput()">
+                    <input class="form-check-input" type="radio" name="imageSource" id="fileUploadOption" value="file" onclick="toggleImageInput()" disabled> 
                     <label class="form-check-label" for="fileUploadOption">Upload File</label>
                 </div>
             </div>
@@ -235,7 +243,7 @@
         <!-- Submit Button -->
         <div class="row mb-3">
             <div class="btn-submit">
-                <button type="submit" class="btn btn-primary">Add Product</button>
+                <button type="submit" id="submitBtn" class="btn btn-primary">Add Product</button>
             </div>
         </div>
     </form>
@@ -361,6 +369,34 @@
 
         return true; // Allow form submission if validation passes
     }
+
+    // update availability according to the quantity
+    document.addEventListener("DOMContentLoaded", function () {
+        const quantityInput = document.getElementById("quantity");
+        const availableRadio = document.getElementById("available");
+        const notAvailableRadio = document.getElementById("notAvailable");
+        const submitBtn = document.getElementById("submitBtn");
+
+        function updateAvailability() {
+            const quantity = parseInt(quantityInput.value) || 0;
+            
+            if (quantity > 0) {
+                availableRadio.checked = true;
+                notAvailableRadio.checked = false;
+            } else {
+                availableRadio.checked = false;
+                notAvailableRadio.checked = true;
+            }
+        }
+
+        // Set initial availability on page load
+        updateAvailability();
+
+        // Update availability when submit button is clicked
+        submitBtn.addEventListener("click", function (event) {
+            updateAvailability();
+        });
+    });
 
     // select sub category according to main category
     function updateCategory2Options() {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../WebPages CSS/Cart.css';
 import { useCart } from './CartContext';
 import fallbackImage from '../../Components/ShopPages/Common/Item/medserv_logo-for-products.png';
@@ -6,9 +6,38 @@ import {loadStripe} from '@stripe/stripe-js';
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart, total, totalItemCount } = useCart();
-  console.log(cart);
+  // console.log(cart);
+  const [outOfStockItems, setOutOfStockItems] = useState([]);
+
+  // Helper function to check stock availability
+  const isStockSufficient = (stock, quantity) => {
+    return stock >= quantity;
+  };
+
+  const checkStockAvailability = () => {
+    const outOfStock = []; 
+
+    for (let item of cart) {
+      if (!isStockSufficient(item.stock, item.quantity)) {
+        outOfStock.push(item.id); 
+        // alert(`Insufficient stock for ${item.name}. Only available ${item.stock} in the stock.`);
+      }
+    }
+
+    if (outOfStock.length > 0) {
+      setOutOfStockItems(outOfStock); 
+      return false; // Return false if stock is insufficient
+    }
+
+    return true; // Return true if all items have sufficient stock
+  };
 
   const makePayment = async () => {
+    if (!checkStockAvailability()) {
+      alert(`Insufficient stock.`);
+      return; // Prevent payment if stock is insufficient
+    }
+
     try {
       // Check if the user is logged in
       const token = localStorage.getItem('token'); 
@@ -19,6 +48,14 @@ const Cart = () => {
         // setError('User is not logged in.');
         return;
       }
+
+      // Check stock availability for all items in the cart
+      // for (let item of cart) {
+      //   if (!isStockSufficient(item.stock, item.quantity)) {
+      //     alert(`Insufficient stock for ${item.name}. Only available ${item.stock} in the stock.`);
+      //     return; // Stop further processing if stock is insufficient
+      //   }
+      // }
 
       // Load Stripe
       const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
@@ -59,7 +96,7 @@ const Cart = () => {
       if (!response.ok) {
         const error = await response.text();
         console.error("Backend error:", error);
-        alert('Server error. Please try again.');
+        alert('Server error. Please try again. \n\nError: '+ error);
         return;
       }
   
@@ -93,8 +130,14 @@ const Cart = () => {
       <h2>Your Cart</h2>
       <div className='cart-items'>
         {cart.length > 0 ? (
-          cart.map((item, index) => (
-            <div key={index} className='cart-item'>
+          cart.map((item, index) => {
+            const isOutOfStock = outOfStockItems.includes(item.id);
+            const border = isOutOfStock ? '#D94C4F 1px solid' : '';
+            const boxShadow = isOutOfStock ? '0 0 10px #D94C4F' : '';
+            const isVisible = !isOutOfStock;
+
+            return (
+            <div key={index} className='cart-item' style={{ border , boxShadow }}>
               <img
                 src={item.image}
                 alt={item.name}
@@ -104,28 +147,33 @@ const Cart = () => {
               <div className='cart-item-details'>
                 <p className='cart-item-name'>{item.name}</p>
                 <p className='cart-item-price'>Rs.{item.price.toFixed(2)}</p>
-                <div className='cart-item-quantity'>
-                  <button
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                    disabled={item.quantity <= 1} // Disable if quantity is 1
-                    className='quantity-button'
-                  >
-                    -
-                  </button>
-                  <span className='quantity-count'>{item.quantity}</span>
-                  <button
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    className='quantity-button'
-                  >
-                    +
-                  </button>
+                <div className='cart-item-quantity-and-stock'>
+                  <div className='cart-item-quantity'>
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      disabled={item.quantity <= 1} // Disable if quantity is 1
+                      className='quantity-button'
+                    >
+                      -
+                    </button>
+                    <span className='quantity-count'>{item.quantity}</span>
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      className='quantity-button'
+                    >
+                      +
+                    </button> 
+                  </div>
+                  <div className='stock-count' style={{ display: isVisible ? 'none' : 'block' }}>
+                      <p> Only {item.stock} available in stock.</p>
+                  </div>
                 </div>
               </div>
               <button onClick={() => removeFromCart(item.id)} className='remove-button'>
                 Remove
               </button>
             </div>
-          ))
+          )} ) 
         ) : (
           <p>Your cart is empty.</p>
         )}
@@ -145,7 +193,7 @@ const Cart = () => {
         <button onClick={clearCart} className='clear-cart-button'>Clear Cart</button>
         <button onClick={makePayment} className='buy-now-button'>
           Buy Now
-          </button>
+        </button>
       </div>
     </div>
   );

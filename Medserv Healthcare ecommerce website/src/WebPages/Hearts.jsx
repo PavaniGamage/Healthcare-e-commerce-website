@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DonationCards from "../Components/HeartsPage/DonationCards";
+import DonationCards from "../Components/HeartsPage/DonationCards"; 
 
 export default function Hearts() {
   // State to track which FAQ is open
@@ -36,7 +36,7 @@ export default function Hearts() {
               Get Support
             </a>
           </div>
-          <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
+          <div className="hidden lg:mt-0 lg:col-span-5 lg:flex ml-[70px]">
             <img
               src="https://cdn.pixabay.com/photo/2017/05/15/21/51/blood-icon-2316227_1280.png"
               alt="mockup"

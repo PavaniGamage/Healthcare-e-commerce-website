@@ -30,12 +30,13 @@ async function createProductsArray(searchOptions) {
         // Map the products to your desired format
         const all_products = Object.keys(products).map(key => ({
             id: key,
-            itemId: products[key].itemType,
+            itemId: products[key].itemId,
             itemType: products[key].itemType,
             name: products[key].name,
             image: products[key].imageUrl,
             imageSource: products[key].imageSource,
             price: products[key].price,
+            stock: products[key].stock, 
             availability: products[key].availability,
             description: products[key].description,
             descriptionForRent: products[key].subDescription,

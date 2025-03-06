@@ -132,6 +132,13 @@
 
     <li class="list-group-item">
         <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Quantity: </b></div>
+            <div class="col"><%= product.quantity ? product.quantity : 0 %></div>
+        </div>
+    </li> 
+
+    <li class="list-group-item">
+        <div class="row rowSection">
             <div class="col" style="max-width: 140px"><b>Availability: </b></div>
             <div class="col"><%= product.availability %></div>
         </div>
