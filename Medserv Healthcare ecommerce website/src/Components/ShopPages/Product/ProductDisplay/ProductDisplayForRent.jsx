@@ -18,7 +18,7 @@ const ProductDisplay = (props) => {
     const linesForRent = product.descriptionForRent.split('\n');
 
     // State to manage the quantity value
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState(1);
 
     // Function to handle increment
     const handleIncrement = () => {
@@ -36,6 +36,8 @@ const ProductDisplay = (props) => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [totalRent, setTotalRent] = useState(0);
+    const [totalRentDamage, setTotalRentDamage] = useState(0);
+    const [deposit, setDeposite] = useState(0);
     const [months, setMonths] = useState(0);
     const [weeks, setWeeks] = useState(0);
     const [days, setDays] = useState(0);
@@ -54,6 +56,11 @@ const ProductDisplay = (props) => {
     const calculateRent = () => {
         if (!startDate || !endDate) {
             alert("Please select both start and end dates.");
+            return;
+        }
+
+        if (startDate < today || startDate === endDate) {
+            alert("Please select correct days.");
             return;
         }
     
@@ -92,21 +99,55 @@ const ProductDisplay = (props) => {
             const deposit = Number(product.Deposit);
     
             // Calculate the total rent
-            const totalMonthlyRent = Number(months * monthlyRent);
-            const totalWeeklyRent = Number(weeks * weeklyRent);
-            const totalDailyRent = Number(days * dailyRent);
+            let totalMonthlyRent = Number(monthlyRent);
+            let totalWeeklyRent = Number(weeklyRent);
+            let totalDailyRent = Number(dailyRent);
+
+            if (days === 1 && weeks === 0 && months === 0) {
+                totalDailyRent = Number(dailyRent);
+            } else if (days > 1 && weeks === 0 && months === 0) {
+                const extraDays = days - 1;
+                totalDailyRent += extraDays * (dailyRent * 0.1);
+            } else if (days === 0) {
+                totalDailyRent = Number(0);
+            } else if (days >= 1 && (weeks > 0 || months > 0) ) {
+                totalDailyRent = days * (dailyRent * 0.1);
+            } 
+
+            if (weeks === 1 && months === 0) {
+                totalWeeklyRent = Number(weeklyRent);
+            } else if (weeks > 1 && months === 0) {
+                const extraWeeks = weeks - 1;
+                totalWeeklyRent += extraWeeks * (weeklyRent * 0.15);
+            } else if (weeks === 0) {
+                totalWeeklyRent = Number(0);
+            } else if (weeks >= 1 && (months > 0) ) {
+                totalWeeklyRent = weeks * (weeklyRent * 0.15);
+            }
+
+            if (months === 1) {
+                totalMonthlyRent = Number(monthlyRent);
+            } else if (months > 1) {
+                const extraMonths = months - 1;
+                totalMonthlyRent += extraMonths * (monthlyRent * 0.2);
+            } else if (months === 0) {
+                totalMonthlyRent = Number(0);
+            }
     
-            // Total rent is the sum of all applicable rents and deposit
+            // Calculate total rent
             const totalRentAmount = Number(totalMonthlyRent + totalWeeklyRent + totalDailyRent);
     
             // Total rent * Quantity
-            const totalRentAmountAccordingToQuantity = Number((totalRentAmount * quantity)  + deposit);
+            const totalRentAmountAccordingToQuantity = Number((totalRentAmount * quantity));
+            const totalRentAmountAccordingToQuantityIfDamaged = Number((totalRentAmount * quantity)  + deposit);
 
             // Set the calculated values in the state
             setMonths(months);
             setWeeks(weeks);
             setDays(days);
+            setDeposite(deposit);
             setTotalRent(totalRentAmountAccordingToQuantity);
+            setTotalRentDamage(totalRentAmountAccordingToQuantityIfDamaged);
         }
     };
 
@@ -199,16 +240,11 @@ const ProductDisplay = (props) => {
                 )}
             </div>
 
-            <div className='item-description'>
+            {/* <div className='item-description'>
                 <div className='item-description-for-rent'>
-                    {/* for details of rent*/}
-                    {/* check if description is null or not */}
                     {product.descriptionForRent ? (
                         <ul>
                             {linesForRent.map((line, index) => (
-                                // <li key={index} className='item-description-line'>
-                                //     {line}
-                                // </li>
                                 line.split('|').map((splitLine, splitIndex) => (
                                     <li key={`${index}-${splitIndex}`} className='item-description-line'>
                                       {splitLine.trim()}
@@ -220,7 +256,7 @@ const ProductDisplay = (props) => {
                         <p className='line-bullet-dash'>-</p> 
                     )}
                 </div>
-            </div>
+            </div> */}
 
             <div className='quantity'>
                 Quantity:  
@@ -260,12 +296,30 @@ const ProductDisplay = (props) => {
                 <table className='table-rent-result'>
                     <thead><tr><th>Details</th><th>Value</th></tr></thead>
                     <tbody>
-                        <tr><td>Total Rent :</td><td>Rs. {totalRent.toFixed(2)}</td></tr>
-                        {quantity > 0 && <tr><td>Quantity : </td><td>{quantity}</td></tr>}
+                        <tr className='bg-gray-100'><td>Total Rent :</td><td>Rs. {totalRent.toFixed(2)}</td></tr>
+                        {quantity > 0 && <tr className='bg-gray-100'><td>Quantity : </td><td>{quantity} &nbsp; {quantity === 1 ? "Item" : "Items"}</td></tr>}
                         {months > 0 && <tr><td>Months : </td><td>{months}</td></tr>}
                         {weeks > 0 && <tr><td>Weeks : </td><td>{weeks}</td></tr>}
                         {days > 0 && <tr><td>Days : </td><td>{days}</td></tr>}
                     </tbody>
+                </table>
+                <table className='table-rent-result'>
+                    <div className="p-4 bg-gray-100 rounded-lg mt-[50px]">
+                        <p className="font-semibold text-red-800">Please note:</p>
+                        <p className="text-gray-700 mt-1">
+                            If the rented item is damaged, you will be required to pay the deposit price in addition to the total rental cost.
+                        </p>
+                    </div>
+
+                    <div>
+                        <p className="font-semibold text-gray-800 mt-[30px] mb-[20px] ml-[10px]">In case of damage:</p>
+                        <thead><tr><th>Details</th><th>Value</th></tr></thead>
+                        <tbody>
+                            <tr><td>Total Rent :</td><td>Rs. {totalRent.toFixed(2)}</td></tr>
+                            <tr><td>Deposit :</td><td>Rs. {deposit.toFixed(2)}</td></tr>   
+                            <tr className='bg-gray-200'><td>Total Rent with Damaged:</td><td>Rs. {totalRentDamage.toFixed(2)}</td></tr>                         
+                        </tbody>
+                    </div>
                 </table>
                 <br/>
             </div>

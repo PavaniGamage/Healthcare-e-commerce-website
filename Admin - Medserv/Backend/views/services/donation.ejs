@@ -1,0 +1,644 @@
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS Bundle (including Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    .section {
+        background-color: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+    }
+
+    .details-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: start;
+    }
+
+    .main-heading {
+        margin-bottom: -10px;
+        align-items: center; 
+    }
+
+    .name-time p {
+        text-align: right;
+        color: #4b5561;
+    }
+
+    .id {
+        background-color: #b5b1b1;
+        padding-inline: 10px;
+        padding-block: 2px;
+        border-radius: 50px;
+        color: #eff2f5;
+    }
+
+    .image-prescription {
+        height: 106px;
+        cursor: pointer;
+    }
+
+    .image {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .pdf {
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .pdf a {
+        background-color: #dbdbdd;
+        padding-left: 10px;
+        padding-right: 20px;
+        text-decoration: none;
+        border-radius: 50px;
+    }
+
+    .pdf a:hover {
+        background-color: #cbcbcf;
+    }
+
+    /* Modal (hidden by default) */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1; 
+        width: 100%; 
+        height: 100%; 
+        background-color: rgba(0, 0, 0, 0.8); 
+        text-align: center;
+    }
+
+    /* Modal content (the image) */
+    .modal-content {
+        margin-inline: auto;
+        margin-block: 100px;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+
+    /* Close button (top-right) */
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #f1f1f1;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .review {
+        margin-top: 10px;
+    }
+
+    .table th {
+        width: 200px;
+    }
+
+    .dropdown {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: -20px;
+        margin-top: 30px;
+        font-weight: bold;
+    }
+
+    .review-status-p {
+        width: 100px;
+        padding-inline: 10px;
+        padding-block: 5px;
+        border-radius: 50px;
+        align-items: center;
+        text-align: center;
+    }
+
+    @media (min-width: 1100px) {
+        .details-tables {
+            display: flex;
+            gap: 10px;
+        }
+
+        .details-tables-column {
+            width:50%;
+        }
+    }
+</style>
+
+<!-- Page Header -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Requested Donations</h1>
+
+    <div class="btn-toolbar mb-2 mb-mb 0">
+        <div class="btn-group me-2">
+            <a href="#" class="btn btn-sm btn-outline-secondary"> -- </a>
+        </div>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="container-fluid py-4">  
+    <% if (donationData && donationData.length > 0) { %>
+        <% donationData.forEach((donation) => { %>
+            <section class="section">
+                <div class="name-time">
+                    <div class="details-content main-heading">
+                        <p><small class="pdf-a id">ID: <%= donation._id %></small></p>
+                        <p class="text-muted"><span class="me-2">&#128340;</span> <small>Uploaded at: <%= new Date(donation.createdAt).toLocaleString() %></small></p>
+                    </div>
+                    <hr/> <br/>
+                </div>        
+
+                <!-- details -->
+                <div class="details-tables">
+                    <div class="details-tables-column">
+                        <!-- requestor  details -->
+                        <table style="border-collapse: collapse;" class="table">
+                            <tbody>
+                                <tr>
+                                    <th colspan="2" style="color: #0097ED;">Requestor's Details:</th>
+                                </tr>
+                                <tr>
+                                    <th>Full Name:</th>
+                                    <td><%= donation.fullName %></td>
+                                </tr>
+                                <tr>
+                                    <th>Gender:</th>
+                                    <td><%= donation.gender %></td>
+                                </tr>
+                                <tr>
+                                    <th>Date of Birth:</th>
+                                    <td><%= donation.dateOfBirth %></td>
+                                </tr>
+                                <tr>
+                                    <th>contactNumber:</th>
+                                    <td><%= donation.contactNumber %></td>
+                                </tr>
+                                <tr>
+                                    <th>Email:</th>
+                                    <td><%= donation.email %></td>
+                                </tr>
+                                <tr>
+                                    <th>Residential Address:</th>
+                                    <td><%= donation.residentialAddress %></td>
+                                </tr>
+                                <tr>
+                                    <th>Number Of Family Members:</th>
+                                    <td><%= donation.numberOfFamilyMembers %></td>
+                                </tr>
+                                <tr>
+                                    <th>Financial Situation:</th>
+                                    <td><%= donation.financialSituation %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> 
+                    
+                    <!-- supporting documents -->
+                    <div class="details-tables-column">
+                        <!-- Proof of Income -->
+                        <table style="border-collapse: collapse;" class="table">
+                            <tbody style="text-align: left;">
+                                <tr>
+                                    <th colspan="2" style="color: #0097ED;">Supporting Documents:</th>
+                                </tr>
+                                <tr>
+                                    <th>Income Certificate:</th>
+                                    <td>
+                                        <div class="image">
+                                            <% if (donation.supportingDocuments.proofOfIncome.contentType == "application/pdf") { %>
+                                                <!-- PDF -->
+                                                <div class="pdf">
+                                                    <a href="/donation_file/<%= donation._id %>/proofOfIncome" target="_blank">
+                                                        <span>&#128196;</span> File 
+                                                    </a>
+                                                </div>
+                                            <% } else { %>
+                                                <!-- Image -->
+                                                <img src="/donation_file/<%= donation._id %>/proofOfIncome"
+                                                    alt="Income Certificate" 
+                                                    class="img-fluid rounded image-prescription" 
+                                                    id="imageClick-<%= donation._id %>">
+                                            <% } %>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Proof of Residence -->
+                        <table style="border-collapse: collapse;" class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Residence Proof:</th>
+                                    <td>
+                                        <div class="image">
+                                            <% if (donation.supportingDocuments.proofOfResidence.contentType == "application/pdf") { %>
+                                                <!-- PDF -->
+                                                <div class="pdf">
+                                                    <a href="/donation_file/<%= donation._id %>/proofOfResidence" target="_blank">
+                                                        <span>&#128196;</span> File 
+                                                    </a>
+                                                </div>
+                                            <% } else { %>
+                                                <!-- Image -->
+                                                <img src="/donation_file/<%= donation._id %>/proofOfResidence"
+                                                    alt="Income Certificate" 
+                                                    class="img-fluid rounded image-prescription" 
+                                                    id="imageClick-<%= donation._id %>">
+                                            <% } %>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Medical Condition -->
+                        <table style="border-collapse: collapse;" class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Medical Condition:</th>
+                                    <td>
+                                        <div class="image">
+                                            <% if (donation.supportingDocuments.medicalCondition.contentType == "application/pdf") { %>
+                                                <!-- PDF -->
+                                                <div class="pdf">
+                                                    <a href="/donation_file/<%= donation._id %>/medicalCondition" target="_blank">
+                                                        <span>&#128196;</span> File 
+                                                    </a>
+                                                </div>
+                                            <% } else { %>
+                                                <!-- Image -->
+                                                <img src="/donation_file/<%= donation._id %>/medicalCondition"
+                                                    alt="Income Certificate" 
+                                                    class="img-fluid rounded image-prescription" 
+                                                    id="imageClick-<%= donation._id %>">
+                                            <% } %>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Prescription Document -->
+                        <table style="border-collapse: collapse;" class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Prescription Document:</th>
+                                    <td>
+                                        <div class="image">
+                                            <% if (donation.supportingDocuments.prescriptionDocument.contentType == "application/pdf") { %>
+                                                <!-- PDF -->
+                                                <div class="pdf">
+                                                    <a href="/donation_file/<%= donation._id %>/prescriptionDocument" target="_blank">
+                                                        <span>&#128196;</span> File 
+                                                    </a>
+                                                </div>
+                                            <% } else { %>
+                                                <!-- Image -->
+                                                <img src="/donation_file/<%= donation._id %>/prescriptionDocument"
+                                                    alt="Income Certificate" 
+                                                    class="img-fluid rounded image-prescription" 
+                                                    id="imageClick-<%= donation._id %>">
+                                            <% } %>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Reviewing -->
+                        <table style="border-collapse: collapse;" class="table">
+                            <tbody>
+                                <tr>
+                                    <th colspan="2" style="color: #0097ED;">Reviewing:</th>
+                                </tr>
+                                <tr>
+                                    <th>Reviewing Status:</th>
+                                    <td><p id="review-table-<%= donation._id %>" class="review-status-p"><%= donation.review.reviewStatus %></p></td>
+                                </tr>
+                                <tr>
+                                    <th>Reviewing Feedback:</th>
+                                    <td><%= donation.review.reviewFeedback %></td> 
+                                </tr>
+                                <tr>
+                                    <th>Reviewing Time:</th>
+                                    <td><%= donation.review.reviewTime ? new Date(donation.review.reviewTime).toLocaleString() : '-' %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- bill -->
+                <div class="details-tables">
+                    <div class="details-tables-column">
+                        <table style="border-collapse: collapse;" class="table">
+                            <tbody style="text-align: left;">
+                                <tr>
+                                    <th colspan="3" style="color: #0097ED;">Bill Details:</th>
+                                </tr>
+                                <tr>
+                                    <th>Bill:</th>
+                                    <td colspan="2">
+                                        <div class="image">
+                                            <% if (donation.billDetails.billFile.data) { %>
+                                                <% if (donation.billDetails.billFile.contentType == "application/pdf") { %>
+                                                    <!-- PDF -->
+                                                    <div class="pdf">
+                                                        <a href="/donation-bill-file/<%= donation._id %>" target="_blank"> <span>&#128196;</span> File </a>
+                                                    </div>
+                                                <% } else { %>
+                                                    <!-- Image -->
+                                                    <img src="/donation-bill-file/<%= donation._id %>"
+                                                        alt=" &nbsp; &nbsp; Bill"  
+                                                        class="img-fluid rounded image-prescription" 
+                                                        id="imageClick-<%= donation._id %>"/>
+                
+                                                    <!-- Modal -->
+                                                    <div id="imageModal-<%= donation._id %>" class="modal">
+                                                        <span class="close" id="closeModal-<%= donation._id %>">&times;</span>
+                                                        <img class="modal-content" id="modalImage-<%= donation._id %>"/>
+                                                    </div>
+                
+                                                    <!-- PDF -->
+                                                    <div class="pdf">
+                                                        <a href="/donation-bill-file/<%= donation._id %>" target="_blank"> <span>&#128196;</span> File </a>
+                                                    </div>
+                                                <% } %>
+                                                
+                                            <% } else { %>
+                                                <!-- <p>No bill file available</p> -->
+                                                <p>-</p>
+                                            <% } %>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Total Price:</th>
+                                    <td>
+                                        <% if (donation.billDetails.billFile.data) { %>
+                                            <p>Rs. <%= Number(donation.billDetails.totalPrice).toFixed(2) %></p>                                            
+                                        <% } else { %>
+                                            <p>-</p>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Other:</th>
+                                    <td>
+                                        <% if (donation.billDetails.billFile.data) { %>
+                                            <p><%= donation.billDetails.other || '-' %></p>                                            
+                                        <% } else { %>
+                                            <p>-</p>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- dropdown for review -->
+                <div class="dropdown" style="display: none;" id="dropdown-<%= donation.id %>">
+                    <p id="wordForAction-<%= donation.id %>"></p>
+                    <p id="dropdown-icon-down-<%= donation.id %>" style="display: none; cursor: pointer;">&#9660;</p>
+                    <p id="dropdown-icon-up-<%= donation.id %>" style="display: none; cursor: pointer;">&#9650;</p>
+                </div>
+
+                <!-- admin bill uploads -->
+                <form action="/donation_requests/editbill/<%= donation._id %>?_method=PUT" method="POST" enctype="multipart/form-data" style="margin-top: 30px;">
+                    <div id="admin-action-bill-uploads-<%= donation.id %>" style="display: none;">                        
+                        <table style="border-collapse: collapse;" class="table">
+                            <tbody>
+                                <tr>
+                                    <th colspan="2" style="color: #0097ED;">Bill Details:</th>
+                                </tr>
+                                <tr>
+                                    <th>Bill:</th>
+                                    <td>
+                                        <input type="file" name="billFile" class="upload-bill upload-bill border-0 w-100 h-100 form-control" accept=".jpg, .jpeg, .png, .pdf" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Total Price:</th>
+                                    <td>
+                                        <input type="number" min="0" name="totalPrice" class="total-price form-control" placeholder="Enter total price (Rs.)" required>
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <th>Other:</th>
+                                    <td>
+                                        <textarea name="Other" class="other-details form-control" placeholder="Enter other details"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- btn -->
+                        <div class="form-group" style="margin-top: 20px;">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>                                   
+                    </div>
+                </form>
+
+                <!-- admin action -->
+                <form action="/donation_requests/edit/<%= donation._id %>?_method=PUT" method="POST">
+                    <div id="review-action-<%= donation.id %>" style="display: none;">
+                        <table style="border-collapse: collapse;" class="table">
+                            <tbody>
+                               
+                                <div style="margin-top: 30px;">
+                                   
+                                    <div class="form-group">
+                                        <label for="review-status" class="font-weight-bold mb-2" style="color: #0097ED;">Select Review Status:</label>
+                                        
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="reviewStatus" id="status-approved" value="Approved">
+                                            <label class="form-check-label" for="status-approved">
+                                                Approved
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="reviewStatus" id="status-rejected" value="Rejected">
+                                            <label class="form-check-label" for="status-rejected">
+                                                Rejected
+                                            </label>
+                                        </div>
+        
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="reviewStatus" id="status-pending" value="Pending">
+                                            <label class="form-check-label" for="status-pending">
+                                                Pending
+                                            </label>
+                                        </div>    
+                                    </div>    
+                                    
+                                    
+                                    <div class="form-group" style="margin-top: 20px;">
+                                        <label for="review-feedback" class="font-weight-bold mb-3" style="color: #0097ED;">Reviewing Feedback:</label>
+                                        <textarea class="form-control" id="review-feedback" name="reviewFeedback" rows="4" placeholder="Enter your feedback here..."></textarea> 
+                                    </div>
+        
+                                    
+                                    <div class="form-group" style="margin-top: 20px;">
+                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </tbody>
+                        </table> 
+                    </div>
+                </form> 
+
+                <script>
+                    // Ensure the function is called for each donation
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const roleForReviewed = localStorage.getItem('role');
+                        const reviewAction = document.getElementById('review-action-<%= donation.id %>');
+                        const dropdown = document.getElementById('dropdown-<%= donation.id %>');
+                        const downIcon = document.getElementById('dropdown-icon-down-<%= donation.id %>');
+                        const upIcon = document.getElementById('dropdown-icon-up-<%= donation.id %>');
+                        const wordForAction = document.getElementById('wordForAction-<%= donation.id %>');
+
+                        // perform if the role is 'admin'
+                        if (roleForReviewed === 'admin') {
+                            dropdown.style.display = 'flex';
+                            downIcon.style.display = 'block';
+                            upIcon.style.display = 'none';
+                            wordForAction.textContent  = 'Review';
+
+                            downIcon.onclick = function() { 
+                                if (downIcon.style.display === 'block') {
+                                    reviewAction.style.display = 'block'; // Show the section
+                                    downIcon.style.display = "none"; // Hide the down arrow
+                                    upIcon.style.display = "block"; // Show the up arrow
+                                }
+                            }
+
+                            upIcon.onclick = function() { 
+                                if (upIcon.style.display === 'block') {
+                                    reviewAction.style.display = "none"; // Hide the section
+                                    downIcon.style.display = "block"; // Show the down arrow
+                                    upIcon.style.display = "none"; // Hide the up arrow
+                                } 
+                            }
+                        } else {
+                            dropdown.style.display = 'none';
+                            reviewAction.style.display = 'none';
+                        }
+
+                        // review status color
+                        const reviewTable = document.getElementById('review-table-<%= donation._id %>');
+                
+                        if ('!<%= donation.review.reviewStatus %>' || '<%= donation.review.reviewStatus %>' === 'Pending') {
+                            reviewTable.style.background = '#B5B3B9';
+                        }
+
+                        if ('<%= donation.review.reviewStatus %>' === 'Approved') {
+                            reviewTable.style.background = '#8AB2E2';
+                        }
+
+                        if ('<%= donation.review.reviewStatus %>' === 'Rejected') {
+                            reviewTable.style.background = '#D18A6D';
+                        }                        
+
+                        // admin - actions
+                        const billUpload = document.getElementById('admin-action-bill-uploads-<%= donation.id %>');
+
+                        if (roleForReviewed === 'admin') {
+                            if ('<%= donation.review.reviewStatus %>' === 'Approved') {
+                                // billUpload.style.display = 'block';
+                                // perform if the role is 'admin'
+                                if (roleForReviewed === 'admin') {
+                                    dropdown.style.display = 'flex';
+                                    downIcon.style.display = 'block';
+                                    upIcon.style.display = 'none';
+                                    wordForAction.textContent  = 'Bill Upload';
+
+                                    downIcon.onclick = function() { 
+                                        if (downIcon.style.display === 'block') {
+                                            billUpload.style.display = 'block'; // Show the section
+                                            downIcon.style.display = "none"; // Hide the down arrow
+                                            upIcon.style.display = "block"; // Show the up arrow
+                                        }
+                                    }
+
+                                    upIcon.onclick = function() { 
+                                        if (upIcon.style.display === 'block') {
+                                            billUpload.style.display = 'none'; // Hide the section
+                                            downIcon.style.display = "block"; // Show the down arrow
+                                            upIcon.style.display = "none"; // Hide the up arrow
+                                        } 
+                                    }
+                                } else {
+                                    dropdown.style.display = 'none';
+                                    reviewAction.style.display = 'none';
+                                }
+                            }
+                        } else {
+                            reviewBtns.style.display = 'none';
+                        }
+
+                        // open the prescription file/img
+                        var img = document.getElementById('imageClick-<%= donation._id %>');
+                        var modal = document.getElementById('imageModal-<%= donation._id %>');
+                        var modalImg = document.getElementById('modalImage-<%= donation._id %>');
+                        var close = document.getElementById('closeModal-<%= donation._id %>');
+
+                        // When the image is clicked, open the modal
+                        img.onclick = function() {
+                            modal.style.display = "block";
+                            modalImg.src = this.src; 
+                        }
+
+                        // When the "X" button is clicked, close the modal
+                        close.onclick = function() {
+                            modal.style.display = "none";
+                        }
+                    });
+                </script>
+            </section>
+        <% }); %>
+    <% } else { %>
+        <section class="section">
+            <p>No donations are requested at the moment.</p>
+        </section>
+    <% } %>
+</div> 
+
+<script>
+    // ---------------------------------------------------------------
+    // Save scroll position before redirect
+    const saveScrollPosition = () => {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+    };
+
+    window.addEventListener('beforeunload', saveScrollPosition);
+
+    // Restore scroll position after page load
+    window.addEventListener('load', () => {
+        const scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition, 10));
+            sessionStorage.removeItem('scrollPosition');
+        }
+    });
+</script>

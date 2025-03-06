@@ -1,6 +1,7 @@
 const Product = require('../models/Product');
 const Feedback = require('../models/Feedback');
-const Prescription = require('../models/Prescription');
+const Prescription = require('../models/Prescription'); 
+const Donation = require('../models/Donation');
 const Account = require('../models/Account');
 const mongoose = require('mongoose');
 
@@ -524,6 +525,195 @@ exports.feedback = async (req, res) => {
         res.render('error', { message: "We encountered an issue. Please try again later." });
     }
 };
+
+/*
+    // GET /
+    // Donation Requests
+*/
+
+exports.donationRequests = async (req, res) => {
+    const locals = {
+        title: 'Donations',
+        description: 'Medserv - Product Data Management System'
+    };
+
+    try {
+        // Fetch all records
+        const donationData = await Donation.find({}).sort({ createdAt: -1 }); // Sort by latest
+
+        if (!donationData.length) {
+            locals.message = "No donation request available.";
+        }
+
+        // Render the page with data
+        res.render('services/donation', { locals, donationData }); 
+    } catch (error) {
+        console.error("An error occurred while rendering the Donations page:", error);
+        res.render('error', { message: "We encountered an issue. Please try again later." });
+    }
+}; 
+
+/*
+    // GET /
+    // Donation Uploads
+*/
+
+exports.donationUploads = async (req, res) => {
+    const locals = {
+        title: 'Donation Uploads',
+        description: 'Medserv - Product Data Management System'
+    };
+
+    // Extract the type of document (e.g., 'proofOfIncome', 'proofOfResidence', etc.)
+    const { docType } = req.params; // docType is part of the URL (e.g., /uploads/:id/:docType)
+
+    try {
+        // Find the donation by ID
+        const donation = await Donation.findById(req.params.id);
+
+        // Check if donation exists and the requested document type is available
+        if (donation && donation.supportingDocuments && donation.supportingDocuments[docType]) {
+            const document = donation.supportingDocuments[docType];
+
+            // Check if the document has both data and contentType
+            if (document && document.data && document.contentType) {
+                // Set the correct Content-Type for the document
+                res.setHeader('Content-Type', document.contentType);
+
+                // Send the document data (Buffer)
+                res.send(document.data);
+            } else {
+                // If no data/contentType available, send 404 error
+                res.status(404).send(`${docType} not found`);
+            }
+        } else {
+            // If the donation or the requested document type doesn't exist, send 404 error
+            res.status(404).send('Document type not found');
+        }
+    } catch (error) {
+        // Catch any error and send a 500 status code with the error message
+        console.error(error);
+        res.status(500).send('Error retrieving document');
+    }
+};
+
+/*
+    // GET /
+    // Donation Bill Uploads
+*/
+
+exports.donationBillUploads = async (req, res) => {
+    const locals = {
+        title: 'Donation Bill Uploads',
+        description: 'Medserv - Product Data Management System'
+    };
+
+    try {
+        const donation = await Donation.findById(req.params.id);
+
+        if (!donation) {
+            return res.status(404).send('Donation bill not found');
+        }
+
+        if (donation.billDetails && donation.billDetails.billFile && donation.billDetails.billFile.data) {
+            res.setHeader('Content-Type', donation.billDetails.billFile.contentType);
+            console.log('donation.billDetails:', donation.billDetails);
+            return res.send(donation.billDetails.billFile.data);
+        } else {
+            return res.status(404).send('Bill file not found');
+        }
+    } catch (error) {
+        console.error('Error retrieving donation bill:', error);
+        res.status(500).send('Error retrieving image/file');
+    }
+};
+
+/*
+    // PUT /:id
+    // Update Donation Review
+*/
+
+exports.editDonationStatus = async (req, res) => {
+    try {
+        // Extract review data from request body
+        const { reviewStatus, reviewFeedback } = req.body;
+
+        // Find the prescription by ID and update the review fields
+        const updatedDonation = await Donation.findByIdAndUpdate(
+            req.params.id, 
+            {
+                $set: {
+                    'review.reviewStatus': reviewStatus,
+                    'review.reviewFeedback': reviewFeedback,
+                    'review.reviewTime': Date.now() // Set the review time to the current date/time
+                }
+            },
+            { new: true } // return the updated document
+        );
+
+        // Check if the prescription was found and updated
+        if (!updatedDonation) {
+            return res.status(404).send('Donation not reviewed!');
+        }
+
+        console.log('Review Status:', reviewStatus);
+        console.log('Review Feedback:', reviewFeedback);
+
+        // Redirect or send a success message
+        res.redirect('/donation_requests');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error - In Donation Reviewing');
+    }
+};
+
+/*
+    // PUT /:id
+    // Update Donation Bill
+*/
+
+exports.editDonationBillDetails = [
+    upload.single('billFile'),
+    async (req, res) => {
+        try {
+            // Extract data from the request
+            const { totalPrice, Other } = req.body;
+
+            // Prepare the updated fields
+            const updateFields = {
+                'billDetails.totalPrice': totalPrice,
+                'billDetails.Other': Other,
+                'billDetails.billDate': Date.now(),
+            };
+
+            // Process the uploaded file
+            if (req.file) {
+                updateFields['billDetails.billFile'] = {
+                    data: req.file.buffer, // Binary data from Multer
+                    contentType: req.file.mimetype, // File MIME type
+                };
+            }
+
+            // Find the donation by ID and update the fields
+            const updatedDonation = await Donation.findByIdAndUpdate(
+                req.params.id,
+                { $set: updateFields },
+                { new: true }
+            );
+
+            // Check if the donation was found and updated
+            if (!updatedDonation) {
+                return res.status(404).send('Donation not found.!');
+            }
+
+            // Respond with redirect
+            res.redirect('/donation_requests'); 
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Server error - Failed to update donation bill details');
+        }
+    },
+];
 
 /*
     // GET /

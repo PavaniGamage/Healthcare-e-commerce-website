@@ -38,6 +38,12 @@ router.put('/prescriptions/edit/:id', restrictTo('pharmacist'), productControlle
 router.put('/prescriptions/editbill/:id', restrictTo('admin'), productController.editBillDetails); // prescription bill edit
 router.get('/feedback', restrictTo('admin'), productController.feedback);
 
+router.get('/donation_file/:id/:docType', access, productController.donationUploads);  // donation_requests uploads
+router.get('/donation-bill-file/:id', access, productController.donationBillUploads);  // donation_requests bill uploads
+router.get('/donation_requests', access, restrictTo('admin'), productController.donationRequests);   // donation_requests page 
+router.put('/donation_requests/edit/:id', restrictTo('admin'), productController.editDonationStatus); // donation_requests edit
+router.put('/donation_requests/editbill/:id', restrictTo('admin'), productController.editDonationBillDetails); // donation_requests bill edit
+
 router.post('/create_admin', restrictTo('admin'), productController.createAdmin);
 router.post('/create_pharmacist', restrictTo('admin'), productController.createPharmacist);
 router.post('/login', productController.loginUser); 

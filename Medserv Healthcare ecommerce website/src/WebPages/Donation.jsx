@@ -1,30 +1,55 @@
 import React, { useState, useEffect } from "react";
+import { useLocation , useNavigate } from "react-router-dom";
 import "./WebPages CSS/LoginSignup.css";
 import "./WebPages CSS/UploadPrescriptions.css";
 import { loadStripe } from "@stripe/stripe-js";
 
 const Donation = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { amount, donationID } = location.state || {}; 
   const [error, setError] = useState("");
   const [total, setTotal] = useState("");
   const [loading, setLoading] = useState(false);
   const [donationDetails, setDonationDetails] = useState({
+    donationID:"",
     name: "",
     email: "",
     phone: "",
-    amount: "",
+    amount: amount || "",
     message: "",
     paymentMethod: "card",
     donationDate: "",
     termsAndConditions: false,
   });
 
+  // Redirect if amount is null
+  useEffect(() => {
+    if (!amount) {
+      navigate("/make-donation"); 
+    }
+  }, [amount, navigate]);
+
+  useEffect(() => {
+    // Set today's date as the default value
+    const today = new Date().toISOString().split('T')[0]; // Get the current date in YYYY-MM-DD format
+    setDonationDetails((prevDetails) => ({
+      ...prevDetails,
+      donationDate: today,
+    }));
+  }, []);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    setDonationDetails({
+      ...donationDetails,
+      [name]: value,
+    });
     setDonationDetails((prevDetails) => ({
       ...prevDetails,
       [name]:
         name === "amount"
-          ? Number(value)
+          ? Number(value.replace('Rs.', '').trim())
           : type === "checkbox"
           ? checked
           : value,
@@ -54,6 +79,14 @@ const Donation = () => {
         return;
       }
 
+      // check for id
+      if (!donationID) { 
+        alert("Donation ID is missing. Cannot Proceed.");
+        setError("Donation ID is missing. Cannot Proceed.");
+        setLoading(false);
+        return;
+      }
+
       const payload = {
         amount: donationDetails.amount,
         paymentMethod: donationDetails.paymentMethod,
@@ -62,6 +95,7 @@ const Donation = () => {
         phone: donationDetails.phone,
         message: donationDetails.message,
         donationDate: donationDetails.donationDate,
+        donationID: donationID, 
       };
 
       console.log("Payload:", payload);
@@ -74,28 +108,24 @@ const Donation = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          // body: JSON.stringify({ donation: donationDetails, email: userEmail }),
           body: JSON.stringify(payload),
         }
       );
-
-      const data = await response.json();
-
+  
+      // Ensure the response is OK before proceeding
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(errorText || "Failed to create checkout session.");
       }
-
-      // Get sessionId from response
+  
+      const data = await response.json();  
+      console.log('Success:', data);
+  
       const { sessionId } = data;
       if (!sessionId) throw new Error("Failed to retrieve session ID.");
 
-      console.log(data);
-
       // Redirect to Stripe Checkout
-      const stripe = await loadStripe(
-        import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
-      );
+      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
       await stripe.redirectToCheckout({ sessionId });
     } catch (err) {
       console.error("Error:", err.message);
@@ -107,7 +137,7 @@ const Donation = () => {
   };
 
   return (
-    <div>
+    <div> 
       <div>
         <section className="grid bg-[#000] bg-opacity-90 p-4 mx-auto items-center justify-center">
           <div className="grid max-w-screen-xl ml-10 px-4 py-4 mx-auto lg:gap-8 xl:gap-0 lg:py-8 lg:grid-cols-12">
@@ -138,34 +168,28 @@ const Donation = () => {
         </section>
       </div>
       <div>
-        <section className="flex justify-center items-center">
-          <div className="contact" id="contact-for-reservation">
-            <p>Please contact us for more details about donations.</p>
-            <p className="contact-topic">Contact Details:</p>
-            <p>
-              <strong>Email: </strong> medserv@gmail.com
-            </p>
-            <p>
-              <strong>Phone: </strong> +94 11 2345678
-            </p>
-          </div>
-        </section>
-
-        <section className="flex justify-center items-center">
-          <div className="w-full flex">
+        <section className="flex justify-center items-center mx-auto">
+          <div className="w-full flex flex-col lg:flex-row justify-center">
             {/* Left Part */}
-            <div className="w-1/2 flex justify-center items-center">
-              <div className="text-center">
-                <h2 className="text-2xl font-semibold">Make Donations</h2>
-                <p className="mt-4 text-lg">
-                  Your support makes a difference. Thank you for contributing!
+            <section className="flex items-center justify-center">
+              <div className="contact" id="contact-for-reservation">
+              <h2 className="text-2xl font-semibold text-center">Making Donations</h2>
+                <p> Your support makes a difference. Thank you for contributing! </p>
+
+                <p>Please contact us for more details about donations.</p>
+                <p className="contact-topic">Contact Details:</p>
+                <p>
+                  <strong>Email: </strong> medserv@gmail.com
+                </p>
+                <p>
+                  <strong>Phone: </strong> +94 11 2345678
                 </p>
               </div>
-            </div>
+            </section>
 
             {/* Right Part (Form) */}
-            <div className="form-container w-[550px] mx-auto flex flex-col">
-              <div className="new-user">
+            <div className="form-container lg:pl-0 lg:pr-0 lg:w-[550px]">
+              <div className="new-user lg:ml-[50px]">
                 <div className="register-heading text-center mb-10 mt-10">
                   <h2>Make Donations</h2>
                 </div>
@@ -211,7 +235,7 @@ const Donation = () => {
                       />
                     </div>
 
-                    <div className="form-group amount">
+                    {/* <div className="form-group amount">
                       <input
                         type="number"
                         id="amount"
@@ -222,6 +246,22 @@ const Donation = () => {
                         className="text-base"
                         value={donationDetails.amount}
                         onChange={handleChange}
+                        disabled 
+                      />
+                    </div> */}
+
+                    <div className="form-group amount">
+                      <input
+                        type="text" 
+                        id="amount"
+                        name="amount"
+                        placeholder="Amount (Rs.)"
+                        required
+                        min="500"
+                        className="text-base"
+                        value={`Rs. ${donationDetails.amount}.00`} 
+                        onChange={handleChange}
+                        disabled
                       />
                     </div>
 
@@ -273,6 +313,7 @@ const Donation = () => {
                         className="text-base message-input"
                         value={donationDetails.donationDate}
                         onChange={handleChange}
+                        disabled
                       />
                     </div>
 

@@ -16,6 +16,7 @@ const productRoutes = require("./routes/products");
 const paymentHistoryRoutes = require("./routes/paymentHistory");
 const feedbackRoutes = require("./routes/feedback");
 const prescriptionRoutes = require("./routes/prescription");
+const donationRequestRoutes = require("./routes/donationRequests");
 const cors = require("cors");
 const app = express();
 
@@ -73,6 +74,7 @@ app.use("/api/checkout", checkoutRoutes);
 app.use("/paymentHistory", paymentHistoryRoutes);
 
 // for donation
+app.use("/donationRequests", donationRequestRoutes);
 app.use("/api/donate", donationCheckoutRoutes);
 
 // Starting the server

@@ -8,9 +8,11 @@ const Donation = require("../models/Donation");
 
 // Donation route
 router.post('/create-donate-checkout-session', async (req, res) => {
-    const { amount, paymentMethod, email, name, phone, message, donationDate, donationID } = req.body;
+    // const { amount, paymentMethod, email, name, phone, message, donationDate, donationRequestID } = req.body;
     
     try {
+        const { amount, paymentMethod, email, name, phone, message, donationDate, donationID } = req.body;
+
         // Convert amount to a number
         const donationAmount = Number(amount);
 
@@ -22,20 +24,13 @@ router.post('/create-donate-checkout-session', async (req, res) => {
             return res.status(400).json({ error: 'Email and Name are required' });
         }
 
-        // // Create PaymentIntent
-        // const paymentIntent = await stripe.paymentIntents.create({
-        //     amount: amount * 100,
-        //     currency: 'lkr', 
-        //     payment_method_types: ['card'],
-        //     receipt_email: email,
-        //     description: `Donation from ${name} (${email}) - ${message}`,
-        //     metadata: {
-        //         name,
-        //         phone,
-        //         message,
-        //         donationDate,
-        //     },
-        // });
+        if (!donationID) {
+            return res.status(400).json({ error: "Donation request ID is missing." });
+        }
+
+        if (!amount) {
+            return res.status(400).json({ error: "Amount is missing." });
+        }
 
         // Create a Stripe Checkout session
         const session = await stripe.checkout.sessions.create({
@@ -44,7 +39,7 @@ router.post('/create-donate-checkout-session', async (req, res) => {
                 price_data: {
                     currency: 'lkr',
                     product_data: {
-                        name: `Donation from ${name}`,
+                        name: `Donation from ${name} to DonationID: #REQ ${donationID}`,
                     },
                     unit_amount: donationAmount * 100, // Convert amount to cents
                 },
@@ -63,67 +58,45 @@ router.post('/create-donate-checkout-session', async (req, res) => {
             },
         });
 
-        // Fetch the last donationID and increment
-        const getNextDonationID = async () => {
-            const lastDonation = await Donation.findOne().sort({ donationID: -1 }).limit(1);
-            return lastDonation ? lastDonation.donationID + 1 : 1;
-        };
+        // Find the document with the given donationID
+        const donation = await Donation.findOne({ donationID });
+        if (!donation) {
+            return res.status(404).json({ error: 'Donation not found' });
+        }
 
-        // Generate the orderID
-        const donationID = await getNextDonationID();
-
-        // Initilize and Save donation details in the database
-        const newDonation = new Donation({
+        // Update the existing document with payment details
+        donation.paymentDetails = {
             userName: name,
             userEmail: email,
             userPhone: phone,
             message,
-            donationID: donationID,
             donationAmount: amount,
             donationDate,
             paymentMethod,
             status: 'pending',
             sessionId: session.id,
-        });
+        };
+        donation.status = 'pending';
+        donation.sessionId = session.id;
 
-        await newDonation.save();
-        console.log("Donation details saved:", newDonation);
+        try {
+            await donation.save();
+            console.log("Payment details updated:", donation);
+        } catch (saveError) {
+            console.error("Error saving order:", saveError);
+            return res.status(500).json({ error: "Failed to update donation with payment details." });
+        }
 
         // Send response back to the client
         res.status(200).json({
             sessionId: session.id,  
-            donationId: newDonation._id,
+            donationId: donation.donationID,
         });
     } catch (error) {
         console.error('Error creating payment intent:', error.message, error.stack);
         res.status(500).json({ error: 'Server error. Please try again later.' });
     }
 });
-
-// Function to generate a unique donation ID 
-// async function generateUniqueDonationID() {
-//     try {
-//         // Find the latest donation based on the donationID
-//         const lastDonation = await Donation.findOne().sort({ donationID: -1 }).exec();
-
-//         let donationCount = 0;
-
-//         // If there is a last donation, extract the last donation ID and increment
-//         if (lastDonation) {
-//             const lastDonationID = lastDonation.donationID; 
-//             // Assuming the ID format is 'DID' followed by a number like DID1, DID2, etc.
-//             donationCount = parseInt(lastDonationID.replace('DID', '')); // Extract the number after 'DID'
-//         }
-
-//         // Increment the donation count to create the new donation ID
-//         donationCount += 1;  
-//         return `DID${donationCount}`;  // Return the new donation ID
-
-//     } catch (error) {
-//         console.error('Error generating donation ID:', error);
-//         throw new Error('Error generating unique donation ID.');
-//     }
-// }
 
 // Route to retrieve the session details from Stripe and update donation status
 router.post('/get-donation-session', async (req, res) => {
