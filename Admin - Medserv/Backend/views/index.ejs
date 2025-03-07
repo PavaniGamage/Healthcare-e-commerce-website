@@ -61,7 +61,8 @@
         <thead>
             <tr>
                 <th scope="col">Product Name</th>
-                <th scope="col">Price</th>
+                <th scope="col">New Price</th>
+                <th scope="col">Old Price</th>
                 <th scope="col">Availability</th>
                 <th scope="col">Rent or Sell</th>
                 <th scope="col" class="text-end">Action</th>
@@ -73,6 +74,7 @@
                     <tr class="align-middle">
                         <td><%= element.name %></td>
                         <td>Rs. <%= element.price %></td>
+                        <td>Rs. <%= element.oldPrice %></td>
                         <td><%= element.availability %></td>
                         <td><%= element.itemType %></td>
                         <td>

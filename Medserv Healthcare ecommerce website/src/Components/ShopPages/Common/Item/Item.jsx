@@ -12,6 +12,8 @@ const Item = (props) => {
   const handleImageError = () => {
     setImageError(true);
   };
+  console.log("Props in Item:", props);
+
 
   // Set productID from props.id
   const productID = props.id; 
@@ -53,7 +55,10 @@ const Item = (props) => {
               </div>
               <div className='item-link-details'>
                 <p className='item-name'>{props.name}</p>
-                <p className='item-price'>Rs. {props.price}</p>
+                <p className='item-price'>
+                  <span className='new-price'>Rs. {props.price}</span>
+                  <span className='old-price'>Rs. {props.oldPrice}</span>
+                </p>
               </div>
             </Link>
             {/* <button onClick={() => addToCart(props)}> */}
@@ -74,6 +79,7 @@ const Item = (props) => {
         {toast && <ToastMessage message={toast.message} type={toast.type} />}
     </div>
   )
+
 }
 
 export default Item 

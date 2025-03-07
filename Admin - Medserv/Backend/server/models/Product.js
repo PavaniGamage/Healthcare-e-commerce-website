@@ -6,9 +6,13 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
-    price: {
+    price: { 
+        type: Number, 
+        required: true 
+    },
+    oldPrice: {
         type: Number,
-        required: true
+        default: null
     },
     availability: {
         type: String,
