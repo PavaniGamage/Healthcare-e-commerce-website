@@ -73,6 +73,12 @@
     margin-left: 10px;
     font-size: 12px;
 }
+.old-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 12px;
+    margin-left: 10px;
+}
 
 .item-btn {
     display: flex;

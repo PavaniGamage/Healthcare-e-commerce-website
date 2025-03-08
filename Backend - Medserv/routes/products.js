@@ -66,6 +66,7 @@ router.get('/', async (req, res) => {
             itemType: product.itemType,
             name: product.name,
             price: product.price.toFixed(2),
+            oldPrice: product.oldPrice ? product.oldPrice.toFixed(2) : null,
             stock: product.quantity,
             availability: product.availability,
             description: product.description,
