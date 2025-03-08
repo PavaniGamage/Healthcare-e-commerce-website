@@ -137,7 +137,7 @@
             </div>
         </div>
 
-        <!-- Price Input -->
+        <!-- Price Inputs -->
         <div class="row mb-3">
             <label for="price" class="col-sm-2 col-form-label" id="priceLabel">New Price</label>
             <div class="col-sm-10">
@@ -428,6 +428,32 @@
         // Update availability when quantity is manually changed
         quantityInput.addEventListener("input", updateAvailability);
     }); 
+
+    // ensure newPrice < oldPrice
+    document.addEventListener("DOMContentLoaded", function () {
+        const newPriceInput = document.getElementById("price");
+        const oldPriceInput = document.getElementById("oldPrice");
+        const updateButton = document.getElementById("updateButton");
+
+        function validateOldNewPrices() {
+            const newPrice = parseInt(newPriceInput.value);
+            const oldPrice = parseInt(oldPriceInput.value);
+            
+            if (newPrice >= oldPrice) {
+                alert("The new price should be less than the old price.");
+                event.preventDefault();
+                return false;
+            } 
+
+            return true;
+        }
+
+        validateOldNewPrices();
+
+        updateButton.addEventListener("click", function (event) {
+            validateOldNewPrices();
+        });
+    });
 
     // prevent user input on availability
     document.querySelectorAll('.prevent-click').forEach(input => {
