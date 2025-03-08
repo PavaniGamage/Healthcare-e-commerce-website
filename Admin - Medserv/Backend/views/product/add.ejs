@@ -84,11 +84,19 @@
 
         <!-- Price Input -->
         <div class="row mb-3">
-            <label for="price" class="col-sm-2 col-form-label" id="priceLabel">Price</label>
+            <label for="price" class="col-sm-2 col-form-label" id="priceLabel">New Price</label>
             <div class="col-sm-10">
                 <input type="number" name="price" class="form-control" id="price" placeholder="0.00" required>
             </div>
         </div> 
+
+        <!-- Old Price Input -->
+        <div class="row mb-3">
+            <label for="price" class="col-sm-2 col-form-label" id="oldPriceLabel">Old Price</label>
+            <div class="col-sm-10">
+                <input type="number" name="oldPrice" class="form-control" id="oldPrice" placeholder="0.00" required>
+            </div>
+        </div>
 
         <!-- Quantity Input -->
         <div class="row mb-3">
@@ -395,6 +403,32 @@
         // Update availability when submit button is clicked
         submitBtn.addEventListener("click", function (event) {
             updateAvailability();
+        });
+    });
+
+    // ensure newPrice < oldPrice
+    document.addEventListener("DOMContentLoaded", function () {
+        const newPriceInput = document.getElementById("price");
+        const oldPriceInput = document.getElementById("oldPrice");
+        const submitBtn = document.getElementById("submitBtn");
+
+        function validateOldNewPrices() {
+            const newPrice = parseInt(newPriceInput.value);
+            const oldPrice = parseInt(oldPriceInput.value);
+            
+            if (newPrice >= oldPrice) {
+                alert("The new price should be less than the old price.");
+                event.preventDefault();
+                return false;
+            } 
+
+            return true;
+        }
+
+        validateOldNewPrices();
+
+        submitBtn.addEventListener("click", function (event) {
+            validateOldNewPrices();
         });
     });
 

@@ -125,8 +125,14 @@
 
     <li class="list-group-item <%= product.itemType === 'Rent' ? 'hide' : 'show' %>" id="priceField">
         <div class="row rowSection">
-            <div class="col" style="max-width: 140px"><b>Price: </b></div>
+            <div class="col" style="max-width: 140px"><b>New Price: </b></div>
             <div class="col">Rs. <%= product.price %></div>
+        </div>
+    </li>
+    <li class="list-group-item <%= product.itemType === 'Rent' ? 'hide' : 'show' %>" id="priceField">
+        <div class="row rowSection">
+            <div class="col" style="max-width: 140px"><b>Old Price: </b></div>
+            <div class="col">Rs. <%= product.oldPrice %></div>
         </div>
     </li>
 
