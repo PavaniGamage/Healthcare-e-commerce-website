@@ -57,7 +57,7 @@ const Item = (props) => {
                 <p className='item-name'>{props.name}</p>
                 <p className='item-price'>
                   <span className='new-price'>Rs. {props.price}</span>
-                  <span className='old-price'>Rs. {props.oldPrice}</span>
+                  {props.oldPrice && <span className='old-price'>Rs. {props.oldPrice}</span>}
                 </p>
               </div>
             </Link>

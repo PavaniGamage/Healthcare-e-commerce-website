@@ -36,6 +36,7 @@ async function createProductsArray(searchOptions) {
             image: products[key].imageUrl,
             imageSource: products[key].imageSource,
             price: products[key].price,
+            oldPrice: products[key].oldPrice,
             availability: products[key].availability,
             description: products[key].description,
             descriptionForRent: products[key].subDescription,
