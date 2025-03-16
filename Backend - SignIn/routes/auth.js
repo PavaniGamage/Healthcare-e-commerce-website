@@ -28,7 +28,7 @@ const validatePassword = (password) => {
   return passwordRegex.test(password);
 };
 
-const allowedCities = ["Colombo", "Kandy", "Jaffna", "Galle"]; // List of allowed cities
+// const allowedCities = ["Colombo", "Kandy", "Jaffna", "Galle"]; // List of allowed cities
 
 // Sign-up route
 router.post('/signup', async (req, res) => {
@@ -58,9 +58,9 @@ router.post('/signup', async (req, res) => {
     return res.status(400).json({ message: "Passwords do not match" });
   }
 
-  if (!allowedCities.includes(city)) {
-    return res.status(400).json({ message: "Invalid city selection" });
-  }
+  // if (!allowedCities.includes(city)) {
+  //   return res.status(400).json({ message: "Invalid city selection" });
+  // }
 
   try {
     const existingUser = await User.findOne({ email });
@@ -197,10 +197,10 @@ router.put('/edit-profile', authenticate, async (req, res) => {
     return res.status(400).json({ message: "Invalid mobile number format. It should be 10 digits" });
   }
 
-  const allowedCities = ["Colombo", "Kandy", "Jaffna", "Galle"];
-  if (!allowedCities.includes(city)) {
-    return res.status(400).json({ message: "Invalid city selection." });
-  }
+  // const allowedCities = ["Colombo", "Kandy", "Jaffna", "Galle"];
+  // if (!allowedCities.includes(city)) {
+  //   return res.status(400).json({ message: "Invalid city selection." });
+  // }
 
   try {
     // Find and update the user's profile
@@ -299,7 +299,7 @@ router.get("/reset-password/:token", async (req, res) => {
 });
 
 // Reset password route (POST)
-router.post("/reset-password/:token", async (req, res) => {
+router.post("/reset-password/:token", async (req, res) => { 
   const { token } = req.params;
   const { newPassword } = req.body;
 

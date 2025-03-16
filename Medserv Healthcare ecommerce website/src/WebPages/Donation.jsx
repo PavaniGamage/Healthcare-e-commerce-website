@@ -235,21 +235,6 @@ const Donation = () => {
                       />
                     </div>
 
-                    {/* <div className="form-group amount">
-                      <input
-                        type="number"
-                        id="amount"
-                        name="amount"
-                        placeholder="Amount (Rs.)"
-                        required
-                        min="500"
-                        className="text-base"
-                        value={donationDetails.amount}
-                        onChange={handleChange}
-                        disabled 
-                      />
-                    </div> */}
-
                     <div className="form-group amount">
                       <input
                         type="text" 

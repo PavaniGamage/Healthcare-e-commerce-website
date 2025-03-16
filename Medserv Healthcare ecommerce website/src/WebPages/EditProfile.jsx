@@ -33,12 +33,6 @@ const EditProfile = () => {
       return;
     }
 
-    // if (token && (!email || !name)) {
-    //   alert('Session expired. Please log again..'); 
-    //   navigate('/login');
-    //   return;
-    // } 
-
     // Make the API request to a protected route
     fetch('http://localhost:7000/api/auth/profile', {
       method: 'GET',
@@ -53,15 +47,6 @@ const EditProfile = () => {
         console.error('Error fetching profile:', error);
       });
   }, [token, email, name, navigate]);
-
-  // useEffect(() => {
-  //   if (message) {
-  //     setMessage(message); // Show message alert
-  //   }
-  //   if (error) {
-  //     setError(error); // Show error alert
-  //   }
-  // }, [message, error]);
 
   // Check if there's an error or if data is still loading
   if (error) {
@@ -150,65 +135,39 @@ const EditProfile = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="register">
-            <div className="form-group">
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder={data.firstName}
-                className='text-base text-[13px]'
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder={data.lastName}
-                className='text-base text-[13px]'
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="tel"
-                id="mobile"
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleChange}
-                placeholder={data.mobile}
-                className='text-base text-[13px]'
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="text"
-                id="address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                placeholder={data.address}
-                className='text-base text-[13px]'
-              />
-            </div>
+            <div className="form-group"> <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} placeholder={data.firstName} className='text-base text-[13px]'/> </div>
+            <div className="form-group"> <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} placeholder={data.lastName} className='text-base text-[13px]' /> </div>
+            <div className="form-group"> <input type="tel" id="mobile" name="mobile" value={formData.mobile} onChange={handleChange} placeholder={data.mobile} className='text-base text-[13px]' /> </div>
+            <div className="form-group"> <input type="text" id="address" name="address" value={formData.address} onChange={handleChange} placeholder={data.address} className='text-base text-[13px]' /> </div>
             <div className="form-group">
               <div className="select-form-group">
-                <select
-                  id="city"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  placeholder={data.city}
-                  className='text-base text-[13px]'
-                >
-                  <option value="">{data.city}</option>
+                <select id="city" name="city" value={formData.city} onChange={handleChange} placeholder={data.city} className='text-base text-[13px]' >
+                  <option value="">{data.city}</option> 
+                  <option value="Ampara">Ampara</option>
+                  <option value="Anuradhapura">Anuradhapura</option>
+                  <option value="Badulla">Badulla</option>
+                  <option value="Batticaloa">Batticaloa</option>
                   <option value="Colombo">Colombo</option>
-                  <option value="Kandy">Kandy</option>
-                  <option value="Jaffna">Jaffna</option>
                   <option value="Galle">Galle</option>
+                  <option value="Gampaha">Gampaha</option>
+                  <option value="Hambantota">Hambantota</option>
+                  <option value="Jaffna">Jaffna</option>
+                  <option value="Kalutara">Kalutara</option>
+                  <option value="Kandy">Kandy</option>
+                  <option value="Kegalle">Kegalle</option>
+                  <option value="Kilinochchi">Kilinochchi</option>
+                  <option value="Kurunegala">Kurunegala</option>
+                  <option value="Mannar">Mannar</option>
+                  <option value="Matale">Matale</option>
+                  <option value="Matara">Matara</option>
+                  <option value="Monaragala">Monaragala</option>
+                  <option value="Mullaitivu">Mullaitivu</option>
+                  <option value="Nuwara Eliya">Nuwara Eliya</option>
+                  <option value="Polonnaruwa">Polonnaruwa</option>
+                  <option value="Puttalam">Puttalam</option>
+                  <option value="Ratnapura">Ratnapura</option>
+                  <option value="Trincomalee">Trincomalee</option>
+                  <option value="Vavuniya">Vavuniya</option>
                 </select>
               </div>
             </div>

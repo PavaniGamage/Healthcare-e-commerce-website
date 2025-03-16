@@ -43,6 +43,7 @@ router.get('/donation-bill-file/:id', access, productController.donationBillUplo
 router.get('/donation_requests', access, restrictTo('admin'), productController.donationRequests);   // donation_requests page 
 router.put('/donation_requests/edit/:id', restrictTo('admin'), productController.editDonationStatus); // donation_requests edit
 router.put('/donation_requests/editbill/:id', restrictTo('admin'), productController.editDonationBillDetails); // donation_requests bill edit
+router.put('/donation_requests/editDonationSendingStatus/:id', restrictTo('admin'), productController.editDonationSendingStatus); // donation_requests sending Status edit
 
 router.post('/create_admin', restrictTo('admin'), productController.createAdmin);
 router.post('/create_pharmacist', restrictTo('admin'), productController.createPharmacist);

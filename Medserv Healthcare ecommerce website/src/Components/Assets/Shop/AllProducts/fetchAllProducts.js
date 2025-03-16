@@ -30,7 +30,8 @@ async function fetchAllProducts({ search, categoryMain, categorySub, itemType, a
 
         // Fetch products from API with query parameters
         const response = await fetch(`http://localhost:4000/formattedProducts?${queryParams}`);
-        
+        // const response = await fetch(`http://192.168.8.113:4000/formattedProducts?${queryParams}`);
+
         if (!response.ok) {
             throw new Error('Failed to fetch products');
         }

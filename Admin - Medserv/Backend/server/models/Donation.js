@@ -59,7 +59,21 @@ const DonationSchema = new Schema({
         billDate: {
             type: Date
         }
-    }
+    },
+    sendingStatus: { type: String },
+    sessionId: { type: String },
+    paymentDetails: {
+        userEmail: { type: String },
+        userName: { type: String },
+        userPhone: { type: String },
+        donationAmount: { type: Number },
+        status: { type: String },
+        message: { type: String },
+        paymentMethod: { type: String },
+        donationDate: { type: Date },
+        billInvoiceID: { type: Number },
+        createdAt: { type: Date },
+    },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Medserv_Donation_Requests', DonationSchema);
