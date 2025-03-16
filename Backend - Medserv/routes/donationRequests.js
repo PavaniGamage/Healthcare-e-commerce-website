@@ -120,6 +120,7 @@ router.post("/", donationUploads.fields([
                 billInvoiceID: null,
                 createdAt: null,
             },
+            sendingStatus: null,
         });
 
         await donation.save();
@@ -156,7 +157,7 @@ router.get('/donations', async (req, res) => {
 
         res.status(200).json(formattedDonations);
     } catch (error) {
-        console.error('Error fetching donations:', error);  // Add logging for debugging
+        console.error('Error fetching donations:', error);  
         res.status(500).json({ message: 'Error fetching donations', error });
     }
 });

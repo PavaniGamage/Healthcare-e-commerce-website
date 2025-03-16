@@ -64,9 +64,9 @@
     color: #747474;
     font-family: inherit;
     padding: 0%;
-    border: none; /* Removes the border on focus */
-    outline: none; /* Removes the outline on focus */
-    box-shadow: none; /* Ensures there's no shadow effect */
+    border: none; 
+    outline: none; 
+    box-shadow: none; 
 }
 
 .register {

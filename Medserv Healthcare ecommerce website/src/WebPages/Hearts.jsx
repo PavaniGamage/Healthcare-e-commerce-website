@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DonationCards from "../Components/HeartsPage/DonationCards"; 
+import SendUsMessage from '../Components/HomePage/SendUsMessageForHearts/SendUsMessage'
 
 export default function Hearts() {
   // State to track which FAQ is open
@@ -58,7 +59,7 @@ export default function Hearts() {
               />
             </div>
 
-            {/* Right Column: Lorem ipsum text */}
+            {/* Right Column: Text */}
             <div className="w-full lg:w-1/2 mt-12 lg:mt-0">
               <h1 className="text-3xl text-center"></h1>
               <p className="text-lg text-center text-gray-600">
@@ -78,11 +79,18 @@ export default function Hearts() {
           </div>
         </div>
       </section>
+      
       <section>
         <div>
           <DonationCards />
         </div>
       </section>
+
+      {/* contact */}
+      <section className="py-12 bg-[#ffffff]">
+        <SendUsMessage/>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-12 bg-[#ffffff]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -93,42 +101,33 @@ export default function Hearts() {
           <div className="space-y-4">
             {[
               {
-                question: "How does my donation help?",
-                answer:
-                  "Medserv offers free health checkups and ongoing support for individuals with chronic kidney diseases. Our goal is to provide essential healthcare services to underserved rural communities across Sri Lanka, ensuring better health outcomes for those in need.",
+                "question": "How does my donation help?",
+                "answer": "Your donation helps provide essential medical supplies at reduced prices to those in need. It also supports users who apply for assistance by covering the cost of medicines once their application is verified. We ensure transparency by showcasing fulfilled donations while maintaining user privacy."
               },
               {
-                question: "Can I choose who receives my donation?",
-                answer:
-                  "You can support our mission by donating to our cause or joining our courses to help spread awareness and educate others. Every contribution, whether financial or through volunteer work, helps us take one more step toward a healthier Sri Lanka.",
+                "question": "Can I choose who receives my donation?",
+                "answer": "While you cannot choose a specific individual, your donation directly contributes to verified applications of individuals in need. Once an application is approved, the cost of medicines is displayed in the 'Looking for Support' section, ensuring your contribution reaches genuine beneficiaries."
               },
               {
-                question: "Will I get updates on how my donation is used?",
-                answer:
-                  "Medserv provides free health checkups primarily for individuals living in rural areas of Sri Lanka, particularly those at risk or suffering from chronic kidney diseases. We aim to make healthcare accessible to those who need it the most.",
+                "question": "Will I get updates on how my donation is used?",
+                "answer": "Yes, we maintain transparency by showcasing fulfilled donations while protecting user privacy. You can see the impact of your contribution through the 'Looking for Support' section, where verified applications and their medicine costs are displayed."
               },
               {
-                question:
-                  "How do I know my donation is going to a genuine cause?",
-                answer:
-                  "To get involved, you can visit our website to learn about current volunteer opportunities, upcoming courses, and donation options. We welcome all individuals who are passionate about helping improve the health and well-being of rural communities in Sri Lanka.",
+                "question": "How do I know my donation is going to a genuine cause?",
+                "answer": "Every assistance request undergoes a verification process where applicants must submit required documents, such as an income statement and a doctor's prescription. Only after approval do we allocate donations to cover their medical expenses, ensuring funds are used for genuine cases."
               },
               {
-                question: "Who is eligible to apply for assistance?",
-                answer:
-                  "To get involved, you can visit our website to learn about current volunteer opportunities, upcoming courses, and donation options. We welcome all individuals who are passionate about helping improve the health and well-being of rural communities in Sri Lanka.",
+                "question": "Who is eligible to apply for assistance?",
+                "answer": "Anyone facing financial difficulties in purchasing medical supplies can apply for assistance. Applicants need to fill out the 'Get Support' form and submit the required documents (income statement, doctor’s prescription, or other supporting documents) for verification."
               },
               {
-                question: "How long does it take to process my application?",
-                answer:
-                  "To get involved, you can visit our website to learn about current volunteer opportunities, upcoming courses, and donation options. We welcome all individuals who are passionate about helping improve the health and well-being of rural communities in Sri Lanka.",
+                "question": "How long does it take to process my application?",
+                "answer": "The processing time depends on the verification of submitted documents. Once verified, the cost of medicines will be displayed in the 'Looking for Support' section, and assistance will be provided as soon as donations are available."
               },
               {
-                question:
-                  "What documents do I need to submit with my application?",
-                answer:
-                  "To get involved, you can visit our website to learn about current volunteer opportunities, upcoming courses, and donation options. We welcome all individuals who are passionate about helping improve the health and well-being of rural communities in Sri Lanka.",
-              },
+                "question": "What documents do I need to submit with my application?",
+                "answer": "Applicants must submit an income statement and a doctor's prescription or other relevant medical documents. These are necessary to verify eligibility before assistance can be provided."
+              }
             ].map((faq, index) => (
               <div key={index} className="p-1 bg-[#E9F7FF] rounded-xl">
                 <div

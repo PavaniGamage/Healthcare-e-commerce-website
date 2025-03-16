@@ -59,6 +59,7 @@ const DonationSchema = new mongoose.Schema({
       Other: { type: String },
       billDate: { type: Date }
   },
+  sendingStatus: { type: String },
   createdAt: { type: Date, default: Date.now },
 }); 
 

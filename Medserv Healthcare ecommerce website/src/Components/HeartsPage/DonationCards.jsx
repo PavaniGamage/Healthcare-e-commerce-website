@@ -16,6 +16,7 @@ const DonationCard = ( {totalPrice, isButtonDisabled}) => {
   const [donationsPerPage] = useState(8); // Set the number of donations per page
   const totalPagesForDonations = Math.ceil(donations.length / donationsPerPage);
   const totalPagesForFullfilledDonations = Math.ceil(fulfilledDonations.length / donationsPerPage);
+  const [loading, setLoading] = useState(true);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -37,12 +38,16 @@ const DonationCard = ( {totalPrice, isButtonDisabled}) => {
                 .filter(donation => donation.sessionId !== null && donation.status === 'paid')
                 .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
               setFulfilledDonations(fulfilledDonationsData);
+              
               const requestDonationsData = response.data
                 .filter(donation => donation.status === 'Pending' ||  donation.sessionId === null)
                 .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
               setDonations(requestDonationsData);
+
+              setLoading(false);
           } catch (err) {
               setError("Failed to fetch donation data");
+              setLoading(false);
               console.error("Error fetching donation:", err);
           }
       };
@@ -80,7 +85,7 @@ const DonationCard = ( {totalPrice, isButtonDisabled}) => {
               </div>; }
 
   if (!donations) {
-      return <div>Loading...</div>;
+    return <div className="flex justify-center p-[100px] text-gray-700">Loading...</div>;
   }  
   
   return (
@@ -201,13 +206,19 @@ const DonationCard = ( {totalPrice, isButtonDisabled}) => {
                       </a>
                     </div>
                 )} )
-              ) : (
+              ) : loading || currentDonations.length !== 0 ? (
+                <div className="col-span-1 sm:col-span-2 md:col-span-4 flex justify-center">
+                  <p className="text-base text-gray-700 px-4 py-2 rounded-md">
+                    Loading..
+                  </p>
+                </div>
+              ) : !loading && currentDonations.length === 0 ? (
                 <div className="col-span-1 sm:col-span-2 md:col-span-4 flex justify-center">
                   <p className="text-base text-gray-700 px-4 py-2 rounded-md">
                     No donation requests at the moment.
                   </p>
                 </div>
-              )}
+              ) : null}
             </div>
 
             {/* Pagination Controls */}
@@ -349,15 +360,32 @@ const DonationCard = ( {totalPrice, isButtonDisabled}) => {
 
                     {/* Replacing Donate button with a checkmark ✅ */}
                     <div className="text-3xl text-green-650 mt-2">✅</div>
-                  </div>
+
+                    {/* about sending to person in need */}
+                    {donation.sendingStatus === 'Sent' ? (
+                      <div className="mt-[20px] mb-[10px] p-[10px] bg-yellow-500 rounded-lg">
+                        <span className="text-black text-medium">Donation Delivered</span>
+                      </div>  
+                    ) : (
+                      <div className="mt-[20px] mb-[10px] p-[10px] bg-gray-500 rounded-lg">
+                        <span className="text-black text-medium">Delivery in Progress</span>
+                      </div>                    
+                    )}
+                  </div> 
               )} ) 
-            ) : (
+            ) : loading || currentFullfilledDonations.length !== 0 ? (
+              <div className="col-span-1 sm:col-span-2 md:col-span-4 flex justify-center">
+                <p className="text-base text-gray-700 px-4 py-2 rounded-md">
+                  Loading..
+                </p>
+              </div>
+            ) : !loading && currentFullfilledDonations.length === 0 ? (
               <div className="col-span-1 sm:col-span-2 md:col-span-4 flex justify-center">
                 <p className="text-base text-gray-700 px-4 py-2 rounded-md">
                   No fullfiled donation requests at the moment.
                 </p>
               </div>
-            )}
+            ) : null}
           </div>
 
           {/* Pagination Controls */}

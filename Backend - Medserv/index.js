@@ -34,27 +34,6 @@ app.use(cors({
 // Call the connection function immediately
 dbConnect();
 
-// other dependencies
-// Authentication and security dependencies 
-const jwt = require("jsonwebtoken");                                         // Handles JWT for authentication.
-
-// File handling and storage dependencies
-const multer = require("multer");                                            // Handles file uploads.
-const path = require("path"); 
-// Manipulates file paths.
-const fs = require("fs");                                                    // Works with the file system.
-
-const GridFsStorage = require("multer-gridfs-storage");                      // store images/fles in MongoDB
-
-// Debugging and REPL utilities
-const { start } = require("repl");                                           // Used for interactive JavaScript evaluation
-
-// Create the upload directory if it doesn't exist
-// const uploadDir = './upload/images';
-// if (!fs.existsSync(uploadDir)){
-//     fs.mkdirSync(uploadDir, { recursive: true });
-// }
-
 // API creation root path
 app.get("/", (req, res) => {
     res.send("Hello, MongoDB!, Express App is Running");
@@ -82,6 +61,12 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 }); 
+
+// Starting the server
+// const PORT = process.env.PORT || 4000;
+// app.listen(PORT, '0.0.0.0', () => {
+//   console.log(`Server is running on port ${PORT}`);
+// }); 
 
 // // ----------------------------------------------------------------------------------------------
 // // -----for file handling---------------------------------------------------------------
@@ -112,3 +97,26 @@ app.listen(PORT, () => {
 // //         image_url: `http://localhost:${port}/images/${req.file.filename}`
 // //     });
 // // });
+
+
+// ----------------------------------------------------------------------------------------------------
+// // other dependencies
+// // Authentication and security dependencies 
+// const jwt = require("jsonwebtoken");                                         // Handles JWT for authentication.
+
+// // File handling and storage dependencies
+// const multer = require("multer");                                            // Handles file uploads.
+// const path = require("path"); 
+// // Manipulates file paths.
+// const fs = require("fs");                                                    // Works with the file system.
+
+// const GridFsStorage = require("multer-gridfs-storage");                      // store images/fles in MongoDB
+
+// // Debugging and REPL utilities
+// const { start } = require("repl");                                           // Used for interactive JavaScript evaluation
+
+// // Create the upload directory if it doesn't exist
+// // const uploadDir = './upload/images';
+// // if (!fs.existsSync(uploadDir)){
+// //     fs.mkdirSync(uploadDir, { recursive: true });
+// // }

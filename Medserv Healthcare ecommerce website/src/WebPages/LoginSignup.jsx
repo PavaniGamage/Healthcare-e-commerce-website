@@ -94,26 +94,10 @@ const LoginSignup = () => {
         </div>
         <form onSubmit={handleLoginSubmit}>
           <div className="form-group">
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Email Address"
-              value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
-              required
-            />
+            <input type="email" id="email" name="email" placeholder="Email Address" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} required/>
           </div>
           <div className="form-group">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Password"
-              value={loginPassword}
-              onChange={(e) => setLoginPassword(e.target.value)}
-              required
-            />
+            <input type="password" id="password" name="password" placeholder="Password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} required/>
           </div>
           <div className="form-group">
             <a href="/forgot-password" className="new-password">Forgot your password?</a>
@@ -132,102 +116,60 @@ const LoginSignup = () => {
         <form onSubmit={handleRegisterSubmit}>
           <div className="register">
             <div className="form-group">
-              <input
-                type="text"
-                id="first-name"
-                name="firstName"
-                placeholder="First Name"
-                value={registerFirstName}
-                onChange={(e) => setRegisterFirstName(e.target.value)}
-                required
-              />
+              <input type="text" id="first-name" name="firstName" placeholder="First Name" value={registerFirstName} onChange={(e) => setRegisterFirstName(e.target.value)} required />
             </div>
             <div className="form-group">
-              <input
-                type="text"
-                id="last-name"
-                name="lastName"
-                placeholder="Last Name"
-                value={registerLastName}
-                onChange={(e) => setRegisterLastName(e.target.value)}
-                required
-              />
+              <input type="text" id="last-name" name="lastName" placeholder="Last Name" value={registerLastName} onChange={(e) => setRegisterLastName(e.target.value)}required />
             </div>
             <div className="form-group">
-              <input
-                type="email"
-                id="email1"
-                name="email"
-                placeholder="Email Address"
-                value={registerEmail}
-                onChange={(e) => setRegisterEmail(e.target.value)}
-                required
-              />
+              <input type="email" id="email1" name="email" placeholder="Email Address" value={registerEmail} onChange={(e) => setRegisterEmail(e.target.value)}required />
             </div>
             <div className="form-group">
-              <input
-                type="tel"
-                id="mobile-number"
-                name="mobile"
-                placeholder="Mobile Number"
-                value={registerMobile}
-                onChange={(e) => setRegisterMobile(e.target.value)}
-                required
-              />
+              <input type="tel" id="mobile-number" name="mobile" placeholder="Mobile Number" value={registerMobile} onChange={(e) => setRegisterMobile(e.target.value)}required />
             </div>
             <div className="form-group">
-              <input
-                type="text"
-                id="address"
-                name="address"
-                placeholder="Address"
-                value={registerAddress}
-                onChange={(e) => setRegisterAddress(e.target.value)}
-                required
-              />
+              <input type="text" id="address" name="address" placeholder="Address" value={registerAddress} onChange={(e) => setRegisterAddress(e.target.value)} required />
             </div>
             <div className="form-group">
               <div className="select-form-group">
-                <select
-                  id="city"
-                  name="city"
-                  value={registerCity}
-                  onChange={(e) => setRegisterCity(e.target.value)}
-                  required
-                  placeholder="Select your city"
-                >
+                <select id="city" name="city" value={registerCity} onChange={(e) => setRegisterCity(e.target.value)}required placeholder="Select your city">
                   <option value="">Select your city</option>
+                  <option value="Ampara">Ampara</option>
+                  <option value="Anuradhapura">Anuradhapura</option>
+                  <option value="Badulla">Badulla</option>
+                  <option value="Batticaloa">Batticaloa</option>
                   <option value="Colombo">Colombo</option>
-                  <option value="Kandy">Kandy</option>
-                  <option value="Jaffna">Jaffna</option>
                   <option value="Galle">Galle</option>
+                  <option value="Gampaha">Gampaha</option>
+                  <option value="Hambantota">Hambantota</option>
+                  <option value="Jaffna">Jaffna</option>
+                  <option value="Kalutara">Kalutara</option>
+                  <option value="Kandy">Kandy</option>
+                  <option value="Kegalle">Kegalle</option>
+                  <option value="Kilinochchi">Kilinochchi</option>
+                  <option value="Kurunegala">Kurunegala</option>
+                  <option value="Mannar">Mannar</option>
+                  <option value="Matale">Matale</option>
+                  <option value="Matara">Matara</option>
+                  <option value="Monaragala">Monaragala</option>
+                  <option value="Mullaitivu">Mullaitivu</option>
+                  <option value="Nuwara Eliya">Nuwara Eliya</option>
+                  <option value="Polonnaruwa">Polonnaruwa</option>
+                  <option value="Puttalam">Puttalam</option>
+                  <option value="Ratnapura">Ratnapura</option>
+                  <option value="Trincomalee">Trincomalee</option>
+                  <option value="Vavuniya">Vavuniya</option>
                 </select>
               </div>
             </div>
             <div className="form-group">
-              <input
-                type="password"
-                id="password1"
-                name="password"
-                placeholder="Password"
-                value={registerPassword}
-                onChange={(e) => setRegisterPassword(e.target.value)}
-                required
-              />
+              <input type="password" id="password1" name="password" placeholder="Password" value={registerPassword} onChange={(e) => setRegisterPassword(e.target.value)}required />
               <p className="rule">
                 Your password must be at least 8 characters long, containing letters and numbers.
               </p>
             </div>
             <div className="form-group">
-              <input
-                type="password"
-                id="confirm-password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
+              <input type="password" id="confirm-password" name="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>
             </div>
           </div>
           <button type="submit">Register</button>
@@ -239,3 +181,4 @@ const LoginSignup = () => {
 };
 
 export default LoginSignup;
+

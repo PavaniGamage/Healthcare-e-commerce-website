@@ -7,7 +7,7 @@ const app = express();
 
 // CORS configuration to allow frontend communication from localhost:5173
 app.use(cors({
-  origin: 'http://localhost:5173', // Frontend origin (adjust if needed)
+  origin: 'http://localhost:5173', // Frontend origin 
   credentials: true, // Allow cookies or authentication headers
 }));
 
@@ -21,13 +21,18 @@ connect(process.env.MONGO_URI)
 
 // Import and register routes
 const authRoutes = require("./routes/auth");
-app.use("/api/auth", authRoutes); // Prefix all auth routes with /api/auth
+app.use("/api/auth", authRoutes); 
 
 // Start the server
 const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
 });
+
+// const PORT = process.env.PORT || 7000;
+// app.listen(PORT, '0.0.0.0', () => {
+//   console.log(`Server running on port: ${PORT}`);
+// });
 
 const path = require("path");
 
